@@ -13,11 +13,13 @@ to be able to run it in the newest Ubuntu distros.
 
 Instructions:
 In EW:
+
 1. Add the K2_INFO_PACKET Message type to earthworm.d
 2. Setup all the K2EW instances to transmit K2Info Packets. (Uncomment the last line) 
 3. Setup a ringtocoax to transmit this particular packet to the computer which will run K2Status.
 
 In K2Status:
+
 1. In the Connections Menu:
 2. Put the IP of the interface you are to recieve the UDP packets containing the K2 Info.
 3. That's it.
@@ -27,6 +29,7 @@ Import/Export Capability: Is fully EXPERIMENTAL, use at your own risk.
 ===
 
 To Do:
+
 1. Test using multiple stations.
 2. Improve Import/Export Communications.
 3. Work out various bugs.
@@ -37,8 +40,11 @@ If anyone is interested in this proyect or would like to help, contact me!
 
 Credits:
 The people over at Instrumental Software Technologies, Inc. (ISTI) @ http://www.isti.com/
+
 Everyone who has ever worked with in the development of earthworm @ http://earthwormcentral.org
+
 The QT Community @ http://qt-project.org/
+
 
 Thanks,
 Fran89.
