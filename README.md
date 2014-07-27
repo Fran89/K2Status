@@ -34,6 +34,7 @@ To Do:
 2. Test using multiple stations.
 3. Improve Import/Export Communications.
 4. Add the ability to graph data.
+5. Add the ability to request information from the Rock Family of instruments.
 
 ===
 
