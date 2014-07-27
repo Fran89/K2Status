@@ -30,9 +30,10 @@ Import/Export Capability: Is fully EXPERIMENTAL, use at your own risk.
 
 To Do:
 
-1. Test using multiple stations.
-2. Improve Import/Export Communications.
-3. Work out various bugs.
+1. Work out various bugs.
+2. Test using multiple stations.
+3. Improve Import/Export Communications.
+4. Add the ability to graph data.
 
 ===
 
