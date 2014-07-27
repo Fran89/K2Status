@@ -39,11 +39,9 @@ To Do:
 If anyone is interested in this proyect or would like to help, contact me!
 
 Credits:
-The people over at Instrumental Software Technologies, Inc. (ISTI) @ http://www.isti.com/
-
-Everyone who has ever worked with in the development of earthworm @ http://earthwormcentral.org
-
-The QT Community @ http://qt-project.org/
+* The people over at Instrumental Software Technologies, Inc. (ISTI) @ http://www.isti.com/
+* Everyone who has ever worked with in the development of earthworm @ http://earthwormcentral.org
+* The QT Community @ http://qt-project.org/
 
 
 Thanks,
