@@ -22,7 +22,8 @@ In K2Status:
 2. Put the IP of the interface you are to recieve the UDP packets containing the K2 Info.
 3. That's it.
 
-Inport/Export Capability: Is fully EXPERIMENTAL, use at your own risk.
+Import/Export Capability: Is fully EXPERIMENTAL, use at your own risk.
+
 ===
 
 To Do:
