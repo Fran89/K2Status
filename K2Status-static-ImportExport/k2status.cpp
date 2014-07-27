@@ -584,7 +584,7 @@ void K2Status::addK2Status (int index, STATUS_INFO* info){
     // Drive Status
     unsigned short wtemp1, wtemp2;
     double diskfree;
-    char tempchar;
+    char tempchar=0;
     int inde;
     QString Temp;
 
