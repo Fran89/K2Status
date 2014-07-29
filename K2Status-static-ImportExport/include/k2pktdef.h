@@ -58,14 +58,14 @@
 
 struct PACKET_HDR
 {
-  unsigned char typeCode;       /* packet type, see table */
-  unsigned char seqNo;          /* $00..$ff command ID#, response will echo it */
-  unsigned short source;        /* $0000..$ffff, command task or instrument # */
+  quint8 typeCode;       /* packet type, see table */
+  quint8 seqNo;          /* $00..$ff command ID#, response will echo it */
+  quint16 source;        /* $0000..$ffff, command task or instrument # */
                                 /* response will echo it */
-  unsigned short destination;   /* command = $0000 */
+  quint16 destination;   /* command = $0000 */
                                 /* response will echo source number
                                    in destination */
-  unsigned short dataLength;    /* # bytes in data area, without extra
+  quint16 dataLength;    /* # bytes in data area, without extra
                                      bytes due to escape sequences */
 };
 
@@ -85,21 +85,21 @@ struct PACKET_HDR
 #define SF_GB 0x2000
 
 struct STATUS_INFO {
-   unsigned long systemTime;     /* time in seconds since Jan 1, 1980 0-3 */
-   unsigned short serialNumber;  /*                                   4-5 */
-   unsigned short events;        /*                                   6-7 */
-   unsigned short recordingErrors; /*                                 8-9 */
-   unsigned short triggerStatus; /* bit 0 = ACQ STATUS (ON=1, OFF=0)  10-11
+   quint32 systemTime;     /* time in seconds since Jan 1, 1980 0-3 */
+   quint16 serialNumber;  /*                                   4-5 */
+   quint16 events;        /*                                   6-7 */
+   quint16 recordingErrors; /*                                 8-9 */
+   quint16 triggerStatus; /* bit 0 = ACQ STATUS (ON=1, OFF=0)  10-11
                                     bit 1 = STREAM TRIG (1), DETRIG (0)
                                     bit 2 = KEYBRD TRIG (1), DETRIG (0)
                                     bit 3 = ALARM TRIG (1), DETRIG (0)
                                     bit 4 = EXTERNAL TRIG (1), DETRIG (0)
                                   */
-   unsigned char batteryStatus;  /* volts * 10; + means charging      12 */
-   unsigned char hardwareStatus; /* one of: SF_FAULT ("FAULT")        13
+   quint8 batteryStatus;  /* volts * 10; + means charging      12 */
+   quint8 hardwareStatus; /* one of: SF_FAULT ("FAULT")        13
                                             SF_OK ("OK")
                                   */
-   unsigned short driveStatus[2]; /* for both drives.                 14-17
+   quint16 driveStatus[2]; /* for both drives.                 14-17
                                      Bits 0-9 is space remaining
                                      Bits 10-15 are flags :
                                      Bit 10 Set: SF_NOT_READY = Drive not ready
@@ -109,7 +109,7 @@ struct STATUS_INFO {
                                    */
 
    char stnID[STN_ID_LENGTH];    /* null terminated                  18-22 */
-   unsigned char clockSource;    /* 0 = RTC from cold start          23 = 24
+   quint8 clockSource;    /* 0 = RTC from cold start          23 = 24
                                     1 = keyboard
                                     2 = Sync w/ ext. ref. pulse
                                     3 = Internal GPS
@@ -133,9 +133,9 @@ struct STATUS_INFO {
 
 struct EXT_STATUS_INFO
 {
-  short temperature;                 /* degrees C x 10              0-1 */
-  unsigned long restartTime;         /* time of last restart        2-5 */
-  unsigned short fault;              /* Fault flags                 6-7
+  qint16 temperature;                 /* degrees C x 10              0-1 */
+  quint32 restartTime;         /* time of last restart        2-5 */
+  quint16 fault;              /* Fault flags                 6-7
                        FAULT_SYSTEM    BIT0  bad parameters
                        FAULT_FLASH     BIT1  flash error (old MCU only)
                        FAULT_RAM       BIT2  ram error (failed r/w test)
@@ -144,7 +144,7 @@ struct EXT_STATUS_INFO
                        FAULT_PARMBLK   BIT5  parameter block crc error
                        FAULT_FLASH_MAINTENANCE BIT6  flash maintenance required
                                      */
-  unsigned long lastRAMError;  /* from SOH task                     8-11 = 12*/
+  quint32 lastRAMError;  /* from SOH task                     8-11 = 12*/
 }
 ;
 
@@ -152,9 +152,9 @@ struct EXT_STATUS_INFO
  * Manual, Kinemetrics Doc 302218 Rev E. Added May 2003, Pete Lombard     */
 struct EXT2_STATUS_INFO
 {
-    short temperature;                 /* degrees C x 10              0-1 */
-    unsigned long restartTime;         /* time of last restart        2-5 */
-    unsigned short fault;              /* Fault flags                 6-7
+    qint16 temperature;                 /* degrees C x 10              0-1 */
+    quint32 restartTime;         /* time of last restart        2-5 */
+    quint16 fault;              /* Fault flags                 6-7
 					  FAULT_SYSTEM    BIT0  bad parameters
 					  FAULT_FLASH     BIT1  flash error (old MCU only)
 					  FAULT_RAM       BIT2  ram error (failed r/w test)
@@ -163,15 +163,15 @@ struct EXT2_STATUS_INFO
 					  FAULT_PARMBLK   BIT5  parameter block crc error
 					  FAULT_FLASH_MAINTENANCE BIT6  flash maintenance required
 				       */
-    unsigned long lastRAMError;  /* from SOH task                     8-11 = 12*/
-    unsigned char clockSource;   /* same code as 
+    quint32 lastRAMError;  /* from SOH task                     8-11 = 12*/
+    quint8 clockSource;   /* same code as
 				  * TIME_RO_PARAMS.clockSource       12 */
-    unsigned char gpsStatus;     /* GPS Lock status                  13 */
-    short gpsLatitude;           /* latitude * 100, degrees North    14 - 15 */
-    short gpsLongitude;          /* longitude * 100, degrees East    16 - 17 */
-    short gpsAltitude;           /* altitude in meters               18 - 19 */
-    unsigned long gpsLastLockTime;  /* Last GPS lock time            20 - 23 */
-    unsigned char pad[16];       /* Pad for future expansion         24 - 39 */
+    quint8 gpsStatus;     /* GPS Lock status                  13 */
+    qint16 gpsLatitude;           /* latitude * 100, degrees North    14 - 15 */
+    qint16 gpsqint32itude;          /* qint32itude * 100, degrees East    16 - 17 */
+    qint16 gpsAltitude;           /* altitude in meters               18 - 19 */
+    quint32 gpsLastLockTime;  /* Last GPS lock time            20 - 23 */
+    quint8 pad[16];       /* Pad for future expansion         24 - 39 */
 }
 ;
 /*---------------------------------------------------*/
@@ -184,21 +184,21 @@ struct COMM_INFO
 	time_t comm_info_time;			/* the time at which this is logged */
 	time_t last_info_time;			/* the prior one */
 	/* all of the total_ values are since program_start_time */
-	unsigned long total_pkt_received;
-	unsigned long total_pkt_sent;
-	unsigned long total_pkt_output_seqerr;
+    quint32 total_pkt_received;
+    quint32 total_pkt_sent;
+    quint32 total_pkt_output_seqerr;
 	time_t last_output_seqerr_time;
-	unsigned long total_pkt_retries;
+    quint32 total_pkt_retries;
 	float total_error_rating;
-	unsigned long total_pkt_missing_err;
-	unsigned long total_pkt_skipped;
-	unsigned long total_pkt_request_resend_failure;
-	unsigned long total_comm_retries;
+    quint32 total_pkt_missing_err;
+    quint32 total_pkt_skipped;
+    quint32 total_pkt_request_resend_failure;
+    quint32 total_comm_retries;
 	
 	/* since the last summary */
-	unsigned long last_pkt_received;
-	unsigned long last_pkt_sent;
-	unsigned long last_pkt_retries;
+    quint32 last_pkt_received;
+    quint32 last_pkt_sent;
+    quint32 last_pkt_retries;
 	float last_error_rating;
 	
 };
@@ -213,25 +213,25 @@ struct COMM_INFO
 
 struct EVT_SUMMARY
 {
-   int nchan;                        /*  0- 1 # channels in file */
-   int a2dBits;                      /*  2- 3 resolution of A/D in bits */
-   unsigned int flags;               /*  4- 5 bit 0 = FT flag */
-   unsigned int sps;                 /*  6- 7 sampling rate */
-   unsigned long nscans;             /*  8-11 # of scans */
-   unsigned long triggerTime;        /* 12-15 */
-   unsigned int triggerTimeMsec;     /* 16-17 */
-   unsigned long startTime;          /* 18-21 */
-   unsigned int startTimeMsec;       /* 22-23 */
-   unsigned long triggerBitMap;      /* 24-27 , channel(s) triggered */
-   unsigned long channelBitMap;      /* 28-31 = 32 bytes, map of channels in file */
+   quint32 nchan;                        /*  0- 1 # channels in file */
+   quint32 a2dBits;                      /*  2- 3 resolution of A/D in bits */
+   quint32 flags;               /*  4- 5 bit 0 = FT flag */
+   quint32 sps;                 /*  6- 7 sampling rate */
+   quint32 nscans;             /*  8-11 # of scans */
+   quint32 triggerTime;        /* 12-15 */
+   quint32 triggerTimeMsec;     /* 16-17 */
+   quint32 startTime;          /* 18-21 */
+   quint32 startTimeMsec;       /* 22-23 */
+   quint32 triggerBitMap;      /* 24-27 , channel(s) triggered */
+   quint32 channelBitMap;      /* 28-31 = 32 bytes, map of channels in file */
    struct {
-      long maxPeak;                  /*  0- 3 */
-      unsigned long maxPeakOffset;   /*  4- 7 */
-      long minPeak;                  /*  8-11 */
-      unsigned long minPeakOffset;   /* 12-15 */
+      qint32 maxPeak;                  /*  0- 3 */
+      quint32 maxPeakOffset;   /*  4- 7 */
+      qint32 minPeak;                  /*  8-11 */
+      quint32 minPeakOffset;   /* 12-15 */
       float sensitivity;             /* 16-19 */
       float fullScale;               /* 20-23 */
-      unsigned short gain;           /* 24-25 */
+      quint16 gain;           /* 24-25 */
       char id[CHANNEL_ID_LENGTH];    /* 26-30 , 4 chars + NULL */
       char bytepad;                  /* 31 */
    } channel[ABS_MAX_CHANNELS];      /*   32 * 18 = 576 + 32 = 608 */
@@ -254,11 +254,11 @@ struct EVT_SUMMARY
 
 struct K2_DIRENTRY              /* 22 bytes exactly */
 {
-   unsigned long time;    /* creation time in seconds since Jan 1, 1980 */
-   unsigned long size;    /* file size, in bytes */
+   quint32 time;    /* creation time in seconds since Jan 1, 1980 */
+   quint32 size;    /* file size, in bytes */
    char ext[4];           /* extension, padded with spaces, NULL terminated */
    char name[9];          /* file name, padded with spaces, NULL terminated */
-   unsigned char attribute;     /* file attribute:
+   quint8 attribute;     /* file attribute:
                                    0011 0111
                                      ||  ||\_ReadOnly
                                      ||  |\_Hidden
@@ -275,7 +275,7 @@ struct K2_DIRENTRY              /* 22 bytes exactly */
 /*---------------------------------------------------*/
 struct K2_ALARM
 {
-   unsigned long channelBitMap; /* each bit represents a channel (bit 0=ch1)
+   quint32 channelBitMap; /* each bit represents a channel (bit 0=ch1)
                                    it means the channel alarm is triggered */
 };
 
@@ -287,21 +287,21 @@ struct K2_ALARM
 /*---------------------------------------------------*/
 struct JMA
 {
-  unsigned int Ijma;     /* JMA 60 second Intnesity Scale 0-7.0 (*10) */
-  unsigned int Ijma10;   /* JMA 10 second Intnesity Scale 0-7.0 (*10) */
-  unsigned int SIvl;     /* SI value */
-  unsigned int Acch;     /* Vector sum or horiz accel: Acch1 & Acch2 (*10) */
-  unsigned int Accv;     /* Vertical Accel (*10) */
-  unsigned int res1;     /* user selectable RES1 */
-  unsigned int res2;     /* user selectable RES2 */
-  unsigned int resC;     /* code definition of RES1, RES2, default: 1714 */
-  unsigned int stat;     /* status */
-  unsigned int resv;     /* reserved */
-  unsigned long time;    /* seconds since 1/1/80 */
-  unsigned int msec;     /* milliseconds  0..999 */
-  unsigned int Acch1;    /* Horizontal 1 Accel (*10) */
-  unsigned int Acch2;    /* Horizontal 2 Accel (*10) */
-  unsigned int Accxyz;   /* Vector sum of accle: Acch1, Accv, Acch2 (*10) */
+  quint32 Ijma;     /* JMA 60 second Intnesity Scale 0-7.0 (*10) */
+  quint32 Ijma10;   /* JMA 10 second Intnesity Scale 0-7.0 (*10) */
+  quint32 SIvl;     /* SI value */
+  quint32 Acch;     /* Vector sum or horiz accel: Acch1 & Acch2 (*10) */
+  quint32 Accv;     /* Vertical Accel (*10) */
+  quint32 res1;     /* user selectable RES1 */
+  quint32 res2;     /* user selectable RES2 */
+  quint32 resC;     /* code definition of RES1, RES2, default: 1714 */
+  quint32 stat;     /* status */
+  quint32 resv;     /* reserved */
+  quint32 time;    /* seconds since 1/1/80 */
+  quint32 msec;     /* milliseconds  0..999 */
+  quint32 Acch1;    /* Horizontal 1 Accel (*10) */
+  quint32 Acch2;    /* Horizontal 2 Accel (*10) */
+  quint32 Accxyz;   /* Vector sum of accle: Acch1, Accv, Acch2 (*10) */
 };
 
 
@@ -309,7 +309,7 @@ struct JMA
 
 struct JMAPKT
 {
-  unsigned char  code;   /* 0= current values,
+  quint8  code;   /* 0= current values,
                             1= peak values,
                             2= peak & clear */
   struct JMA  jma;
@@ -322,39 +322,39 @@ struct JMAPKT
                          /* Stream data block header & temp CRC area */
 struct StrDataHdr
 {
-  unsigned short SerialNum;
-  unsigned char StreamNum;    /* Logical channel #, i.e.
+  quint16 SerialNum;
+  quint8 StreamNum;    /* Logical channel #, i.e.
                                  chan 1-2-3-4 selected, # = 0..3,
                                  chan 3 selected, # = 0 */
-  unsigned char Status;       /* bit 0..2 = data type:
+  quint8 Status;       /* bit 0..2 = data type:
                                             0= 24-bit uncompressed
                                             1= compressed */
-  unsigned long DataSeq;      /* data block sequence - scan number */
-  unsigned long Seconds;      /* seconds since 1/1/1980 */
-  unsigned short Msecs;       /* milliseconds, 0..999 */
-  unsigned char Reserved[2];  /* two bytes 0x0000 */
-  unsigned long CRC;          /* temporary place for data block CRC,
+  quint32 DataSeq;      /* data block sequence - scan number */
+  quint32 Seconds;      /* seconds since 1/1/1980 */
+  quint16 Msecs;       /* milliseconds, 0..999 */
+  quint8 Reserved[2];  /* two bytes 0x0000 */
+  quint32 CRC;          /* temporary place for data block CRC,
                                   is sent after data bytes
                                   0x00, 0x00, crchigh, crclow */
 };
 
 struct StrSendCmd
 {
-  unsigned long DataSeq;      /* retry: # from bad block
+  quint32 DataSeq;      /* retry: # from bad block
                                  normal: # generated by host */
-  unsigned char stream;       /* retry: # from bad block
+  quint8 stream;       /* retry: # from bad block
                                  normal: stream # wanted  */
-  unsigned char cmd;          /* 0 = mode 3 normal request
+  quint8 cmd;          /* 0 = mode 3 normal request
                                  1 = mode 1,2,3 retry */
 };
 
 struct StrRetryLogEntry
 {
-  unsigned char active;       /* 1 = waiting for retry to come in
+  quint8 active;       /* 1 = waiting for retry to come in
                                  0 = got retry  */
-  unsigned long DataSeq;      /* DataSeqNum of failed block */
-  unsigned char stream;       /* stream # of failed block */
-  unsigned int BufPtr;        /* buffer pointer to start of data */
+  quint32 DataSeq;      /* DataSeqNum of failed block */
+  quint8 stream;       /* stream # of failed block */
+  quint32 BufPtr;        /* buffer pointer to start of data */
 };
 
 

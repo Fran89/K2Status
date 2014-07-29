@@ -22,7 +22,7 @@
               also Tag definition & Frame header definition  */
 
 /*   2/18/99 -- [ET]  Modified version with 'FIX_8BYTES_K2RW' fix */
-
+#include<QtGlobal>
 /**************************************************************
 
 REVISION HISTORY:
@@ -388,9 +388,9 @@ New parameters:
 
 /* Voting information */
 struct VOTER_INFO {
-   unsigned char type; /* voter type code */
-   unsigned char number; /* channel number, stream number, etc. */
-   short weight; /* voting weight: range is -100 to 100 */
+   quint8 type; /* voter type code */
+   quint8 number; /* channel number, stream number, etc. */
+   qint16 weight; /* voting weight: range is -100 to 100 */
 };
 
 /*---------------------------------------------------*/
@@ -400,24 +400,24 @@ struct CHANNEL_RW_PARMS {
 #define CHANNEL_ID_LENGTH 5
    char id[CHANNEL_ID_LENGTH]; /* NULL terminated */
    char bytepad; /* for expansion */
-   unsigned short sensorSerialNumberExt; /* high word of serial number */
-   short north; /* displacement */
-   short east; /* displacement */
-   short up; /* displacement */
-   short altitude;
-   short azimuth;
-   unsigned short sensorType;
-   unsigned short sensorSerialNumber; /* low word of serial number */
-  unsigned short gain;  /*  only '1' defined as gain of 1 5/31/95 */
+   quint16 sensorSerialNumberExt; /* high word of serial number */
+   qint16 north; /* displacement */
+   qint16 east; /* displacement */
+   qint16 up; /* displacement */
+   qint16 altitude;
+   qint16 azimuth;
+   quint16 sensorType;
+   quint16 sensorSerialNumber; /* low word of serial number */
+   quint16 gain;  /*  only '1' defined as gain of 1 5/31/95 */
 
 /* begin  added 3/29/97 1.40 K2 & 1.50 MTW */
-   unsigned char triggerType;  /* Type of trigger calculation  added headver 1.50
+   quint8 triggerType;  /* Type of trigger calculation  added headver 1.50
                                   default = 0 = Threshold
 
                                   valid: code 0h  threshold
                                               1   sta/lta    */
 
-   unsigned char iirTriggerFilter;  /* coefficients for iir trigger filter  ver 1.50
+   quint8 iirTriggerFilter;  /* coefficients for iir trigger filter  ver 1.50
                                     default = 1 = B  0.1Hz to 12.5 Hz @ 200sps
 
                                     valid: code 0h  A
@@ -426,7 +426,7 @@ struct CHANNEL_RW_PARMS {
 
 
 
-   unsigned char StaSeconds;  /* STA seconds * ten   ver 1.50
+   quint8 StaSeconds;  /* STA seconds * ten   ver 1.50
                                      default = code 7 = 1.0 seconds
 
                     valid: code 0h  0.1  store 1     Ah  1.6 store 16
@@ -440,7 +440,7 @@ struct CHANNEL_RW_PARMS {
                                 8   1.2       12
                                 9   1.4       14   */
 
-   unsigned char LtaSeconds;    /* LTA seconds     ver 1.50
+   quint8 LtaSeconds;    /* LTA seconds     ver 1.50
                                    default = code 4 = 60 seconds
 
                                  valid: code 0h  20
@@ -452,7 +452,7 @@ struct CHANNEL_RW_PARMS {
                                              6  100
                                              7  120  */
 
-   unsigned short StaLtaRatio;  /* STA/LTA trigger ratio * ten  ver 1.50
+   quint16 StaLtaRatio;  /* STA/LTA trigger ratio * ten  ver 1.50
                                     default = code 3 = 4
 
                     valid: code 0h  1.5  store 15   7h  15 store 150
@@ -463,7 +463,7 @@ struct CHANNEL_RW_PARMS {
                                 5   8          80   C  100      1000
                                 6  10         100      */
 
-   unsigned char StaLtaPercent;  /* STA/LTA detrigger percent of trigger ratio
+   quint8 StaLtaPercent;  /* STA/LTA detrigger percent of trigger ratio
                                      default = code 3 = 40%         ver 1.50
 
                     valid: code 0h  10%  store 10
@@ -486,13 +486,13 @@ struct CHANNEL_RW_PARMS {
 
 /* EpiSensor addition 3/24/05 */
     float calCoil;               /* g/Volt for EpiSensor */
-    unsigned char range;         /* Range code for sensor: from EEPROM
+    quint8 range;         /* Range code for sensor: from EEPROM
                                       1=4g
                                       2=2g
                                       3=1g
                                       4=1/2g
                                       5=1/4g, etc */
-    unsigned char sensorgain;    /* Same, but as determined by MCU */
+    quint8 sensorgain;    /* Same, but as determined by MCU */
 /* End of EpiSensor addition 3/24/05 */
 
 /* Network and location code additions 3/24/05 */
@@ -509,45 +509,45 @@ struct CHANNEL_RW_PARMS {
 /* Read only parameters */
 /* recorded channels entered consecutivly */
 struct CHANNEL_RO_PARMS {
-   long maxPeak; /* raw sample counts */
-   unsigned long maxPeakOffset; /* offset from start of file */
-   long minPeak;
-   unsigned long minPeakOffset; /* offset from start of file */
-   long mean; /* raw sample counts */
-   long aqOffset;
-   long dwordpad[3]; /* for expansion */
+   qint32 maxPeak; /* raw sample counts */
+   quint32 maxPeakOffset; /* offset from start of file */
+   qint32 minPeak;
+   quint32 minPeakOffset; /* offset from start of file */
+   qint32 mean; /* raw sample counts */
+   qint32 aqOffset;
+   qint32 dwordpad[3]; /* for expansion */
 };
 
 /*---------------------------------------------------*/
 
 /* Stream read/write information */
 struct STREAM_K2_RW_PARMS {
-   unsigned char filterFlag; /* BIT0 = 1 if filtered data;  NOT USED
+   quint8 filterFlag; /* BIT0 = 1 if filtered data;  NOT USED
                                 BIT1 = 1 if auto FT after Event
                                 BIT2 = 1 if compressed - NOT USED */
-   unsigned char primaryStorage; /* = 0 for drive A: ,etc. */
-   unsigned char secondaryStorage; /* = 1 for drive B:, etc. */
-   unsigned char bytepad[5]; /* for expansion */
-   unsigned short eventNumber; /* *NOT USED* */
-   unsigned short sps; /* sampling rate */
-   unsigned short apw; /* array propagation window, in seconds */
-   unsigned short preEvent; /* in seconds */
-   unsigned short postEvent; /* in seconds */
-   unsigned short minRunTime; /* in seconds */
-   short VotesToTrigger; /* signed number */
-   short VotesToDetrigger;
+   quint8 primaryStorage; /* = 0 for drive A: ,etc. */
+   quint8 secondaryStorage; /* = 1 for drive B:, etc. */
+   quint8 bytepad[5]; /* for expansion */
+   quint16 eventNumber; /* *NOT USED* */
+   quint16 sps; /* sampling rate */
+   quint16 apw; /* array propagation window, in seconds */
+   quint16 preEvent; /* in seconds */
+   quint16 postEvent; /* in seconds */
+   quint16 minRunTime; /* in seconds */
+   qint16 VotesToTrigger; /* signed number */
+   qint16 VotesToDetrigger;
 
 /* begin change 3/29/97 1.40 & 1.50 */
    char bytepada;
-   unsigned char FilterType;        /* 0 regular, 1 causal */
-   unsigned char DataFmt;
+   quint8 FilterType;        /* 0 regular, 1 causal */
+   quint8 DataFmt;
    char Reserved;
-   short Timeout;
-   unsigned short TxBlkSize;
-   unsigned short BufferSize;
-   unsigned short SampleRate;
-   unsigned long TxChanMap;
-   long dwordpad[2]; /* for expansion */
+   qint16 Timeout;
+   quint16 TxBlkSize;
+   quint16 BufferSize;
+   quint16 SampleRate;
+   quint32 TxChanMap;
+   qint32 dwordpad[2]; /* for expansion */
 /* end change 3/29/97 1.40 & 1.50 */
 
    /* Voter info: one entry for each channel, network, user command */
@@ -560,32 +560,32 @@ struct STREAM_K2_RW_PARMS {
 
 /* Stream read/write information */
 struct STREAM_MW_RW_PARMS {
-   unsigned char filterFlag; /* BIT0 = 1 if filtered data;
+   quint8 filterFlag; /* BIT0 = 1 if filtered data;
                                 BIT1 = 1 if auto FT after Event
                                 BIT2 = 1 if compressed */
-   unsigned char primaryStorage; /* = 0 for drive A: ,etc. */
-   unsigned char secondaryStorage; /* = 1 for drive B:, etc. */
-   unsigned char bytepad[5]; /* for expansion */
-   unsigned short eventNumber; /* *NOT USED* */
-   unsigned short sps; /* sampling rate */
-   unsigned short apw; /* array propagation window, in seconds */
-   unsigned short preEvent; /* in seconds */
-   unsigned short postEvent; /* in seconds */
-   unsigned short minRunTime; /* in seconds */
-   short VotesToTrigger; /* signed number */
-   short VotesToDetrigger;
+   quint8 primaryStorage; /* = 0 for drive A: ,etc. */
+   quint8 secondaryStorage; /* = 1 for drive B:, etc. */
+   quint8 bytepad[5]; /* for expansion */
+   quint16 eventNumber; /* *NOT USED* */
+   quint16 sps; /* sampling rate */
+   quint16 apw; /* array propagation window, in seconds */
+   quint16 preEvent; /* in seconds */
+   quint16 postEvent; /* in seconds */
+   quint16 minRunTime; /* in seconds */
+   qint16 VotesToTrigger; /* signed number */
+   qint16 VotesToDetrigger;
 
 /* begin change 3/29/97 1.40 & 1.50 */
    char bytepada;
-   unsigned char FilterType;        /* 0 regular, 1 causal */
-   unsigned char DataFmt;
+   quint8 FilterType;        /* 0 regular, 1 causal */
+   quint8 DataFmt;
    char Reserved;
-   short Timeout;
-   unsigned short TxBlkSize;
-   unsigned short BufferSize;
-   unsigned short SampleRate;
-   unsigned long TxChanMap;
-   long dwordpad[2]; /* for expansion */
+   qint16 Timeout;
+   quint16 TxBlkSize;
+   quint16 BufferSize;
+   quint16 SampleRate;
+   quint32 TxChanMap;
+   qint32 dwordpad[2]; /* for expansion */
 /* end change 3/29/97 1.40 & 1.50 */
 
    /* Voter info: one entry for each channel, network, user command */
@@ -600,23 +600,23 @@ struct STREAM_MW_RW_PARMS {
 
 /* Stream read only parameters */
 struct STREAM_RO_PARMS {
-   unsigned long startTime; /* first sample time, includes PEM */
-   unsigned long triggerTime;
-   unsigned long duration; /* in # of frames; note: frames may have different sizes */
-   unsigned int errors;
-   unsigned int flags; /* Bit 0 = 1 if functional test */
+   quint32 startTime; /* first sample time, includes PEM */
+   quint32 triggerTime;
+   quint32 duration; /* in # of frames; note: frames may have different sizes */
+   qint32 errors;
+   qint32 flags; /* Bit 0 = 1 if functional test */
                        /* bit 1 = 1 if Sensor Response Test, SRT (& 0x03 = 0x03) */
                        /* bit 2 = 1 if recorded data = trigger data (& 0x04 = 0x04) */
-   unsigned int startTimeMsec;
-   unsigned int triggerTimeMsec;
-   unsigned long nscans; /* # of scans in the event */
+   qint32 startTimeMsec;
+   qint32 triggerTimeMsec;
+   quint32 nscans; /* # of scans in the event */
 
   /* start of RW_K2_PARMS is 8 bytes too far along--don't know where */
   /*  the problem is, so taking 8 bytes away from the end of the */
   /*  RO_K2_PARMS area -- 2/18/99 -- [ET] */
 #if !FIX_8BYTES_K2RW
-   unsigned long triggerBitMap; /* indicates first channel to trigger 5/96 */
-   unsigned long pad; /* for expansion */
+   quint32 triggerBitMap; /* indicates first channel to trigger 5/96 */
+   quint32 pad; /* for expansion */
 #endif
 };
 
@@ -624,19 +624,19 @@ struct STREAM_RO_PARMS {
 
 /* Miscellaneous read/write parameters: 92 bytes */
 struct MISC_RW_PARMS {
-   unsigned short serialNumber;
-   unsigned short nchannels;            /* number of channels used */
+   quint16 serialNumber;
+   quint16 nchannels;            /* number of channels used */
 #define STN_ID_LENGTH 5
    char stnID[STN_ID_LENGTH]; /* null terminated */
 #define COMMENT_LENGTH 33
    char comment[COMMENT_LENGTH]; /* NULL terminated */
-   short elevation; /* meters above sea level */
+   qint16 elevation; /* meters above sea level */
    float latitude; /*  degrees North */
    float longitude; /* degrees East */
-   short userCodes[4];                             /* 60 bytes to here */
+   qint16 userCodes[4];                             /* 60 bytes to here */
 
    /* Cutler grabber */
-   unsigned char cutlerCode; /* 0: Cutler Off
+   quint8 cutlerCode; /* 0: Cutler Off
                               * 1: 4800 baud
                               * 2: 9600 baud
                               * 3: 19200 baud
@@ -644,22 +644,22 @@ struct MISC_RW_PARMS {
                               * 5: 57600 baud    added 1.20-1.30 
                               */
 
-   unsigned char minBatteryVoltage; /* minimum alarm battery voltage x 10 */
+   quint8 minBatteryVoltage; /* minimum alarm battery voltage x 10 */
 
   /*  added 5 following parameters 3/3/95 for 1.20 MW & 1.30 K2 headers */
-   unsigned char cutler_decimation;     /* Cutler grabber decimation factor */
+   quint8 cutler_decimation;     /* Cutler grabber decimation factor */
                                                                         /* valid 0=1:1(raw), 1= 1:2, 2= 1:4, 3= 1:5, 4= 1:10, 5= 1:20 */
                                                                         /* restrictions on 1:4 @ 250 sps? */
-   unsigned char cutler_irig_type;  /* 0:B   1:E (default)   2:H */
-   unsigned long cutler_bitmap;         /* Digital Field Station bit map - channels to output */
-   unsigned long channel_bitmap;        /* channels selected for acq storage */
-   unsigned char cutler_protocol; /* 0:CRLF - USGS DFS, 1:KMI/Agbabian */
+   quint8 cutler_irig_type;  /* 0:B   1:E (default)   2:H */
+   quint32 cutler_bitmap;         /* Digital Field Station bit map - channels to output */
+   quint32 channel_bitmap;        /* channels selected for acq storage */
+   quint8 cutler_protocol; /* 0:CRLF - USGS DFS, 1:KMI/Agbabian */
 
    char siteID[17];    /* added 5/21/96 */
 
    /* Network */
-   unsigned char externalTrigger; /* either 1 (on) or 0 (off) */
-   unsigned char networkFlag; /* BIT0 = 0 (Master) or = 1 (Slave) */
+   quint8 externalTrigger; /* either 1 (on) or 0 (off) */
+   quint8 networkFlag; /* BIT0 = 0 (Master) or = 1 (Slave) */
 
 };
 
@@ -667,9 +667,9 @@ struct MISC_RW_PARMS {
 
 /* Miscellaneous read only parameters */
 struct MISC_RO_PARMS {
-   unsigned char a2dBits; /* A/D bits per sample; = A2DBITS */
-   unsigned char sampleBytes; /* bytes per sample; = 3 */
-   unsigned char restartSource; /* code of restart source:
+   quint8 a2dBits; /* A/D bits per sample; = A2DBITS */
+   quint8 sampleBytes; /* bytes per sample; = 3 */
+   quint8 restartSource; /* code of restart source:
                                    0 = unknown
                                    1 = power switch;
                                    2 = user command,
@@ -679,53 +679,53 @@ struct MISC_RO_PARMS {
                                    6 = memory error */
    char bytepad[3]; /* for expansion */
 
-   unsigned short installedChan; /* number of channels in system
+   quint16 installedChan; /* number of channels in system
                                     = (# dsp brds) * (chan per brd) */
-   unsigned short maxChannels; /* physical number of channels */
-   unsigned short sysBlkVersion; /* sys block version * 100 */
-   unsigned short bootBlkVersion; /* boot block version * 100 */
-   unsigned short appBlkVersion;  /* application block version * 100 */
-   unsigned short dspBlkVersion; /* DSP version * 100 */
+   quint16 maxChannels; /* physical number of channels */
+   quint16 sysBlkVersion; /* sys block version * 100 */
+   quint16 bootBlkVersion; /* boot block version * 100 */
+   quint16 appBlkVersion;  /* application block version * 100 */
+   quint16 dspBlkVersion; /* DSP version * 100 */
 
    /* System Status */
-   short batteryVoltage; /* voltage * 10; negative value indicates charging */
+   qint16 batteryVoltage; /* voltage * 10; negative value indicates charging */
 
-   unsigned short crc; /* 16-bit CRC of entire file, with this word set to 0xffff */
+   quint16 crc; /* 16-bit CRC of entire file, with this word set to 0xffff */
                                            /* NOTE: this parameter is not used at the moment.
               For integrity checking, the header and each frame are preceeded
               by a structure tag which contains a checksum */
-   unsigned short flags; /* bit 0 = 1 if DSP system error */
-   short temperature; /* degrees C x 10 */
-   short wordpad[3]; /* for expansion */
+   quint16 flags; /* bit 0 = 1 if DSP system error */
+   qint16 temperature; /* degrees C x 10 */
+   qint16 wordpad[3]; /* for expansion */
 
-   long dwordpad[4]; /* for expansion */
+   qint32 dwordpad[4]; /* for expansion */
 };
 
 /*---------------------------------------------------*/
 struct TIMING_RW_PARMS
 {
-   unsigned char gpsTurnOnInterval; /* minutes between GPS update checking */
-   unsigned char gpsMaxTurnOnTime; /* max time in minutes GPS tries to lock before giving up */
-   unsigned char bytepad[6];
-   short localOffset; /* hours ahead of UTC; if this parameter is non-zero
+   quint8 gpsTurnOnInterval; /* minutes between GPS update checking */
+   quint8 gpsMaxTurnOnTime; /* max time in minutes GPS tries to lock before giving up */
+   quint8 bytepad[6];
+   qint16 localOffset; /* hours ahead of UTC; if this parameter is non-zero
                                                  then all times are in UTC time. If this parameter
                                                  is zero, then all times are based on local time.
                                           */
-   short wordpad[3];
-   long dwordpad[4];
+   qint16 wordpad[3];
+   qint32 dwordpad[4];
 };
 
 /*---------------------------------------------------*/
 
 struct TIMING_RO_PARMS
 {
-   unsigned char clockSource; /* 0 = RTC from cold start
+   quint8 clockSource; /* 0 = RTC from cold start
                                  1 = keyboard
                                  2 = Sync w/ ext. ref. pulse
                                  3 = Internal GPS
                                  */
 
-   unsigned char gpsStatus; /* Bit 0=1 if currently checking for presence
+   quint8 gpsStatus; /* Bit 0=1 if currently checking for presence
                                           of GPS board
                                Bit 1=1 if GPS board present
                                Bit 2=1 if error communicating with GPS
@@ -736,28 +736,28 @@ struct TIMING_RO_PARMS
                                Bits 6,7=undefined
                              */
 
-   unsigned char gpsSOH; /* Current state of health; same as Acutime SOH code */
-   unsigned char bytepad[5]; /* for expansion */
+   quint8 gpsSOH; /* Current state of health; same as Acutime SOH code */
+   quint8 bytepad[5]; /* for expansion */
 
-   unsigned short gpsLockFailCount; /* # of times GPS failed to locked within gpsMaxTurnOnTime */
-   unsigned short gpsUpdateRTCCount; /* # of times GPS actually updated the RTC */
-   short acqDelay; /* time in msec between actual A/D conversion and DSP output */
-   short gpsLatitude; /* latitude x 100 , degrees North */
-   short gpsLongitude; /* longitude x 100, degrees East */
-   short gpsAltitude; /* altitude in meters */
-   unsigned short dacCount; /* dac counts */
-   short wordpad; /* for expansion */
-   short gpsLastDrift[2]; /* in msec.; e.g. 5 = RTC was 5 msec faster than GPS */
+   quint16 gpsLockFailCount; /* # of times GPS failed to locked within gpsMaxTurnOnTime */
+   quint16 gpsUpdateRTCCount; /* # of times GPS actually updated the RTC */
+   qint16 acqDelay; /* time in msec between actual A/D conversion and DSP output */
+   qint16 gpsLatitude; /* latitude x 100 , degrees North */
+   qint16 gpsLongitude; /* longitude x 100, degrees East */
+   qint16 gpsAltitude; /* altitude in meters */
+   quint16 dacCount; /* dac counts */
+   qint16 wordpad; /* for expansion */
+   qint16 gpsLastDrift[2]; /* in msec.; e.g. 5 = RTC was 5 msec faster than GPS */
   /*
    * From KMI support: here's what these two components mean: (PNL 7/23/00)
    * short gpsLastDrift[0] = the last measured GPS drift in mS.
    * short gpsLastDrift[1] = the previously measured GPS drift in mS.
    */
 
-   unsigned long gpsLastTurnOnTime[2]; /* time when GPS was last turned on */
-   unsigned long gpsLastUpdateTime[2]; /* time of last RTC update */
-   unsigned long gpsLastLockTime[2]; /* time of last GPS lock */
-   long dwordpad[4]; /* for expansion */
+   quint32 gpsLastTurnOnTime[2]; /* time when GPS was last turned on */
+   quint32 gpsLastUpdateTime[2]; /* time of last RTC update */
+   quint32 gpsLastLockTime[2]; /* time of last GPS lock */
+   qint32 dwordpad[4]; /* for expansion */
 };
 
 /*---------------------------------------------------*/
@@ -780,19 +780,19 @@ struct MODEM_RW_PARMS {
    char autoAnswerOffCmd[MODEM_AUTOANSWEROFF_LENGTH];
    char phoneNumber[MODEM_PHONES][MODEM_PHONENUMBER_LENGTH]; /* 4 phone numbers */
 
-   unsigned char waitForConnection; /* secs */
-   unsigned char pauseBetweenCalls; /* secs, 5/21/96 define '0' */
-   unsigned char maxDialAttempts;
+   quint8 waitForConnection; /* secs */
+   quint8 pauseBetweenCalls; /* secs, 5/21/96 define '0' */
+   quint8 maxDialAttempts;
 
   /*  added 5/21/96 */
    char cellShare;  /* K2 only, =0 for 1 Hz output, =1 for cell phone */
                     /* @ MERGE 9/18/96 -- NOT USED */
    char cellOnTime;       /* in minutes */
-   unsigned char cellWarmupTime;  /* in seconds */
+   quint8 cellWarmupTime;  /* in seconds */
    int cellStartTime[5];  /* minutes since midnight, 2->5, 6/10/96 */
    char bytepad[4];       /* 10->4, 6/10/96 */
 
-   unsigned short flags; /* BIT0 = 1 to enable auto call out
+   quint16 flags; /* BIT0 = 1 to enable auto call out
                             BIT1 = 1 to call out on battery < 12 V
                             BIT2 = 1 to call out on battery charge failed
                             BIT3 = 1 to call out on extreme temperature
@@ -836,9 +836,9 @@ struct RW_MW_PARMS {
 struct RO_K2_PARMS {
    /* first 8 bytes is a common file descriptor */
    char id[3]; /* = 'KMI' to denote a Kinemetrics file */
-   unsigned char instrumentCode; /* = '9' for K2 */
-   unsigned short headerVersion; /* header version * 100 */
-   unsigned short headerBytes; /* size of header following (includes RW_PARMS) */
+   quint8 instrumentCode; /* = '9' for K2 */
+   quint16 headerVersion; /* header version * 100 */
+   quint16 headerBytes; /* size of header following (includes RW_PARMS) */
 
    /* actual header follows */
    struct MISC_RO_PARMS misc;
@@ -854,9 +854,9 @@ struct RO_K2_PARMS {
 struct RO_MW_PARMS {
    /* first 8 bytes is a common file descriptor */
    char id[3]; /* = 'KMI' to denote a Kinemetrics file */
-   unsigned char instrumentCode; /* = '9' for K2 */
-   unsigned short headerVersion; /* header version * 100 */
-   unsigned short headerBytes; /* size of header following (includes RW_PARMS) */
+   quint8 instrumentCode; /* = '9' for K2 */
+   quint16 headerVersion; /* header version * 100 */
+   quint16 headerBytes; /* size of header following (includes RW_PARMS) */
 
    /* actual header follows */
    struct MISC_RO_PARMS misc;
@@ -892,18 +892,18 @@ typedef struct {
 #define TIMECODE_BYTES 13
 
 typedef struct { /* 32 bytes */
-   unsigned char frameType; /* like a version #, = FRAME_HEADER_TYPE */
-   unsigned char instrumentCode; /* instrument code */
-   unsigned short recorderID;
-   unsigned short frameSize; /* # of frame bytes, includes 32 byte header */
-   unsigned long blockTime; /* block time */
-   unsigned short channelBitMap; /* 1 bit for each ch. in use. Ch. 1 is bit 0 */
-   unsigned short streamPar; /* see comments below */
-   unsigned char frameStatus; /* see comments below */
-   unsigned char frameStatus2; /* see comments below */
-   unsigned short msec; /* 0..999 */
-        unsigned char channelBitMap1; /* extended chan bit map, ch17-24 */
-   unsigned char timeCode[TIMECODE_BYTES]; /* time code, see comment below */
+   quint8 frameType; /* like a version #, = FRAME_HEADER_TYPE */
+   quint8 instrumentCode; /* instrument code */
+   quint16 recorderID;
+   quint16 frameSize; /* # of frame bytes, includes 32 byte header */
+   quint32 blockTime; /* block time */
+   quint16 channelBitMap; /* 1 bit for each ch. in use. Ch. 1 is bit 0 */
+   quint16 streamPar; /* see comments below */
+   quint8 frameStatus; /* see comments below */
+   quint8 frameStatus2; /* see comments below */
+   quint16 msec; /* 0..999 */
+        quint8 channelBitMap1; /* extended chan bit map, ch17-24 */
+   quint8 timeCode[TIMECODE_BYTES]; /* time code, see comment below */
 } FRAME_HEADER;
 
 /* FRAME_HEADER Description:
@@ -947,15 +947,15 @@ typedef struct { /* 32 bytes */
 
 /* TAG. Separates and identifies structures */
 typedef struct {
-   unsigned char sync; /* sync character 'K' */
-   unsigned char byteOrder; /* = 0 for LSB first (INTEL), 1 for MSB first (MOTOROLA) */
-   unsigned char version; /* File format version; KFF_VERSION */
-   unsigned char instrumentType; /* instrument type code */
-   unsigned long type; /* structure type code */
-   unsigned short length; /* structure size in bytes */
-   unsigned short dataLength; /* # of data bytes following the structure */
-   unsigned short id; /* unique instrument id (e.g. serial number); used for multi-instrument files */
-   unsigned short checksum; /* 16 bit checksum of structure + data */
+   quint8 sync; /* sync character 'K' */
+   quint8 byteOrder; /* = 0 for LSB first (INTEL), 1 for MSB first (MOTOROLA) */
+   quint8 version; /* File format version; KFF_VERSION */
+   quint8 instrumentType; /* instrument type code */
+   quint32 type; /* structure type code */
+   quint16 length; /* structure size in bytes */
+   quint16 dataLength; /* # of data bytes following the structure */
+   quint16 id; /* unique instrument id (e.g. serial number); used for multi-instrument files */
+   quint16 checksum; /* 16 bit checksum of structure + data */
 } KFF_TAG;
 
 /*---------------------------------------------------*/

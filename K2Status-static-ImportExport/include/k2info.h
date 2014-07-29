@@ -8,11 +8,11 @@
 #define K2INFO_TYPE_STRING "TYPE_K2INFO_PACKET"
 
 typedef struct {
-        char    net[TRACE2_NET_LEN];     /* Network name */
-        char    sta[TRACE2_STA_LEN];     /* Site name */
-	short  	data_type;		/* see K2INFO_TYPE #defines below */
-	unsigned long	epoch_sent;	/* local time sent */
-	short   reserved[5];		/* reserved for future use */
+    char    net[TRACE2_NET_LEN];     /* Network name */
+    char    sta[TRACE2_STA_LEN];     /* Site name */
+    qint16  	data_type;		/* see K2INFO_TYPE #defines below */
+    quint32	epoch_sent;	/* local time sent */
+    quint16  reserved[5];		/* reserved for future use */
 } K2INFO_HEADER;
 
 #define K2INFO_TYPE_HEADER    1		/* k2 header params */
@@ -24,11 +24,7 @@ typedef struct {
 #define MAX_K2INFOBUF_SIZ 4096
 
 typedef union {
-        char    msg[MAX_K2INFOBUF_SIZ];
+    qint8    msg[MAX_K2INFOBUF_SIZ];
 	K2INFO_HEADER k2info;
 } K2infoPacket;  
 
-
-/* FUNCTIONS: only 2 */
-int k2info_init();
-void k2info_send(int data_type, char *item);
