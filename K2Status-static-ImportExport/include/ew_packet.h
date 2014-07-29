@@ -1,4 +1,4 @@
-
+#include<QtGlobal>
 /*
  *   THIS FILE IS UNDER RCS - DO NOT MODIFY UNLESS YOU HAVE
  *   CHECKED IT OUT USING THE COMMAND CHECKOUT.
@@ -26,12 +26,12 @@
 
 typedef struct
 {
-   unsigned char  msgInst;    /* Message Installation (0=>Earthworm) */
-   unsigned char  msgType;    /* Message Type */
-   unsigned char  modId;      /* Id of module originating message */
-   unsigned char  fragNum;    /* Packet number of message; 0=>first */
-   unsigned char  msgSeqNum;  /* Message Sequence number  */
-   unsigned char  lastOfMsg;  /* 1=> last packet of message, else 0 */
+   quint8  msgInst;    /* Message Installation (0=>Earthworm) */
+   quint8  msgType;    /* Message Type */
+   quint8  modId;      /* Id of module originating message */
+   quint8  fragNum;    /* Packet number of message; 0=>first */
+   quint8  msgSeqNum;  /* Message Sequence number  */
+   quint8  lastOfMsg;  /* 1=> last packet of message, else 0 */
    char     text[UDP_DAT];    /* The cargo bay, as characters */
 } PACKET;
 
