@@ -15,7 +15,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "include/byteswap.h"
 #include "include/ew_packet.h"
 #include "include/k2pktdef.h"
 #include "include/k2info.h"
