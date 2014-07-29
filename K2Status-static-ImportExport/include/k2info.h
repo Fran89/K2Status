@@ -4,6 +4,7 @@
 #define	TRACE2_CHAN_LEN	9  /* 4 bytes plus padding for loc and version */
 #define	TRACE2_NET_LEN	9
 #define TRACE2_LOC_LEN   3
+#define K2_TIME_CONV ((unsigned long)315532800)
 
 #define K2INFO_TYPE_STRING "TYPE_K2INFO_PACKET"
 
