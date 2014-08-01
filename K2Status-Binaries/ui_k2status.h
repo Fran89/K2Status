@@ -23,6 +23,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QTextBrowser>
+#include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -49,6 +50,7 @@ public:
     QMenu *menuConnection;
     QMenu *menuHelp;
     QStatusBar *statusBar;
+    QToolBar *toolBar;
 
     void setupUi(QMainWindow *K2Status)
     {
@@ -132,6 +134,10 @@ public:
         statusBar = new QStatusBar(K2Status);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         K2Status->setStatusBar(statusBar);
+        toolBar = new QToolBar(K2Status);
+        toolBar->setObjectName(QStringLiteral("toolBar"));
+        toolBar->setMovable(false);
+        K2Status->addToolBar(Qt::TopToolBarArea, toolBar);
 
         menuBar->addAction(menuConnection->menuAction());
         menuBar->addAction(menuHelp->menuAction());
@@ -158,6 +164,7 @@ public:
         ToPort->setText(QApplication::translate("K2Status", "UnSet", 0));
         menuConnection->setTitle(QApplication::translate("K2Status", "Connection", 0));
         menuHelp->setTitle(QApplication::translate("K2Status", "Help", 0));
+        toolBar->setWindowTitle(QApplication::translate("K2Status", "toolBar", 0));
     } // retranslateUi
 
 };

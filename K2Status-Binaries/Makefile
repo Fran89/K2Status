@@ -50,7 +50,8 @@ SOURCES       = ../K2Status-static-ImportExport/main.cpp \
 		../K2Status-static-ImportExport/config.cpp \
 		../K2Status-static-ImportExport/defineandconnect.cpp \
 		../K2Status-static-ImportExport/messagercv.cpp \
-		k2status_plugin_import.cpp moc_defineandconnect.cpp \
+		k2status_plugin_import.cpp qrc_IconResources.cpp \
+		moc_defineandconnect.cpp \
 		moc_k2status.cpp \
 		moc_messagercv.cpp
 OBJECTS       = main.o \
@@ -59,6 +60,7 @@ OBJECTS       = main.o \
 		defineandconnect.o \
 		messagercv.o \
 		k2status_plugin_import.o \
+		qrc_IconResources.o \
 		moc_defineandconnect.o \
 		moc_k2status.o \
 		moc_messagercv.o
@@ -373,6 +375,7 @@ Makefile: ../K2Status-static-ImportExport/K2Status.pro ../../../DevProj/QT/Local
 		../../../DevProj/QT/LocalQTS/mkspecs/features/yacc.prf \
 		../../../DevProj/QT/LocalQTS/mkspecs/features/lex.prf \
 		../K2Status-static-ImportExport/K2Status.pro \
+		../K2Status-static-ImportExport/IconResources.qrc \
 		/home/francisco/DevProj/QT/LocalQTS/lib/libQt5Widgets.prl \
 		/home/francisco/DevProj/QT/LocalQTS/lib/libQt5Gui.prl \
 		/home/francisco/DevProj/QT/LocalQTS/lib/libQt5Core.prl \
@@ -528,6 +531,7 @@ Makefile: ../K2Status-static-ImportExport/K2Status.pro ../../../DevProj/QT/Local
 ../../../DevProj/QT/LocalQTS/mkspecs/features/yacc.prf:
 ../../../DevProj/QT/LocalQTS/mkspecs/features/lex.prf:
 ../K2Status-static-ImportExport/K2Status.pro:
+../K2Status-static-ImportExport/IconResources.qrc:
 /home/francisco/DevProj/QT/LocalQTS/lib/libQt5Widgets.prl:
 /home/francisco/DevProj/QT/LocalQTS/lib/libQt5Gui.prl:
 /home/francisco/DevProj/QT/LocalQTS/lib/libQt5Core.prl:
@@ -552,7 +556,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/K2Status1.0.0 || mkdir -p .tmp/K2Status1.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/K2Status1.0.0/ && $(COPY_FILE) --parents ../K2Status-static-ImportExport/config.h ../K2Status-static-ImportExport/defineandconnect.h k2pktdef.h k2info.h ew_packet.h byteswap.h ../K2Status-static-ImportExport/include/byteswap.h ../K2Status-static-ImportExport/include/ew_packet.h ../K2Status-static-ImportExport/include/k2info.h ../K2Status-static-ImportExport/include/k2pktdef.h ../K2Status-static-ImportExport/include/nkwhdrs.h ../K2Status-static-ImportExport/k2status.h ../K2Status-static-ImportExport/include/TableDef.h ../K2Status-static-ImportExport/messagercv.h .tmp/K2Status1.0.0/ && $(COPY_FILE) --parents ../K2Status-static-ImportExport/main.cpp ../K2Status-static-ImportExport/k2status.cpp ../K2Status-static-ImportExport/config.cpp ../K2Status-static-ImportExport/defineandconnect.cpp ../K2Status-static-ImportExport/messagercv.cpp k2status_plugin_import.cpp .tmp/K2Status1.0.0/ && $(COPY_FILE) --parents ../K2Status-static-ImportExport/k2status.ui ../K2Status-static-ImportExport/defineandconnect.ui .tmp/K2Status1.0.0/ && (cd `dirname .tmp/K2Status1.0.0` && $(TAR) K2Status1.0.0.tar K2Status1.0.0 && $(COMPRESS) K2Status1.0.0.tar) && $(MOVE) `dirname .tmp/K2Status1.0.0`/K2Status1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/K2Status1.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/K2Status1.0.0/ && $(COPY_FILE) --parents ../K2Status-static-ImportExport/IconResources.qrc .tmp/K2Status1.0.0/ && $(COPY_FILE) --parents ../K2Status-static-ImportExport/config.h ../K2Status-static-ImportExport/defineandconnect.h k2pktdef.h k2info.h ew_packet.h byteswap.h ../K2Status-static-ImportExport/include/byteswap.h ../K2Status-static-ImportExport/include/ew_packet.h ../K2Status-static-ImportExport/include/k2info.h ../K2Status-static-ImportExport/include/k2pktdef.h ../K2Status-static-ImportExport/include/nkwhdrs.h ../K2Status-static-ImportExport/k2status.h ../K2Status-static-ImportExport/include/TableDef.h ../K2Status-static-ImportExport/messagercv.h .tmp/K2Status1.0.0/ && $(COPY_FILE) --parents ../K2Status-static-ImportExport/main.cpp ../K2Status-static-ImportExport/k2status.cpp ../K2Status-static-ImportExport/config.cpp ../K2Status-static-ImportExport/defineandconnect.cpp ../K2Status-static-ImportExport/messagercv.cpp k2status_plugin_import.cpp .tmp/K2Status1.0.0/ && $(COPY_FILE) --parents ../K2Status-static-ImportExport/k2status.ui ../K2Status-static-ImportExport/defineandconnect.ui .tmp/K2Status1.0.0/ && (cd `dirname .tmp/K2Status1.0.0` && $(TAR) K2Status1.0.0.tar K2Status1.0.0 && $(COMPRESS) K2Status1.0.0.tar) && $(MOVE) `dirname .tmp/K2Status1.0.0`/K2Status1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/K2Status1.0.0
 
 
 clean:compiler_clean 
@@ -574,8 +578,14 @@ mocables: compiler_moc_header_make_all compiler_moc_source_make_all
 
 check: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_IconResources.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_IconResources.cpp
+qrc_IconResources.cpp: ../K2Status-static-ImportExport/IconResources.qrc \
+		../K2Status-static-ImportExport/icons/addcon.png \
+		../K2Status-static-ImportExport/icons/debug.png
+	/home/francisco/DevProj/QT/LocalQTS/bin/rcc -name IconResources ../K2Status-static-ImportExport/IconResources.qrc -o qrc_IconResources.cpp
+
 compiler_moc_header_make_all: moc_defineandconnect.cpp moc_k2status.cpp moc_messagercv.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_defineandconnect.cpp moc_k2status.cpp moc_messagercv.cpp
@@ -1000,7 +1010,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -1332,7 +1342,35 @@ k2status.o: ../K2Status-static-ImportExport/k2status.cpp ../K2Status-static-Impo
 		../K2Status-static-ImportExport/defineandconnect.h \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/QDialog \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdialog.h \
-		ui_k2status.h
+		ui_k2status.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QVariant \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QAction \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qaction.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qactiongroup.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QButtonGroup \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qbuttongroup.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QFormLayout \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qformlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QLayout \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlayoutitem.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qboxlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgridlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QHBoxLayout \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QHeaderView \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qheaderview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QLabel \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlabel.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QMenu \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmenu.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QMenuBar \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmenubar.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QStatusBar \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstatusbar.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QToolBar \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtoolbar.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QVBoxLayout \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o k2status.o ../K2Status-static-ImportExport/k2status.cpp
 
 config.o: ../K2Status-static-ImportExport/config.cpp ../K2Status-static-ImportExport/config.h \
@@ -1554,7 +1592,54 @@ defineandconnect.o: ../K2Status-static-ImportExport/defineandconnect.cpp ../K2St
 		../../../DevProj/QT/LocalQTS/include/QtGui/qinputmethod.h \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/QDialog \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdialog.h \
-		ui_defineandconnect.h
+		ui_defineandconnect.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QVariant \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QAction \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qaction.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qicon.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qactiongroup.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QButtonGroup \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qbuttongroup.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QCheckBox \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcheckbox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractbutton.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QDialogButtonBox \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdialogbuttonbox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QFormLayout \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qformlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QLayout \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlayoutitem.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qboxlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgridlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QHeaderView \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qheaderview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractitemview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractscrollarea.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qframe.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qabstractitemmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qitemselectionmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractitemdelegate.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstyleoption.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractspinbox.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qvalidator.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qregularexpression.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qslider.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractslider.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstyle.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtabbar.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtabwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qrubberband.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QLabel \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlabel.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QLineEdit \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlineedit.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextcursor.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextformat.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpen.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextoption.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QSpacerItem \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o defineandconnect.o ../K2Status-static-ImportExport/defineandconnect.cpp
 
 messagercv.o: ../K2Status-static-ImportExport/messagercv.cpp ../K2Status-static-ImportExport/messagercv.h \
@@ -1743,6 +1828,9 @@ k2status_plugin_import.o: k2status_plugin_import.cpp ../../../DevProj/QT/LocalQT
 		../../../DevProj/QT/LocalQTS/include/QtCore/qjsonobject.h \
 		../../../DevProj/QT/LocalQTS/include/QtCore/qjsonvalue.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o k2status_plugin_import.o k2status_plugin_import.cpp
+
+qrc_IconResources.o: qrc_IconResources.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_IconResources.o qrc_IconResources.cpp
 
 moc_defineandconnect.o: moc_defineandconnect.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_defineandconnect.o moc_defineandconnect.cpp

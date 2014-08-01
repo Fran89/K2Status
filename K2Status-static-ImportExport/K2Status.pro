@@ -39,3 +39,6 @@ HEADERS  += \
 
 FORMS    += k2status.ui \
     defineandconnect.ui
+
+RESOURCES += \
+    IconResources.qrc

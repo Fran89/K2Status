@@ -41,6 +41,8 @@ K2Status::K2Status(QWidget *parent) :
 
     MessRcv->moveToThread(MessThr);
     MessThr->start();
+    ui->toolBar->addAction(QIcon(":/K2Status/icons/addcon.png"),"Add a Connection",this,SLOT(on_actionAdd_Connection_triggered()));
+    ui->toolBar->addAction(QIcon(":/K2Status/icons/debug.png") , "Toggle Debug Mode", this, SLOT(on_actionDebug_Mode_triggered()));
 }
 
 K2Status::~K2Status()
