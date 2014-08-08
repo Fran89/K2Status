@@ -56,7 +56,7 @@ void K2Status::Dialog_off(Config& TestC){
     // This is a socket for the when we accept the parameters in the Define
     // and Connect Dialog, as well as opening the
     ui->ToIP_2->setText(ConfTest.getSendIPQ());
-    ui->ToPort->setText(ConfTest.getSendPort());
+    ui->ToPort->setText(ConfTest.getSendPortQ());
     UDPComm=ConfTest.Comm;
 
     if(UDPComm){

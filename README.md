@@ -30,8 +30,8 @@ Import/Export Capability: Is fully EXPERIMENTAL, use at your own risk.
 
 To Do:
 
-1. Work out various bugs.
-2. Test using multiple stations.
+1. Work out ~various~ bugs (Most are squashed).
+2. ~Test using multiple stations~ (DONE).
 3. Improve Import/Export Communications.
 4. Add the ability to graph data.
 5. Add the ability to request information from the Rock Family of instruments.
