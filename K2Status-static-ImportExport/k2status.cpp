@@ -127,6 +127,17 @@ void K2Status::has_read_data(){
     }
 }
 
+void K2Status::on_actionDebug_Mode_triggered(){
+    if (Debug == true){
+        Debug = false;
+        ui->textBrowser->append("Debug mode off");
+    }
+    else if (Debug == false){
+        Debug = true;
+        ui->textBrowser->append("Debug mode on");
+    }
+}
+
 // Easily editable to take in just the messages.. eventually
 void K2Status::parse_UDPpacket(PACKET packet, QByteArray data){
 
@@ -522,18 +533,7 @@ void K2Status::parse_UDPpacket(PACKET packet, QByteArray data){
 
 }
 
-void K2Status::on_actionDebug_Mode_triggered(){
-    if (Debug == true){
-        Debug = false;
-        ui->textBrowser->append("Debug mode off");
-    }
-    else if (Debug == false){
-        Debug = true;
-        ui->textBrowser->append("Debug mode on");
-    }
-}
-
-// Note: This was supposed to be a separate Station Info Handler Class
+// Note: The following functions were supposed to be a separate Station Info Handler Class
 void K2Status::addK2Status (int index, STATUS_INFO* info){
     // Set Serial Number
     qint32 Serial;
@@ -541,26 +541,52 @@ void K2Status::addK2Status (int index, STATUS_INFO* info){
     Table->setItem(index,Tser,new QStandardItem(QString::number(Serial)));
 
     // Set Time
-    time_t Time;
+    time_t Time, now, diff;
+    now = time(0);
     Time = (time_t)(qFromBigEndian<quint32>(info->systemTime) + K2_TIME_CONV);
+    diff = difftime(now,Time);
+
     Table->setItem(index,Ttim,new QStandardItem(QString(asctime(gmtime(&Time)))));
+    Table->item(index,Ttim)->setBackground(QBrush(Qt::green));
+
+    if (diff > 600){        // 10 min
+        Table->item(index,Ttim)->setBackground(QBrush(Qt::darkGreen));
+    }
+    else if (diff > 1800){  // 30 min
+        Table->item(index,Ttim)->setBackground(QBrush(Qt::yellow));
+    }
+    else if (diff > 3600) { // 1 hr
+        Table->item(index,Ttim)->setBackground(QBrush(Qt::darkYellow));
+    }
+    else if (diff > 21600){ // 6 hr
+        Table->item(index,Ttim)->setBackground(QBrush(Qt::red));
+    }
+    else if (diff > 86400){ // 24 hr
+        Table->item(index,Ttim)->setBackground(QBrush(Qt::darkRed));
+    }
 
     // Set Clock Source
     switch (info->clockSource) {
     case 0:
         Table->setItem(index,Ttsc,new QStandardItem(QString("Set from RTC\n")));
+        Table->item(index,Ttsc)->setBackground(QBrush(Qt::red));
         break;
     case 1:
         Table->setItem(index,Ttsc,new QStandardItem(QString("Set from Keyboard\n")));
+        Table->item(index,Ttsc)->setBackground(QBrush(Qt::red));
         break;
     case 2:
         Table->setItem(index,Ttsc,new QStandardItem(QString("Set from External Pulse\n")));
+        Table->item(index,Ttsc)->setBackground(QBrush(Qt::yellow));
         break;
     case 3:
         Table->setItem(index,Ttsc,new QStandardItem(QString("Set from Internal GPS\n")));
+        Table->item(index,Ttsc)->setBackground(QBrush(Qt::green));
         break;
     default:
         Table->setItem(index,Ttsc,new QStandardItem(QString("Set from (?)\n")));
+        Table->item(index,Ttsc)->setBackground(QBrush(Qt::red));
+        break;
     }
 
     // Set HW and Battery Status
@@ -569,18 +595,28 @@ void K2Status::addK2Status (int index, STATUS_INFO* info){
     tempbat = (int) info->batteryStatus;
     if (tempbat > 0)
     {
-        if(info->driveStatus)
+        if(info->driveStatus){
             Table->setItem(index,Thws,new QStandardItem(QString("OK ")));
-        else
+            Table->item(index,Thws)->setBackground(QBrush(Qt::green));
+        }
+        else{
             Table->setItem(index,Thws,new QStandardItem(QString("FAULT")));
+            Table->item(index,Thws)->setBackground(QBrush(Qt::red));
+        }
         Table->setItem(index,Tbts,new QStandardItem(QString("Not Charging")));
+        Table->item(index,Tbts)->setBackground(QBrush(Qt::red));
     }
     else {
-        if(info->driveStatus)
+        if(info->driveStatus){
             Table->setItem(index,Thws,new QStandardItem(QString("OK")));
-        else
+            Table->item(index,Thws)->setBackground(QBrush(Qt::green));
+        }
+        else{
             Table->setItem(index,Thws,new QStandardItem(QString("FAULT")));
+            Table->item(index,Thws)->setBackground(QBrush(Qt::red));
+        }
         Table->setItem(index,Tbts,new QStandardItem(QString("Charging")));
+        Table->item(index,Tbts)->setBackground(QBrush(Qt::green));
     }
 
     // Drive Status
@@ -593,10 +629,14 @@ void K2Status::addK2Status (int index, STATUS_INFO* info){
     for (inde = 0; inde < 2; inde++) {
         wtemp1 = qFromBigEndian<quint16>(info->driveStatus[inde]);
         if (wtemp1 & SF_NOT_READY) {
-            if(inde==0)
+            if(inde==0){
                 Table->setItem(index,Tds1,new QStandardItem(QString("not ready")));
-            else
+                Table->item(index,Tds1)->setBackground(QBrush(Qt::red));
+            }
+            else{
                 Table->setItem(index,Tds2,new QStandardItem(QString("not ready")));
+                Table->item(index,Tds2)->setBackground(QBrush(Qt::red));
+            }
         }
         else{
             if ((wtemp1 & SF_GB) == SF_GB){
@@ -617,14 +657,24 @@ void K2Status::addK2Status (int index, STATUS_INFO* info){
             }
             wtemp2 = wtemp1 & SF_FREE;
             diskfree *= (double)wtemp2;
-            if(inde==0)
+            if(inde==0){
                 Table->setItem(index,Tds1,new QStandardItem(QString::number(wtemp2)+
                                                             QString(" ")+
                                                             QString(tempchar)));
-            else
+                if ((tempchar == 'M' && wtemp2 < 10) || tempchar == 'K')
+                    Table->item(index,Tds1)->setBackground(QBrush(Qt::red));
+                else
+                    Table->item(index,Tds1)->setBackground(QBrush(Qt::green));
+            }
+            else{
                 Table->setItem(index,Tds2,new QStandardItem(QString::number(wtemp2)+
                                                             QString(" ")+
                                                             QString(tempchar)));
+                if ((tempchar == 'M' && wtemp2 < 10) || tempchar == 'K')
+                    Table->item(index,Tds2)->setBackground(QBrush(Qt::red));
+                else
+                    Table->item(index,Tds2)->setBackground(QBrush(Qt::green));
+            }
         }
     }
 
@@ -640,24 +690,41 @@ void K2Status::addK2Status2(int index, EXT2_STATUS_INFO* info){
     quint16 fault;
     fault = qFromBigEndian<quint16>(info->fault);
     if (fault != 0) {
-        if (fault & FAULT_SYSTEM)
+        if (fault & FAULT_SYSTEM){
             Table->setItem(index,Tfac,new QStandardItem(QString("bad parameters")));
-        if (fault & FAULT_FLASH)
-          Table->setItem(index,Tfac,new QStandardItem(QString("flash error")));
-        if (fault & FAULT_RAM)
-          Table->setItem(index,Tfac,new QStandardItem(QString("ram error at ")+
+            Table->item(index,Tfac)->setBackground(QBrush(Qt::red));
+        }
+        if (fault & FAULT_FLASH){
+            Table->setItem(index,Tfac,new QStandardItem(QString("flash error")));
+            Table->item(index,Tfac)->setBackground(QBrush(Qt::red));
+        }
+        if (fault & FAULT_RAM){
+            Table->setItem(index,Tfac,new QStandardItem(QString("ram error at ")+
                                                       QString::number(qFromBigEndian<quint32>(info->lastRAMError))));
-        if (fault & FAULT_PCMCIA)
-          Table->setItem(index,Tfac,new QStandardItem(QString("bad/missing PCMCIA")));
-        if (fault & FAULT_DSP)
-          Table->setItem(index,Tfac,new QStandardItem(QString("failed to load DSP")));
-        if (fault & FAULT_PARMBLK)
-          Table->setItem(index,Tfac,new QStandardItem(QString("param block CRC error")));
-        if (fault & FAULT_FLASH_MAINTENANCE)
-          Table->setItem(index,Tfac,new QStandardItem(QString("flash maintenance required")));
-      }
-    else
-    Table->setItem(index,Tfac,new QStandardItem(QString("OK")));
+            Table->item(index,Tfac)->setBackground(QBrush(Qt::red));
+        }
+        if (fault & FAULT_PCMCIA){
+            Table->setItem(index,Tfac,new QStandardItem(QString("bad/missing PCMCIA")));
+            Table->item(index,Tfac)->setBackground(QBrush(Qt::red));
+        }
+        if (fault & FAULT_DSP){
+            Table->setItem(index,Tfac,new QStandardItem(QString("failed to load DSP")));
+            Table->item(index,Tfac)->setBackground(QBrush(Qt::red));
+        }
+        if (fault & FAULT_PARMBLK){
+            Table->setItem(index,Tfac,new QStandardItem(QString("param block CRC error")));
+            Table->item(index,Tfac)->setBackground(QBrush(Qt::red));
+        }
+        if (fault & FAULT_FLASH_MAINTENANCE){
+            Table->setItem(index,Tfac,new QStandardItem(QString("flash maintenance required")));
+            Table->item(index,Tfac)->setBackground(QBrush(Qt::red));
+        }
+    }
+    else{
+        Table->setItem(index,Tfac,new QStandardItem(QString("OK")));
+        Table->item(index,Tfac)->setBackground(QBrush(Qt::green));
+    }
+
     ui->tableView->resizeColumnsToContents();
 }
 
@@ -673,6 +740,10 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
            batt_voltx10 = -batt_voltx10;
            batv = batt_voltx10 / 10.0;
            Table->setItem(index,Tvol,new QStandardItem(QString::number(batv)));
+           if (batv < 12 || batv >= 14)
+               Table->item(index,Tvol)->setBackground(QBrush(Qt::red));
+           else
+               Table->item(index,Tvol)->setBackground(QBrush(Qt::green));
     }
 
     // Temperature (can also be aquired from EXT2)
@@ -680,6 +751,10 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
     temp = qFromBigEndian<quint16>(info->roParms.misc.temperature);
     tempd = temp/10.0;
     Table->setItem(index,Ttem,new QStandardItem(QString::number(tempd)));
+    if(tempd > 45)
+        Table->item(index,Ttem)->setBackground(QBrush(Qt::red));
+    else
+        Table->item(index,Ttem)->setBackground(QBrush(Qt::green));
 }
 
 int K2Status::fetch_index(K2INFO_HEADER* Head){
@@ -742,7 +817,6 @@ int K2Status::fetch_index(K2INFO_HEADER* Head){
 }
 
 // Has recived TCP Msg
-
 void K2Status::has_read_tcp(QByteArray Message){
     if(Debug){
 
