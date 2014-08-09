@@ -9,6 +9,7 @@ in the master branch for a previous version (I will update soon). A fully naitiv
 64bit (dinamically linked) version is provided and run in the newest Ubuntu distros. 
 
 ###Features:
+============
 
 * Shows updated status for every station (it automatically configures stations)
 * Shows you a lot of statistics from stations provided directly from the station.
@@ -16,6 +17,7 @@ in the master branch for a previous version (I will update soon). A fully naitiv
 * Potential for a lot of features to be added (see below)
 
 ###Instructions:
+=============
 
 In EW:
 
@@ -32,6 +34,7 @@ In K2Status:
 Import/Export Capability: Is fully EXPERIMENTAL, use at your own risk.
 
 ###To Do:
+=============
 
 1. Work out ~~various~~ bugs (Most are squashed).
 2. ~~Test using multiple stations~~ (DONE).
@@ -39,7 +42,7 @@ Import/Export Capability: Is fully EXPERIMENTAL, use at your own risk.
 4. Add the ability to graph data.
 5. Add the ability to request information from the Rock Family of instruments.
 
-===
+=============
 
 If anyone is interested in this proyect or would like to help, contact me!
 
