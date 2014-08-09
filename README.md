@@ -15,9 +15,8 @@ in the master branch for a previous version (I will update soon). A fully naitiv
 * Table with all the data and colors that indicate the different status  gives you 'at a glance' overview of the network
 * Potential for a lot of features to be added (see below)
 
-####Instructions:
 =============
-
+####Instructions:
 In EW:
 
 1. Add the K2_K2STATUS_PACKET Message type to earthworm.d
@@ -32,9 +31,8 @@ In K2Status:
 
 Import/Export Capability: Is fully EXPERIMENTAL, use at your own risk.
 
-####To Do:
 =============
-
+####To Do:
 1. Work out ~~various~~ bugs (Most are squashed).
 2. ~~Test using multiple stations~~ (DONE).
 3. Improve Import/Export Communications.
@@ -42,7 +40,6 @@ Import/Export Capability: Is fully EXPERIMENTAL, use at your own risk.
 5. Add the ability to request information from the Rock Family of instruments.
 
 =============
-
 If anyone is interested in this proyect or would like to help, contact me!
 
 ######Credits:
