@@ -1,5 +1,4 @@
-K2Status
-========
+#K2Status
 
 A K2/ETNA Status Monitoring Program for Earthworm
 
@@ -9,18 +8,15 @@ compatibility for other platforms. The 32Bit statically link version availible
 in the master branch for a previous version (I will update soon). A fully naitive 
 64bit (dinamically linked) version is provided and run in the newest Ubuntu distros. 
 
-===
-
-Features:
+##Features:
 
 * Shows updated status for every station (it automatically configures stations)
 * Shows you a lot of statistics from stations provided directly from the station.
 * Table with all the data and colors that indicate the different status  gives you 'at a glance' overview of the network
 * Potential for a lot of features to be added (see below)
 
-===
+##Instructions:
 
-Instructions:
 In EW:
 
 1. Add the K2_K2STATUS_PACKET Message type to earthworm.d
@@ -35,9 +31,7 @@ In K2Status:
 
 Import/Export Capability: Is fully EXPERIMENTAL, use at your own risk.
 
-===
-
-To Do:
+##To Do:
 
 1. Work out ~~various~~ bugs (Most are squashed).
 2. ~~Test using multiple stations~~ (DONE).
@@ -49,7 +43,7 @@ To Do:
 
 If anyone is interested in this proyect or would like to help, contact me!
 
-Credits:
+###Credits:
 * The Puerto Rico Strong Motion Program for their help and support.
 * The people over at Instrumental Software Technologies, Inc. (ISTI) @ http://www.isti.com/
 * Everyone who has ever worked with in the development of earthworm @ http://earthwormcentral.org
