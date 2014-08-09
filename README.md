@@ -4,7 +4,7 @@ K2Status
 A K2/ETNA Status Monitoring Program for Earthworm
 
 This K2 Status program is compiled for 64bit Intel, but can be compiled easily 
-in any 32bit computer. It has been written in QT and C++ in order for to full 
+in any 32bit computer. It has been written in QT and C++ in order to have full 
 compatibility for other platforms. The 32Bit statically link version availible
 in the master branch for a previous version (I will update soon). A fully naitive 
 64bit (dinamically linked) version is provided and run in the newest Ubuntu distros. 
