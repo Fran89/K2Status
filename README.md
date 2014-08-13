@@ -12,9 +12,31 @@ in the master branch for a previous version (I will update soon). A fully naitiv
 ####Features:
 * Shows updated status for every station (it automatically configures stations)
 * Shows you a lot of statistics from stations provided directly from the station.
-* Table with all the data and colors that indicate the different status  gives you 'at a glance' overview of the network
+* Colors that indicate the different status, gives you 'at a glance' overview of the network
 * Potential for a lot of features to be added (see below)
 
+=============
+#### Color Coding
+
+1. Update Time:
+  * Green: Less than 5min.
+  * Dark Green: 5min and 30min
+  * Yellow: 30min and 6 hr
+  * Dark Yellow: 6hr and 12 hr
+  * Red: 12hr and 24hr
+  * Dark Red: More than 24 hrs
+2. Time Src:
+  * Green only on GPS
+  * Red on RTC, Keyboard and (?)
+  * Yellow on External Pulse
+3. Voltage:
+  * Green between 12 and 14, red otherwise,
+4. Temperature:
+  * Red on 45C and up
+5. Hardware, Battery Status and Fault Code:
+  * Green if OK or Charging, Red otherwise
+6. Disk Space:
+  * Red if space goes under 10 Mb
 =============
 ####Instructions:
 In EW:

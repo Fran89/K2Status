@@ -36,7 +36,7 @@ K2Status::K2Status(QWidget *parent) :
     TimeThr->start();
     MessRcv = new MessageRcv;
     MessRcv->moveToThread(MessThr);
-    ColTimer.start(2000);
+    ColTimer.start(500);
     ColTimer.moveToThread(TimeThr);
 
     connect(&ColTimer,SIGNAL(timeout()),this,SLOT(UpdateTimeColors()));
@@ -943,10 +943,10 @@ void K2Status::UpdateTimeColors(){
         else if (diff >= 1800 && diff < 21599){ // Between 30 min and 6 hr
             Table->item(i,Ttim)->setBackground(QBrush(Qt::yellow));
         }
-        else if (diff >= 21600 && diff < 86399){ // Between 6 hr and 24 hr
+        else if (diff >= 21600 && diff < 43199){ // Between 6 hr and 12 hr
             Table->item(i,Ttim)->setBackground(QBrush(Qt::darkYellow));
         }
-        else if (diff >= 21600 && diff < 86399){ // Between 6 hr and 24 hr
+        else if (diff >= 43200 && diff < 86399){ // Between 12 hr and 24 hr
             Table->item(i,Ttim)->setBackground(QBrush(Qt::red));
         }
         else {
