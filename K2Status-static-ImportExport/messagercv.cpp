@@ -3,8 +3,8 @@
 MessageRcv::MessageRcv(QObject *parent) :
     QObject(parent)
 {
-    connect(this,SIGNAL(LastServerBeat(QTcpSocket*,Config*,bool)),
-            this,SLOT(echo_Heartbeat(QTcpSocket*,Config*,bool)));
+    connect(&HeartbeatTime,SIGNAL(timeout()),this,SLOT(sendHeartbeat()));
+    Timer = new QThread;
 }
 
 void MessageRcv::ListenMessage(QTcpSocket *sock, Config *Conf, bool Debug) {
@@ -18,14 +18,18 @@ void MessageRcv::ListenMessage(QTcpSocket *sock, Config *Conf, bool Debug) {
     static char   escape=ESC;                /* our escape character */
     static qint32 inchar;                    /* counter for raw socket buffer (w/esc) */
     QByteArray    temp;
-    // time_t       LastBeat; Maybe in the future
 
+    // Set a few local Variables
+    int msec = 1000*Conf->getMyHR();
+    InstID = Conf->getINSTID();
+    MyString = Conf->getMyHSQ();
+    debugon = Debug;
+    MySock = sock;
 
+    // Let's begin sending heartbeats
     emit updatetxtbox(QString("Message Thread Started"));
-
-    //NOT WORKING!!
-    emit LastServerBeat(sock,Conf,Debug); //Beat our Heart Once
-
+    HeartbeatTime.start(msec);
+    HeartbeatTime.moveToThread(Timer);
 
     state=SEARCHING_FOR_MESSAGE_START; /* we're initializing */
 
@@ -55,7 +59,7 @@ void MessageRcv::ListenMessage(QTcpSocket *sock, Config *Conf, bool Debug) {
             temp.clear();
             while (temp.size()==0){
                 /* Read from socket operation */
-                temp = sock->read(INBUFFERSIZE);
+                temp = MySock->read(INBUFFERSIZE);
             }
             nr = temp.size();
             inchar=0;
@@ -110,18 +114,14 @@ void MessageRcv::ListenMessage(QTcpSocket *sock, Config *Conf, bool Debug) {
                     if(Debug) {
                         emit updatetxtbox(QString("import_generic: Received heartbeat"));
                     }
-                    // LastBeattime = time(0); /* note time of heartbeat */
+                    // CODE GOES HERE TO VERIFY HEARTBEATS
                     state=EXPECTING_MESSAGE_START; /* reset for next message */
-
-                    //THIS IS STILL NOT WORKING
-                    emit echo_Heartbeat(sock, Conf, Debug);
                 }
                 else {
                     /* got a non-heartbeat message */
                     if(Debug) {
                         emit updatetxtbox(QString("import_generic: Received non-heartbeat"));
                     }
-                    //LastBeat = time(0); /* note time of heartbeat */
                     /* This is not a genuine heartbeat, but our major concern is that the
                      * export module on the other end is still alive, and any message that
                      * we receive should indicate life on the other side(in a non occult
@@ -149,7 +149,7 @@ void MessageRcv::ListenMessage(QTcpSocket *sock, Config *Conf, bool Debug) {
                         temp.clear();
                         while (temp.size()==0){
                             /* Read from socket operation */
-                            temp = sock->read(INBUFFERSIZE);
+                            temp = MySock->read(INBUFFERSIZE);
                         }
                         nr = temp.size();
                         inchar=0;
@@ -199,23 +199,23 @@ void MessageRcv::ListenMessage(QTcpSocket *sock, Config *Conf, bool Debug) {
 
 
 // Send HeartBeat
-void MessageRcv::echo_Heartbeat(QTcpSocket *sock, Config* Conf, bool Debug){
+void MessageRcv::sendHeartbeat(){
 
-    int INSTID = Conf->getINSTID();
     int Module = 0;
     int Type   = 3;
 
 
     QByteArray HeartBeat;
     HeartBeat.append(STX);
-    HeartBeat.append(QString("%1%2%3").arg(INSTID,3).arg(Module,3).arg(Type,3));
-    HeartBeat.append(Conf->getMyHSQ());
+    HeartBeat.append(QString("%1%2%3").arg(InstID,3).arg(Module,3).arg(Type,3));
+    HeartBeat.append(MyString);
     HeartBeat.append(ETX);
 
 
-    sock->write(HeartBeat.data());
+    MySock->write(HeartBeat.data());
+    MySock->waitForBytesWritten();
 
-    if(Debug) {
+    if(debugon) {
         //emit ReturnMessage(HeartBeat);
         emit updatetxtbox(QString("import_generic: SocketHeartbeat sent to export"));
     }

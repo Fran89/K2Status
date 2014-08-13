@@ -22,6 +22,7 @@ class Config
     QString SenderHeartTextQT;   /* Text making up the sender's heart beat message QT*/
     quint16 PortAdr;
     char* QstringtoChar(QString msg);
+    int TZ;
 
 public:
     Config();
@@ -34,6 +35,7 @@ public:
     void setSendHR(QString EHR);
     void setSendHS(QString EHS);
     void setINSTID(QString STL);
+    void setTZ(QString TimeZ);
     int getK2INFOID();
     int getMyHR  ();
     int getSendHR();
@@ -49,6 +51,7 @@ public:
     char* getSendPort();
     QString getSendPortQ();
     quint16 getSendPortI();
+    int getTZ();
     bool Comm;
 };
 

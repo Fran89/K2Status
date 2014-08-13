@@ -56,6 +56,10 @@ void Config::setINSTID(QString STL){
     SocketTimeoutLength = STL.toInt();
 }
 
+void Config::setTZ(QString TimeZ){
+    TZ= TimeZ.toInt();
+}
+
 int Config::getK2INFOID(){
     return MaxMsgSize;
 }
@@ -114,4 +118,8 @@ QString Config::getSendPortQ(){
 
 quint16 Config::getSendPortI(){
     return PortAdr;
+}
+
+int Config::getTZ(){
+    return TZ;
 }

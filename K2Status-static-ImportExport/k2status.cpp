@@ -31,7 +31,15 @@ K2Status::K2Status(QWidget *parent) :
     ui->statusBar->showMessage("Welcome to K2Status");
 
     MessThr = new QThread;
+    TimeThr = new QThread;
+    MessThr->start();
+    TimeThr->start();
     MessRcv = new MessageRcv;
+    MessRcv->moveToThread(MessThr);
+    ColTimer.start(2000);
+    ColTimer.moveToThread(TimeThr);
+
+    connect(&ColTimer,SIGNAL(timeout()),this,SLOT(UpdateTimeColors()));
     connect(this,SIGNAL(start_listen(QTcpSocket*,Config*,bool)),
             MessRcv,SLOT(ListenMessage(QTcpSocket*,Config*,bool)));
     connect(MessRcv,SIGNAL(updatetxtbox(QString)),
@@ -39,8 +47,6 @@ K2Status::K2Status(QWidget *parent) :
     connect(MessRcv,SIGNAL(ReturnMessage(QByteArray)),
             this,SLOT(has_read_tcp(QByteArray)));
 
-    MessRcv->moveToThread(MessThr);
-    MessThr->start();
     ui->toolBar->addAction(QIcon(":/K2Status/icons/addcon.png"),"Add a Connection",this,SLOT(on_actionAdd_Connection_triggered()));
     ui->toolBar->addAction(QIcon(":/K2Status/icons/debug.png") , "Toggle Debug Mode", this, SLOT(on_actionDebug_Mode_triggered()));
 }
@@ -78,16 +84,13 @@ void K2Status::Dialog_off(Config& TestC){
         QHostAddress IPadr(ConfTest.getSendIPQ());
         tcpSocket = new QTcpSocket(this);
         tcpSocket->connectToHost(IPadr,ConfTest.getSendPortI());
-
-        connect(tcpSocket,SIGNAL(connected()),this,SLOT(TCPConnOK()));
+        if (tcpSocket->waitForConnected()){
+            ui->textBrowser->append("Program connected");
+            emit start_listen(tcpSocket,&ConfTest,Debug);
+        }
+        delete mDefineAndConnect;
     }
 
-}
-
-void K2Status::TCPConnOK(){
-    ui->textBrowser->append("Program connected");
-    emit start_listen(tcpSocket,&ConfTest,Debug);
-    delete mDefineAndConnect;
 }
 
 void K2Status::on_actionAdd_Connection_triggered()
@@ -541,29 +544,11 @@ void K2Status::addK2Status (int index, STATUS_INFO* info){
     Table->setItem(index,Tser,new QStandardItem(QString::number(Serial)));
 
     // Set Time
-    time_t Time, now, diff;
-    now = time(0);
+    time_t Time;
     Time = (time_t)(qFromBigEndian<quint32>(info->systemTime) + K2_TIME_CONV);
-    diff = difftime(now,Time);
+    TimeIDX[index] = Time;
 
     Table->setItem(index,Ttim,new QStandardItem(QString(asctime(gmtime(&Time)))));
-    Table->item(index,Ttim)->setBackground(QBrush(Qt::green));
-
-    if (diff > 600){        // 10 min
-        Table->item(index,Ttim)->setBackground(QBrush(Qt::darkGreen));
-    }
-    else if (diff > 1800){  // 30 min
-        Table->item(index,Ttim)->setBackground(QBrush(Qt::yellow));
-    }
-    else if (diff > 3600) { // 1 hr
-        Table->item(index,Ttim)->setBackground(QBrush(Qt::darkYellow));
-    }
-    else if (diff > 21600){ // 6 hr
-        Table->item(index,Ttim)->setBackground(QBrush(Qt::red));
-    }
-    else if (diff > 86400){ // 24 hr
-        Table->item(index,Ttim)->setBackground(QBrush(Qt::darkRed));
-    }
 
     // Set Clock Source
     switch (info->clockSource) {
@@ -735,8 +720,7 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
     double batv, tempd;
     batt_voltx10 = qFromBigEndian<quint16>(info->roParms.misc.batteryVoltage);
 
-    if (batt_voltx10 < 0)
-    {
+    if (batt_voltx10 < 0) {
            batt_voltx10 = -batt_voltx10;
            batv = batt_voltx10 / 10.0;
            Table->setItem(index,Tvol,new QStandardItem(QString::number(batv)));
@@ -755,6 +739,13 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
         Table->item(index,Ttem)->setBackground(QBrush(Qt::red));
     else
         Table->item(index,Ttem)->setBackground(QBrush(Qt::green));
+
+    // Add to Archive
+    if (batt_voltx10 < 0){
+        batt_voltx10 = -batt_voltx10;
+        batv = batt_voltx10 / 10.0;
+        Archive[index].addstninfo(tempd,batv);
+    }
 }
 
 int K2Status::fetch_index(K2INFO_HEADER* Head){
@@ -795,6 +786,16 @@ int K2Status::fetch_index(K2INFO_HEADER* Head){
 
         // Update Status bar
         ui->statusBar->showMessage(all);
+
+        // Add to archive
+        stnnfo tmp;
+        tmp.setup(QString(Head->sta));
+        Archive.append(tmp);
+
+        // Add to TimeIDX
+        time_t now;
+        now = time(0);
+        TimeIDX.append(now);
 
         // Return Index
         return index;
@@ -924,4 +925,62 @@ void K2Status::killTCP() {
 
 void K2Status::tcpmsgtobox(QString upd) {
     ui->textBrowser->append(upd);
+}
+
+void K2Status::UpdateTimeColors(){
+    for (int i=0; i < TimeIDX.size(); i++){
+        time_t now, diff;
+        now = time(0);
+        //stlctm = (TimeIDX[i] + (time_t)60*60*ConfTest.getTZ());
+        diff = difftime(now,TimeIDX[i]);
+
+        if (diff < 299){            // Less than 5 min
+            Table->item(i,Ttim)->setBackground(QBrush(Qt::green));
+        }
+        else if (diff >= 300 && diff < 1799){ // Between 5 min and 30 min
+            Table->item(i,Ttim)->setBackground(QBrush(Qt::darkGreen));
+        }
+        else if (diff >= 1800 && diff < 21599){ // Between 30 min and 6 hr
+            Table->item(i,Ttim)->setBackground(QBrush(Qt::yellow));
+        }
+        else if (diff >= 21600 && diff < 86399){ // Between 6 hr and 24 hr
+            Table->item(i,Ttim)->setBackground(QBrush(Qt::darkYellow));
+        }
+        else if (diff >= 21600 && diff < 86399){ // Between 6 hr and 24 hr
+            Table->item(i,Ttim)->setBackground(QBrush(Qt::red));
+        }
+        else {
+            Table->item(i,Ttim)->setBackground(QBrush(Qt::darkRed));
+        }
+    }
+}
+
+void stnnfo::addstninfo(qreal Temp, qreal Volt){
+    time_t now;
+    now = time(0);
+    if(Temperature.size() < 500){
+        Temperature.prepend(Temp);
+    }
+    else{
+        Temperature.removeLast();
+        Temperature.prepend(Temp);
+    }
+    if(Voltage.size() < 500){
+        Voltage.prepend(Volt);
+    }
+    else{
+        Voltage.removeLast();
+        Voltage.prepend(Volt);
+    }
+    if(Time.size() < 500){
+        Time.prepend(now);
+    }
+    else{
+        Time.removeLast();
+        Time.prepend(now);
+    }
+}
+
+void stnnfo::setup(QString Station){
+    Stat = Station;
 }

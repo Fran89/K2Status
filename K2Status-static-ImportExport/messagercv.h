@@ -19,13 +19,21 @@
 #include <QTcpSocket>
 #include <QString>
 #include <QThread>
-#include <QTextBrowser>
+#include <QTimer>
 #include <config.h>
 
 class MessageRcv : public QObject
 {
     Q_OBJECT
+private:
     QByteArray MsgBuf;
+    QTimer HeartbeatTime;
+    QTcpSocket *MySock;
+    int InstID;
+    QString MyString;
+    QThread *Timer;
+    bool debugon;
+
 public:
     explicit MessageRcv(QObject *parent = 0);
 
@@ -33,12 +41,11 @@ public slots:
     void ListenMessage(QTcpSocket *sock, Config *, bool Debug);
 
 private slots:
-    void echo_Heartbeat(QTcpSocket *sock, Config*, bool Debug);
+    void sendHeartbeat();
 
 signals:
     void ReturnMessage(QByteArray data);
     void CloseConnection();
-    void LastServerBeat(QTcpSocket *sock, Config*, bool Debug);
     void updatetxtbox(QString);
 
 

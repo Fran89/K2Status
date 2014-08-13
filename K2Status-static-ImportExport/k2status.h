@@ -8,6 +8,7 @@
 #include <QStandardItemModel>
 #include <QList>
 #include <QThread>
+#include <QTimer>
 #include <QTextBrowser>
 #include <QtEndian>
 
@@ -24,7 +25,15 @@
 #include "config.h"
 #include "defineandconnect.h"
 
-
+class stnnfo{
+public:
+    QString Stat;
+    QVector<time_t> Time;
+    QVector<qreal>  Voltage;
+    QVector<qreal>  Temperature;
+    void addstninfo(qreal Temp, qreal Volt);
+    void setup(QString Station);
+};
 
 
 namespace Ui {
@@ -70,10 +79,14 @@ private:
     void addK2Status2(int index, EXT2_STATUS_INFO*info);
     void addK2HeaderS(int index, K2_HEADER*       info);
     int  fetch_index (K2INFO_HEADER*);
+    QList<stnnfo> Archive;
+    QList<time_t> TimeIDX;
 
     // Threads
     QThread    *MessThr;
     MessageRcv *MessRcv;
+    QThread    *TimeThr;
+    QTimer     ColTimer;
 
     //Debug Var
     QString FileN;
@@ -92,7 +105,6 @@ public slots:
     // TCP Slots
     void has_read_tcp (QByteArray Message);
     void tcpmsgtobox  (QString upd);
-    void TCPConnOK    ();
     void killTCP      ();
 
 private slots:
@@ -101,7 +113,7 @@ private slots:
     void on_actionAdd_Connection_triggered();
     void on_actionQuit_triggered();
     void on_actionDebug_Mode_triggered();
-
+    void UpdateTimeColors();
 
 signals:
 
