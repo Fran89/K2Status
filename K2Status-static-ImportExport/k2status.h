@@ -11,6 +11,7 @@
 #include <QTimer>
 #include <QTextBrowser>
 #include <QtEndian>
+#include <QDir>
 
 #include <stdio.h>
 #include <stdlib.h>

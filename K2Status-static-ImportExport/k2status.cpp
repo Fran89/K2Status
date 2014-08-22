@@ -47,6 +47,12 @@ K2Status::K2Status(QWidget *parent) :
     connect(MessRcv,SIGNAL(ReturnMessage(QByteArray)),
             this,SLOT(has_read_tcp(QByteArray)));
 
+    QDir logs("logs");
+
+    if( ! logs.exists() )
+        logs.mkpath(".");
+
+
     ui->toolBar->addAction(QIcon(":/K2Status/icons/addcon.png"),"Add a Connection",this,SLOT(on_actionAdd_Connection_triggered()));
     ui->toolBar->addAction(QIcon(":/K2Status/icons/debug.png") , "Toggle Debug Mode", this, SLOT(on_actionDebug_Mode_triggered()));
 }
@@ -715,20 +721,51 @@ void K2Status::addK2Status2(int index, EXT2_STATUS_INFO* info){
 
 void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
 
+    // Set Log File
+    QFile log;
+    QTextStream out;
+    out.setDevice(&log);
+
+    // Set Log File Name
+    QString logn;
+    logn = "logs/"+StationL[index]+"_log.csv";
+    log.setFileName(logn);
+    log.open(QIODevice::Append);
+
+    // Set Log Time
+    time_t now;
+    now = time(0);
+
+    out << now << ", ";
+
+
+
     // Battery Voltage (might be aquired from STATUS)
     qint16 batt_voltx10;
     double batv, tempd;
+
     batt_voltx10 = qFromBigEndian<quint16>(info->roParms.misc.batteryVoltage);
 
     if (batt_voltx10 < 0) {
-           batt_voltx10 = -batt_voltx10;
-           batv = batt_voltx10 / 10.0;
-           Table->setItem(index,Tvol,new QStandardItem(QString::number(batv)));
-           if (batv < 12 || batv >= 14)
-               Table->item(index,Tvol)->setBackground(QBrush(Qt::red));
-           else
-               Table->item(index,Tvol)->setBackground(QBrush(Qt::green));
+        batt_voltx10 = -batt_voltx10;
+        batv = batt_voltx10 / 10.0;
+        Table->setItem(index,Tvol,new QStandardItem(QString::number(batv)));
+        if (batv < 12 || batv >= 14)
+            Table->item(index,Tvol)->setBackground(QBrush(Qt::red));
+        else
+            Table->item(index,Tvol)->setBackground(QBrush(Qt::green));
+        out << batv << ", ";
     }
+    else {
+        batv = batt_voltx10 / 10.0;
+        Table->setItem(index,Tvol,new QStandardItem(QString::number(batv)));
+        if (batv < 12 || batv >= 14)
+            Table->item(index,Tvol)->setBackground(QBrush(Qt::red));
+        else
+            Table->item(index,Tvol)->setBackground(QBrush(Qt::green));
+        out << "NC, ";
+    }
+
 
     // Temperature (can also be aquired from EXT2)
     qint16 temp;
@@ -739,6 +776,7 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
         Table->item(index,Ttem)->setBackground(QBrush(Qt::red));
     else
         Table->item(index,Ttem)->setBackground(QBrush(Qt::green));
+    out << tempd << '\n';
 
     // Add to Archive
     if (batt_voltx10 < 0){
@@ -746,6 +784,7 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
         batv = batt_voltx10 / 10.0;
         Archive[index].addstninfo(tempd,batv);
     }
+    log.close();
 }
 
 int K2Status::fetch_index(K2INFO_HEADER* Head){
@@ -979,8 +1018,10 @@ void stnnfo::addstninfo(qreal Temp, qreal Volt){
         Time.removeLast();
         Time.prepend(now);
     }
+
 }
 
 void stnnfo::setup(QString Station){
     Stat = Station;
 }
+
