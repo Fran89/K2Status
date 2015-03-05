@@ -737,12 +737,23 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
     now = time(0);
 
     out << now << ", ";
+    out << (now/86400)+25569 << ", ";
 
-
+    // Temperature (can also be aquired from EXT2)
+    qint16 temp;
+    double tempd;
+    temp = qFromBigEndian<quint16>(info->roParms.misc.temperature);
+    tempd = temp/10.0;
+    Table->setItem(index,Ttem,new QStandardItem(QString::number(tempd)));
+    if(tempd > 45)
+        Table->item(index,Ttem)->setBackground(QBrush(Qt::red));
+    else
+        Table->item(index,Ttem)->setBackground(QBrush(Qt::green));
+    out << tempd << ", ";
 
     // Battery Voltage (might be aquired from STATUS)
     qint16 batt_voltx10;
-    double batv, tempd;
+    double batv;
 
     batt_voltx10 = qFromBigEndian<quint16>(info->roParms.misc.batteryVoltage);
 
@@ -754,7 +765,7 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
             Table->item(index,Tvol)->setBackground(QBrush(Qt::red));
         else
             Table->item(index,Tvol)->setBackground(QBrush(Qt::green));
-        out << batv << ", ";
+        out << batv << "\n";
     }
     else {
         batv = batt_voltx10 / 10.0;
@@ -763,20 +774,8 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
             Table->item(index,Tvol)->setBackground(QBrush(Qt::red));
         else
             Table->item(index,Tvol)->setBackground(QBrush(Qt::green));
-        out << "NC, ";
+        out << batv << ", NC \n";
     }
-
-
-    // Temperature (can also be aquired from EXT2)
-    qint16 temp;
-    temp = qFromBigEndian<quint16>(info->roParms.misc.temperature);
-    tempd = temp/10.0;
-    Table->setItem(index,Ttem,new QStandardItem(QString::number(tempd)));
-    if(tempd > 45)
-        Table->item(index,Ttem)->setBackground(QBrush(Qt::red));
-    else
-        Table->item(index,Ttem)->setBackground(QBrush(Qt::green));
-    out << tempd << '\n';
 
     // Add to Archive
     if (batt_voltx10 < 0){
