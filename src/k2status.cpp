@@ -736,7 +736,7 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
     time_t now;
     now = time(0);
     double time_exel;
-    time_exel = (now/86400)+25569 ;
+    time_exel = (now/86400.0)+25569.0 ;
 
     out << now << ", ";
     out << time_exel << ", ";
@@ -767,7 +767,7 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
             Table->item(index,Tvol)->setBackground(QBrush(Qt::red));
         else
             Table->item(index,Tvol)->setBackground(QBrush(Qt::green));
-        out << batv << "\n";
+        out << batv << ",  C \n";
     }
     else {
         batv = batt_voltx10 / 10.0;
