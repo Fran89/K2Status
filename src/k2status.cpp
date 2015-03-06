@@ -736,7 +736,7 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
     time_t now;
     now = time(0);
     double time_exel;
-    time_exel = (now/86400.0)+25569.0 ;
+    time_exel = (now/86400.0000)+25569.0000;
 
     out << now << ", ";
     out << time_exel << ", ";
