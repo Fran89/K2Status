@@ -63,6 +63,15 @@ Import/Export Capability: Is fully EXPERIMENTAL, use at your own risk.
 5. Add the ability to request information from the Rock Family of instruments.
 
 =============
+####Log File:
+The log file does not have a header, it's a pure CSV file with the following columns:
+1. Local unix timestamp at which the readings were recorded.
+2. GMT Timestamp for excel sheet format. (Format to whatever time/date is better for you to visualize in excel)
+3. Temperature reading at the station.
+4. Voltage at the station.
+5. Charging status ( 'C' for Charging, 'NC' for Not Charging)
+
+=============
 If anyone is interested in this proyect or would like to help, contact me!
 
 ######Credits:

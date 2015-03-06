@@ -735,8 +735,9 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
     // Set Log Time
     time_t now;
     now = time(0);
-    double time_exel;
-    time_exel = (now/86400.0)+25569.0;
+    double time_now, time_exel;
+    time_now = now;
+    time_exel = (time_now/86400.0)+25569.0;
 
     out << now << ", ";
     out << QString::number(time_exel,'f',10) << ", ";
