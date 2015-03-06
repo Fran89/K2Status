@@ -736,10 +736,10 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
     time_t now;
     now = time(0);
     double time_exel;
-    time_exel = (now/86400.0000)+25569.0000;
+    time_exel = (now/86400.0)+25569.0;
 
     out << now << ", ";
-    out << time_exel << ", ";
+    out << QString::number(time_exel,'f',10) << ", ";
 
     // Temperature (can also be aquired from EXT2)
     qint16 temp;
