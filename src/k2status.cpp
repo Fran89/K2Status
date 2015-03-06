@@ -735,9 +735,11 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
     // Set Log Time
     time_t now;
     now = time(0);
+    double time_exel;
+    time_exel = (now/86400)+25569 ;
 
     out << now << ", ";
-    out << (now/86400)+25569 << ", ";
+    out << time_exel << ", ";
 
     // Temperature (can also be aquired from EXT2)
     qint16 temp;
