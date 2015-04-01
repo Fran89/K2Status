@@ -2,7 +2,9 @@
 // static plugins specified using QTPLUGIN and QT_PLUGIN_CLASS.<plugin> variables.
 #include <QtPlugin>
 Q_IMPORT_PLUGIN(AccessibleFactory)
+Q_IMPORT_PLUGIN(QConnmanEnginePlugin)
 Q_IMPORT_PLUGIN(QGenericEnginePlugin)
+Q_IMPORT_PLUGIN(QNetworkManagerEnginePlugin)
 Q_IMPORT_PLUGIN(QXcbIntegrationPlugin)
 Q_IMPORT_PLUGIN(QDDSPlugin)
 Q_IMPORT_PLUGIN(QICNSPlugin)

@@ -15,6 +15,8 @@ TEMPLATE = app
 QMAKE_CXXFLAGS += -Dlinux -D__i386 -D_LINUX -D_INTEL -D_USE_SCHED  -D_USE_PTHREADS -D_USE_TERMIOS
 QMAKE_CFLAGS   += -g -D_REENTRANT -Dlinux -D__i386 -D_LINUX -D_INTEL -D_USE_SCHED  -D_USE_PTHREADS -D_USE_TERMIOS
 
+ICON = icons/Test.png
+
 SOURCES += main.cpp\
         k2status.cpp \
     config.cpp \

@@ -2,5 +2,6 @@
     <qresource prefix="/K2Status">
         <file>icons/addcon.png</file>
         <file>icons/debug.png</file>
+        <file>icons/Test.png</file>
     </qresource>
 </RCC>
