@@ -42,14 +42,14 @@ in the master branch for a previous version (I will update soon). A fully naitiv
 ####Instructions:
 In EW:
 
-1. Add the K2_K2STATUS_PACKET Message type to earthworm.d
-2. Setup all the K2EW instances to transmit K2Info Packets. (Uncomment the last line) 
-3. Setup a ringtocoax to transmit this particular packet to the computer which will run K2Status.
+1. Add the TYPE_K2INFO_PACKET Message type to earthworm.d
+2. Setup all the K2EW instances to transmit K2Info Packets. (Uncomment the injectInfo line) 
+3. Setup a ringtocoax to transmit this particular packet(BroadcasLogo to TYPE_K2INFO_PACKET) to the computer which will run K2Status.
 
 In K2Status:
 
 1. In the Connections Menu:
-2. Put the IP of the interface you are to recieve the UDP packets containing the K2 Info.
+2. Put the IP of the interface you are to recieve the UDP packets containing the K2 Info (ususally the ip of the computer). 
 3. That's it.
 
 Import/Export Capability: Is fully EXPERIMENTAL, use at your own risk.
