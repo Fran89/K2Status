@@ -602,7 +602,7 @@ clean:compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) $(TARGET) 
-	-$(DEL_FILE) /home/francisco/Programs/K2StatusUDP-TCP/K2Status-Binaries-64Bit-Static/k2status_plugin_import.cpp
+	-$(DEL_FILE) /home/francisco/Programs/K2Status/K2Status-Binaries-64Bit-Static/k2status_plugin_import.cpp
 	-$(DEL_FILE) Makefile
 
 
@@ -736,7 +736,7 @@ moc_defineandconnect.cpp: ../src/config.h \
 		../../../DevProj/QT/LocalQTS2/include/QtWidgets/QDialog \
 		../../../DevProj/QT/LocalQTS2/include/QtWidgets/qdialog.h \
 		../src/defineandconnect.h
-	/home/francisco/DevProj/QT/LocalQTS2/bin/moc $(DEFINES) -I/home/francisco/DevProj/QT/LocalQTS2/mkspecs/linux-g++ -I/home/francisco/Programs/K2StatusUDP-TCP/src -I/home/francisco/DevProj/QT/LocalQTS2/include -I/home/francisco/DevProj/QT/LocalQTS2/include/QtWidgets -I/home/francisco/DevProj/QT/LocalQTS2/include/QtNetwork -I/home/francisco/DevProj/QT/LocalQTS2/include/QtGui -I/home/francisco/DevProj/QT/LocalQTS2/include/QtCore -I. -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/defineandconnect.h -o moc_defineandconnect.cpp
+	/home/francisco/DevProj/QT/LocalQTS2/bin/moc $(DEFINES) -I/home/francisco/DevProj/QT/LocalQTS2/mkspecs/linux-g++ -I/home/francisco/Programs/K2Status/src -I/home/francisco/DevProj/QT/LocalQTS2/include -I/home/francisco/DevProj/QT/LocalQTS2/include/QtWidgets -I/home/francisco/DevProj/QT/LocalQTS2/include/QtNetwork -I/home/francisco/DevProj/QT/LocalQTS2/include/QtGui -I/home/francisco/DevProj/QT/LocalQTS2/include/QtCore -I. -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/defineandconnect.h -o moc_defineandconnect.cpp
 
 moc_k2status.cpp: ../../../DevProj/QT/LocalQTS2/include/QtWidgets/QMainWindow \
 		../../../DevProj/QT/LocalQTS2/include/QtWidgets/qmainwindow.h \
@@ -907,7 +907,7 @@ moc_k2status.cpp: ../../../DevProj/QT/LocalQTS2/include/QtWidgets/QMainWindow \
 		../../../DevProj/QT/LocalQTS2/include/QtWidgets/QDialog \
 		../../../DevProj/QT/LocalQTS2/include/QtWidgets/qdialog.h \
 		../src/k2status.h
-	/home/francisco/DevProj/QT/LocalQTS2/bin/moc $(DEFINES) -I/home/francisco/DevProj/QT/LocalQTS2/mkspecs/linux-g++ -I/home/francisco/Programs/K2StatusUDP-TCP/src -I/home/francisco/DevProj/QT/LocalQTS2/include -I/home/francisco/DevProj/QT/LocalQTS2/include/QtWidgets -I/home/francisco/DevProj/QT/LocalQTS2/include/QtNetwork -I/home/francisco/DevProj/QT/LocalQTS2/include/QtGui -I/home/francisco/DevProj/QT/LocalQTS2/include/QtCore -I. -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/k2status.h -o moc_k2status.cpp
+	/home/francisco/DevProj/QT/LocalQTS2/bin/moc $(DEFINES) -I/home/francisco/DevProj/QT/LocalQTS2/mkspecs/linux-g++ -I/home/francisco/Programs/K2Status/src -I/home/francisco/DevProj/QT/LocalQTS2/include -I/home/francisco/DevProj/QT/LocalQTS2/include/QtWidgets -I/home/francisco/DevProj/QT/LocalQTS2/include/QtNetwork -I/home/francisco/DevProj/QT/LocalQTS2/include/QtGui -I/home/francisco/DevProj/QT/LocalQTS2/include/QtCore -I. -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/k2status.h -o moc_k2status.cpp
 
 moc_messagercv.cpp: ../../../DevProj/QT/LocalQTS2/include/QtCore/QObject \
 		../../../DevProj/QT/LocalQTS2/include/QtCore/qobject.h \
@@ -1027,7 +1027,7 @@ moc_messagercv.cpp: ../../../DevProj/QT/LocalQTS2/include/QtCore/QObject \
 		../../../DevProj/QT/LocalQTS2/include/QtGui/qguiapplication.h \
 		../../../DevProj/QT/LocalQTS2/include/QtGui/qinputmethod.h \
 		../src/messagercv.h
-	/home/francisco/DevProj/QT/LocalQTS2/bin/moc $(DEFINES) -I/home/francisco/DevProj/QT/LocalQTS2/mkspecs/linux-g++ -I/home/francisco/Programs/K2StatusUDP-TCP/src -I/home/francisco/DevProj/QT/LocalQTS2/include -I/home/francisco/DevProj/QT/LocalQTS2/include/QtWidgets -I/home/francisco/DevProj/QT/LocalQTS2/include/QtNetwork -I/home/francisco/DevProj/QT/LocalQTS2/include/QtGui -I/home/francisco/DevProj/QT/LocalQTS2/include/QtCore -I. -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/messagercv.h -o moc_messagercv.cpp
+	/home/francisco/DevProj/QT/LocalQTS2/bin/moc $(DEFINES) -I/home/francisco/DevProj/QT/LocalQTS2/mkspecs/linux-g++ -I/home/francisco/Programs/K2Status/src -I/home/francisco/DevProj/QT/LocalQTS2/include -I/home/francisco/DevProj/QT/LocalQTS2/include/QtWidgets -I/home/francisco/DevProj/QT/LocalQTS2/include/QtNetwork -I/home/francisco/DevProj/QT/LocalQTS2/include/QtGui -I/home/francisco/DevProj/QT/LocalQTS2/include/QtCore -I. -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/messagercv.h -o moc_messagercv.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:

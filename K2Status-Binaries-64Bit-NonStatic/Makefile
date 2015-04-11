@@ -377,8 +377,8 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_IconResources.cpp
 qrc_IconResources.cpp: ../src/IconResources.qrc \
 		../src/icons/addcon.png \
-		../src/icons/Test.png \
-		../src/icons/debug.png
+		../src/icons/debug.png \
+		../src/icons/Test.png
 	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name IconResources ../src/IconResources.qrc -o qrc_IconResources.cpp
 
 compiler_moc_header_make_all: moc_defineandconnect.cpp moc_k2status.cpp moc_messagercv.cpp
