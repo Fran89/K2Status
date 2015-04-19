@@ -34,3 +34,10 @@ void stninfo::addstninfo(qreal Temp, qreal Volt){
 void stninfo::setup(QString Station){
     Stat = Station;
 }
+
+bool stninfo::operator ==(const stninfo &b){
+    if(this->Stat == b.Stat){
+        return true;
+    }
+    return false;
+}

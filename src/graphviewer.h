@@ -19,6 +19,9 @@ public:
 public slots:
     void update_archive(QList<stninfo>);
 
+private slots:
+    void on_do_graph_clicked();
+
 private:
     QList<stninfo> Archive;
     Ui::GraphViewer *ui;

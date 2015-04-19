@@ -30,7 +30,6 @@ public:
     QCustomPlot *Graph;
     QHBoxLayout *horizontalLayout;
     QPushButton *do_graph;
-    QPushButton *Refresh;
     QComboBox *Cbox;
 
     void setupUi(QWidget *GraphViewer)
@@ -57,11 +56,6 @@ public:
 
         horizontalLayout->addWidget(do_graph);
 
-        Refresh = new QPushButton(GraphViewer);
-        Refresh->setObjectName(QStringLiteral("Refresh"));
-
-        horizontalLayout->addWidget(Refresh);
-
         Cbox = new QComboBox(GraphViewer);
         Cbox->setObjectName(QStringLiteral("Cbox"));
 
@@ -79,8 +73,7 @@ public:
     void retranslateUi(QWidget *GraphViewer)
     {
         GraphViewer->setWindowTitle(QApplication::translate("GraphViewer", "Form", 0));
-        do_graph->setText(QApplication::translate("GraphViewer", "Graph", 0));
-        Refresh->setText(QApplication::translate("GraphViewer", "Refresh", 0));
+        do_graph->setText(QApplication::translate("GraphViewer", "Graph / Refresh", 0));
     } // retranslateUi
 
 };

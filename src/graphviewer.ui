@@ -29,14 +29,7 @@
      <item>
       <widget class="QPushButton" name="do_graph">
        <property name="text">
-        <string>Graph</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="Refresh">
-       <property name="text">
-        <string>Refresh</string>
+        <string>Graph / Refresh</string>
        </property>
       </widget>
      </item>

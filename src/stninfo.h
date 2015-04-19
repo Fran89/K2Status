@@ -13,6 +13,7 @@ public:
     QVector<qreal>  Temperature;
     void addstninfo(qreal Temp, qreal Volt);
     void setup(QString Station);
+    bool operator==(const stninfo&);
 };
 
 #endif // STNINFO_H

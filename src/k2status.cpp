@@ -139,6 +139,15 @@ void K2Status::has_read_data(){
 }
 
 void K2Status::on_actionDebug_Mode_triggered(){
+    stninfo temp;
+    temp.setup("AG02");
+    temp.addstninfo(30,12.5);
+    temp.addstninfo(45,12.8);
+    temp.addstninfo(40,13.6);
+    QList<stninfo> tmpl;
+    tmpl.append(temp);
+    emit update_gview(tmpl);
+
     if (Debug == true){
         Debug = false;
         ui->textBrowser->append("Debug mode off");
@@ -838,6 +847,7 @@ int K2Status::fetch_index(K2INFO_HEADER* Head){
         stninfo tmp;
         tmp.setup(QString(Head->sta));
         Archive.append(tmp);
+        emit update_gview(Archive);
 
         // Add to TimeIDX
         time_t now;
