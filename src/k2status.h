@@ -1,6 +1,7 @@
 #ifndef K2STATUS_H
 #define K2STATUS_H
 #include <QMainWindow>
+#include <QWidget>
 #include <QUdpSocket>
 #include <QTcpSocket>
 #include <QFile>
@@ -23,19 +24,11 @@
 #include "include/k2info.h"
 #include "include/TableDef.h"
 #include "messagercv.h"
-
+#include "stninfo.h"
 #include "config.h"
 #include "defineandconnect.h"
+#include "graphviewer.h"
 
-class stnnfo{
-public:
-    QString Stat;
-    QVector<time_t> Time;
-    QVector<qreal>  Voltage;
-    QVector<qreal>  Temperature;
-    void addstninfo(qreal Temp, qreal Volt);
-    void setup(QString Station);
-};
 
 
 namespace Ui {
@@ -55,6 +48,7 @@ private:
     Ui::K2Status       *ui;
     DefineAndConnect   *mDefineAndConnect;
     Config             ConfTest;
+    GraphViewer        GV;
 
     //K2 Info Packets
     K2infoPacket       *MyK2Info;
@@ -81,7 +75,7 @@ private:
     void addK2Status2(int index, EXT2_STATUS_INFO*info);
     void addK2HeaderS(int index, K2_HEADER*       info);
     int  fetch_index (K2INFO_HEADER*);
-    QList<stnnfo> Archive;
+    QList<stninfo> Archive;
     QList<time_t> TimeIDX;
 
     // Threads
@@ -117,9 +111,12 @@ private slots:
     void on_actionDebug_Mode_triggered();
     void UpdateTimeColors();
 
+    void on_action_Graph_triggered();
+
 signals:
 
     // TCP Go Signal
+    void update_gview(QList<stninfo>);
     void start_listen(QTcpSocket *, Config*, bool);
 };
 

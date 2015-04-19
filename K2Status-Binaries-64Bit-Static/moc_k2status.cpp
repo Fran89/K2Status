@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'k2status.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.3.1)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.4.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'k2status.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.3.1. It"
+#error "This file was generated using the moc from 5.4.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -29,24 +29,25 @@ struct qt_meta_stringdata_K2Status_t {
     )
 static const qt_meta_stringdata_K2Status_t qt_meta_stringdata_K2Status = {
     {
-QT_MOC_LITERAL(0, 0, 8),
-QT_MOC_LITERAL(1, 9, 12),
-QT_MOC_LITERAL(2, 22, 0),
-QT_MOC_LITERAL(3, 23, 11),
-QT_MOC_LITERAL(4, 35, 7),
-QT_MOC_LITERAL(5, 43, 10),
-QT_MOC_LITERAL(6, 54, 7),
-QT_MOC_LITERAL(7, 62, 5),
-QT_MOC_LITERAL(8, 68, 13),
-QT_MOC_LITERAL(9, 82, 12),
-QT_MOC_LITERAL(10, 95, 7),
-QT_MOC_LITERAL(11, 103, 11),
-QT_MOC_LITERAL(12, 115, 3),
-QT_MOC_LITERAL(13, 119, 7),
-QT_MOC_LITERAL(14, 127, 33),
-QT_MOC_LITERAL(15, 161, 23),
-QT_MOC_LITERAL(16, 185, 29),
-QT_MOC_LITERAL(17, 215, 16)
+QT_MOC_LITERAL(0, 0, 8), // "K2Status"
+QT_MOC_LITERAL(1, 9, 12), // "start_listen"
+QT_MOC_LITERAL(2, 22, 0), // ""
+QT_MOC_LITERAL(3, 23, 11), // "QTcpSocket*"
+QT_MOC_LITERAL(4, 35, 7), // "Config*"
+QT_MOC_LITERAL(5, 43, 10), // "Dialog_off"
+QT_MOC_LITERAL(6, 54, 7), // "Config&"
+QT_MOC_LITERAL(7, 62, 5), // "TestC"
+QT_MOC_LITERAL(8, 68, 13), // "has_read_data"
+QT_MOC_LITERAL(9, 82, 12), // "has_read_tcp"
+QT_MOC_LITERAL(10, 95, 7), // "Message"
+QT_MOC_LITERAL(11, 103, 11), // "tcpmsgtobox"
+QT_MOC_LITERAL(12, 115, 3), // "upd"
+QT_MOC_LITERAL(13, 119, 7), // "killTCP"
+QT_MOC_LITERAL(14, 127, 33), // "on_actionAdd_Connection_trigg..."
+QT_MOC_LITERAL(15, 161, 23), // "on_actionQuit_triggered"
+QT_MOC_LITERAL(16, 185, 29), // "on_actionDebug_Mode_triggered"
+QT_MOC_LITERAL(17, 215, 16) // "UpdateTimeColors"
+
     },
     "K2Status\0start_listen\0\0QTcpSocket*\0"
     "Config*\0Dialog_off\0Config&\0TestC\0"
@@ -145,7 +146,7 @@ void K2Status::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
 
 const QMetaObject K2Status::staticMetaObject = {
     { &QMainWindow::staticMetaObject, qt_meta_stringdata_K2Status.data,
-      qt_meta_data_K2Status,  qt_static_metacall, 0, 0}
+      qt_meta_data_K2Status,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
 };
 
 
@@ -156,7 +157,7 @@ const QMetaObject *K2Status::metaObject() const
 
 void *K2Status::qt_metacast(const char *_clname)
 {
-    if (!_clname) return 0;
+    if (!_clname) return Q_NULLPTR;
     if (!strcmp(_clname, qt_meta_stringdata_K2Status.stringdata))
         return static_cast<void*>(const_cast< K2Status*>(this));
     return QMainWindow::qt_metacast(_clname);
@@ -182,7 +183,7 @@ int K2Status::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 // SIGNAL 0
 void K2Status::start_listen(QTcpSocket * _t1, Config * _t2, bool _t3)
 {
-    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)) };
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_END_MOC_NAMESPACE

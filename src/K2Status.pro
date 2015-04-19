@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network widgets
+QT       += core gui network printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 #CONFIG  += static libstatic
@@ -12,8 +12,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = K2Status
 TEMPLATE = app
-QMAKE_CXXFLAGS += -Dlinux -D__i386 -D_LINUX -D_INTEL -D_USE_SCHED  -D_USE_PTHREADS -D_USE_TERMIOS
-QMAKE_CFLAGS   += -g -D_REENTRANT -Dlinux -D__i386 -D_LINUX -D_INTEL -D_USE_SCHED  -D_USE_PTHREADS -D_USE_TERMIOS
+#QMAKE_CXXFLAGS += -Dlinux -D__i386 -D_LINUX -D_INTEL -D_USE_SCHED  -D_USE_PTHREADS -D_USE_TERMIOS
+#QMAKE_CFLAGS   += -g -D_REENTRANT -Dlinux -D__i386 -D_LINUX -D_INTEL -D_USE_SCHED  -D_USE_PTHREADS -D_USE_TERMIOS
 
 ICON = icons/Test.png
 
@@ -21,7 +21,10 @@ SOURCES += main.cpp\
         k2status.cpp \
     config.cpp \
     defineandconnect.cpp \
-    messagercv.cpp
+    messagercv.cpp \
+    graphviewer.cpp \
+    qcustomplot.cpp \
+    stninfo.cpp
 
 HEADERS  += \
     config.h \
@@ -37,10 +40,14 @@ HEADERS  += \
     include/nkwhdrs.h \
     k2status.h \
     include/TableDef.h \
-    messagercv.h
+    messagercv.h \
+    graphviewer.h \
+    qcustomplot.h \
+    stninfo.h
 
 FORMS    += k2status.ui \
-    defineandconnect.ui
+    defineandconnect.ui \
+    graphviewer.ui
 
 RESOURCES += \
     IconResources.qrc

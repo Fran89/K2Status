@@ -46,6 +46,8 @@ K2Status::K2Status(QWidget *parent) :
             this,SLOT(tcpmsgtobox(QString)));
     connect(MessRcv,SIGNAL(ReturnMessage(QByteArray)),
             this,SLOT(has_read_tcp(QByteArray)));
+    connect(this,SIGNAL(update_gview(QList<stninfo>)),
+            &GV,SLOT(update_archive(QList<stninfo>)));
 
     QDir logs("logs");
 
@@ -785,6 +787,7 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
         batt_voltx10 = -batt_voltx10;
         batv = batt_voltx10 / 10.0;
         Archive[index].addstninfo(tempd,batv);
+        emit update_gview(Archive);
     }
     log.close();
 }
@@ -829,7 +832,7 @@ int K2Status::fetch_index(K2INFO_HEADER* Head){
         ui->statusBar->showMessage(all);
 
         // Add to archive
-        stnnfo tmp;
+        stninfo tmp;
         tmp.setup(QString(Head->sta));
         Archive.append(tmp);
 
@@ -996,34 +999,7 @@ void K2Status::UpdateTimeColors(){
     }
 }
 
-void stnnfo::addstninfo(qreal Temp, qreal Volt){
-    time_t now;
-    now = time(0);
-    if(Temperature.size() < 500){
-        Temperature.prepend(Temp);
-    }
-    else{
-        Temperature.removeLast();
-        Temperature.prepend(Temp);
-    }
-    if(Voltage.size() < 500){
-        Voltage.prepend(Volt);
-    }
-    else{
-        Voltage.removeLast();
-        Voltage.prepend(Volt);
-    }
-    if(Time.size() < 500){
-        Time.prepend(now);
-    }
-    else{
-        Time.removeLast();
-        Time.prepend(now);
-    }
-
+void K2Status::on_action_Graph_triggered()
+{
+    GV.show();
 }
-
-void stnnfo::setup(QString Station){
-    Stat = Station;
-}
-

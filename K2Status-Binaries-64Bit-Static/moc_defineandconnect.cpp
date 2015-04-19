@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'defineandconnect.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.3.1)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.4.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'defineandconnect.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.3.1. It"
+#error "This file was generated using the moc from 5.4.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -29,14 +29,15 @@ struct qt_meta_stringdata_DefineAndConnect_t {
     )
 static const qt_meta_stringdata_DefineAndConnect_t qt_meta_stringdata_DefineAndConnect = {
     {
-QT_MOC_LITERAL(0, 0, 16),
-QT_MOC_LITERAL(1, 17, 9),
-QT_MOC_LITERAL(2, 27, 0),
-QT_MOC_LITERAL(3, 28, 7),
-QT_MOC_LITERAL(4, 36, 5),
-QT_MOC_LITERAL(5, 42, 21),
-QT_MOC_LITERAL(6, 64, 19),
-QT_MOC_LITERAL(7, 84, 7)
+QT_MOC_LITERAL(0, 0, 16), // "DefineAndConnect"
+QT_MOC_LITERAL(1, 17, 9), // "endingsig"
+QT_MOC_LITERAL(2, 27, 0), // ""
+QT_MOC_LITERAL(3, 28, 7), // "Config&"
+QT_MOC_LITERAL(4, 36, 5), // "TestC"
+QT_MOC_LITERAL(5, 42, 21), // "on_buttonBox_accepted"
+QT_MOC_LITERAL(6, 64, 19), // "on_checkBox_toggled"
+QT_MOC_LITERAL(7, 84, 7) // "checked"
+
     },
     "DefineAndConnect\0endingsig\0\0Config&\0"
     "TestC\0on_buttonBox_accepted\0"
@@ -98,7 +99,7 @@ void DefineAndConnect::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
 
 const QMetaObject DefineAndConnect::staticMetaObject = {
     { &QDialog::staticMetaObject, qt_meta_stringdata_DefineAndConnect.data,
-      qt_meta_data_DefineAndConnect,  qt_static_metacall, 0, 0}
+      qt_meta_data_DefineAndConnect,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
 };
 
 
@@ -109,7 +110,7 @@ const QMetaObject *DefineAndConnect::metaObject() const
 
 void *DefineAndConnect::qt_metacast(const char *_clname)
 {
-    if (!_clname) return 0;
+    if (!_clname) return Q_NULLPTR;
     if (!strcmp(_clname, qt_meta_stringdata_DefineAndConnect.stringdata))
         return static_cast<void*>(const_cast< DefineAndConnect*>(this));
     return QDialog::qt_metacast(_clname);
@@ -135,7 +136,7 @@ int DefineAndConnect::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 // SIGNAL 0
 void DefineAndConnect::endingsig(Config & _t1)
 {
-    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_END_MOC_NAMESPACE

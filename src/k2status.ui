@@ -101,6 +101,7 @@
     </property>
     <addaction name="separator"/>
     <addaction name="actionAdd_Connection"/>
+    <addaction name="action_Graph"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -141,6 +142,11 @@
   <action name="actionDebug_Mode">
    <property name="text">
     <string>Debug Mode</string>
+   </property>
+  </action>
+  <action name="action_Graph">
+   <property name="text">
+    <string> Graph</string>
    </property>
   </action>
  </widget>

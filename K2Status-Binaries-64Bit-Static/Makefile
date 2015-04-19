@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
-CFLAGS        = -pipe -g -D_REENTRANT -Dlinux -D__i386 -D_LINUX -D_INTEL -D_USE_SCHED -D_USE_PTHREADS -D_USE_TERMIOS -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
-CXXFLAGS      = -pipe -Dlinux -D__i386 -D_LINUX -D_INTEL -D_USE_SCHED -D_USE_PTHREADS -D_USE_TERMIOS -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
-INCPATH       = -I../src -I. -I../../../DevProj/QT/LocalQTS/include -I../../../DevProj/QT/LocalQTS/include/QtWidgets -I../../../DevProj/QT/LocalQTS/include/QtGui -I../../../DevProj/QT/LocalQTS/include/QtNetwork -I../../../DevProj/QT/LocalQTS/include/QtCore -I. -I. -I../../../DevProj/QT/LocalQTS/mkspecs/linux-g++
+DEFINES       = -DQT_NO_DEBUG -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
+CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
+CXXFLAGS      = -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
+INCPATH       = -I../src -I. -I../../../DevProj/QT/LocalQTS/include -I../../../DevProj/QT/LocalQTS/include/QtPrintSupport -I../../../DevProj/QT/LocalQTS/include/QtWidgets -I../../../DevProj/QT/LocalQTS/include/QtGui -I../../../DevProj/QT/LocalQTS/include/QtNetwork -I../../../DevProj/QT/LocalQTS/include/QtCore -I. -I. -I../../../DevProj/QT/LocalQTS/mkspecs/linux-g++
 QMAKE         = /home/francisco/DevProj/QT/LocalQTS/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -36,7 +36,7 @@ DISTNAME      = K2Status1.0.0
 DISTDIR = /home/francisco/Programs/K2Status/src/.tmp/K2Status1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
-LIBS          = $(SUBLIBS) -L/home/francisco/DevProj/QT/LocalQTS/lib -lQt5Widgets -L/home/francisco/DevProj/QT/LocalQTS/plugins/platforms -lqwayland-egl -lwayland-egl -lqwayland-generic -lQt5WaylandClient -lwayland-client -lwayland-cursor -lqxcb -lX11-xcb -lxcb-render-util -lSM -lICE -lxcb-glx -lxcb-render -lxcb -lxcb-image -lxcb-icccm -lxcb-sync -lxcb-xfixes -lxcb-shm -lxcb-randr -lxcb-shape -lxcb-keysyms -lxcb-xkb -lQt5PlatformSupport -lfontconfig -lfreetype -lXrender -lXext -lX11 -ludev -lEGL -L/home/francisco/DevProj/QT/LocalQTS/plugins/imageformats -lqdds -lqicns -lqico -lqjp2 -lqmng -lqtga -lqtiff -lqwbmp -lqwebp -lQt5Gui -ljpeg -lpng -lqtharfbuzzng -L/home/francisco/DevProj/QT/LocalQTS/plugins/bearer -lqconnmanbearer -lqgenericbearer -lqnmbearer -lQt5Network -lQt5DBus -lQt5Core -lz -licui18n -licuuc -licudata -lm -ldl -pthread -lgthread-2.0 -lglib-2.0 -lrt -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/home/francisco/DevProj/QT/LocalQTS/lib -lQt5PrintSupport -lQt5Widgets -L/home/francisco/DevProj/QT/LocalQTS/plugins/platforms -lqwayland-egl -lwayland-egl -lqwayland-generic -lQt5WaylandClient -lwayland-client -lwayland-cursor -lqxcb -lX11-xcb -lxcb-render-util -lSM -lICE -lxcb-glx -lxcb-render -lxcb -lxcb-image -lxcb-icccm -lxcb-sync -lxcb-xfixes -lxcb-shm -lxcb-randr -lxcb-shape -lxcb-keysyms -lxcb-xkb -lQt5PlatformSupport -lfontconfig -lfreetype -lXrender -lXext -lX11 -ludev -lEGL -L/home/francisco/DevProj/QT/LocalQTS/plugins/imageformats -lqdds -lqicns -lqico -lqjp2 -lqmng -lqtga -lqtiff -lqwbmp -lqwebp -lQt5Gui -ljpeg -lpng -lqtharfbuzzng -L/home/francisco/DevProj/QT/LocalQTS/plugins/bearer -lqconnmanbearer -lqgenericbearer -lqnmbearer -lQt5Network -lQt5DBus -lQt5Core -lz -licui18n -licuuc -licudata -lm -ldl -pthread -lgthread-2.0 -lglib-2.0 -lrt -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -53,20 +53,28 @@ SOURCES       = ../src/main.cpp \
 		../src/config.cpp \
 		../src/defineandconnect.cpp \
 		../src/messagercv.cpp \
+		../src/graphviewer.cpp \
+		../src/qcustomplot.cpp \
 		k2status_plugin_import.cpp qrc_IconResources.cpp \
 		moc_defineandconnect.cpp \
 		moc_k2status.cpp \
-		moc_messagercv.cpp
+		moc_messagercv.cpp \
+		moc_graphviewer.cpp \
+		moc_qcustomplot.cpp
 OBJECTS       = main.o \
 		k2status.o \
 		config.o \
 		defineandconnect.o \
 		messagercv.o \
+		graphviewer.o \
+		qcustomplot.o \
 		k2status_plugin_import.o \
 		qrc_IconResources.o \
 		moc_defineandconnect.o \
 		moc_k2status.o \
-		moc_messagercv.o
+		moc_messagercv.o \
+		moc_graphviewer.o \
+		moc_qcustomplot.o
 DIST          = ../../../DevProj/QT/LocalQTS/mkspecs/features/spec_pre.prf \
 		../../../DevProj/QT/LocalQTS/mkspecs/common/shell-unix.conf \
 		../../../DevProj/QT/LocalQTS/mkspecs/common/unix.conf \
@@ -147,6 +155,10 @@ DIST          = ../../../DevProj/QT/LocalQTS/mkspecs/features/spec_pre.prf \
 		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_waylandclient_private.pri \
 		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_webchannel.pri \
 		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_webchannel_private.pri \
+		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_webkit.pri \
+		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_webkit_private.pri \
+		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_webkitwidgets.pri \
+		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_webkitwidgets_private.pri \
 		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_websockets.pri \
 		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_websockets_private.pri \
 		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_widgets.pri \
@@ -236,11 +248,15 @@ DIST          = ../../../DevProj/QT/LocalQTS/mkspecs/features/spec_pre.prf \
 		../src/include/nkwhdrs.h \
 		../src/k2status.h \
 		../src/include/TableDef.h \
-		../src/messagercv.h ../src/main.cpp \
+		../src/messagercv.h \
+		../src/graphviewer.h \
+		../src/qcustomplot.h ../src/main.cpp \
 		../src/k2status.cpp \
 		../src/config.cpp \
 		../src/defineandconnect.cpp \
 		../src/messagercv.cpp \
+		../src/graphviewer.cpp \
+		../src/qcustomplot.cpp \
 		k2status_plugin_import.cpp
 QMAKE_TARGET  = K2Status
 DESTDIR       = #avoid trailing-slash linebreak
@@ -269,7 +285,7 @@ first: all
 
 ####### Build rules
 
-$(TARGET): /home/francisco/DevProj/QT/LocalQTS/lib/libQt5Widgets.a /home/francisco/DevProj/QT/LocalQTS/lib/libQt5Gui.a /home/francisco/DevProj/QT/LocalQTS/lib/libQt5Network.a /home/francisco/DevProj/QT/LocalQTS/lib/libQt5Core.a ui_k2status.h ui_defineandconnect.h $(OBJECTS)  
+$(TARGET): /home/francisco/DevProj/QT/LocalQTS/lib/libQt5PrintSupport.a /home/francisco/DevProj/QT/LocalQTS/lib/libQt5Widgets.a /home/francisco/DevProj/QT/LocalQTS/lib/libQt5Gui.a /home/francisco/DevProj/QT/LocalQTS/lib/libQt5Network.a /home/francisco/DevProj/QT/LocalQTS/lib/libQt5Core.a ui_k2status.h ui_defineandconnect.h ui_graphviewer.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../src/K2Status.pro ../../../DevProj/QT/LocalQTS/mkspecs/linux-g++/qmake.conf ../../../DevProj/QT/LocalQTS/mkspecs/features/spec_pre.prf \
@@ -352,6 +368,10 @@ Makefile: ../src/K2Status.pro ../../../DevProj/QT/LocalQTS/mkspecs/linux-g++/qma
 		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_waylandclient_private.pri \
 		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_webchannel.pri \
 		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_webchannel_private.pri \
+		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_webkit.pri \
+		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_webkit_private.pri \
+		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_webkitwidgets.pri \
+		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_webkitwidgets_private.pri \
 		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_websockets.pri \
 		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_websockets_private.pri \
 		../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_widgets.pri \
@@ -430,6 +450,7 @@ Makefile: ../src/K2Status.pro ../../../DevProj/QT/LocalQTS/mkspecs/linux-g++/qma
 		../../../DevProj/QT/LocalQTS/mkspecs/features/lex.prf \
 		../src/K2Status.pro \
 		../src/IconResources.qrc \
+		/home/francisco/DevProj/QT/LocalQTS/lib/libQt5PrintSupport.prl \
 		/home/francisco/DevProj/QT/LocalQTS/lib/libQt5Widgets.prl \
 		/home/francisco/DevProj/QT/LocalQTS/lib/libQt5Gui.prl \
 		/home/francisco/DevProj/QT/LocalQTS/lib/libQt5Core.prl \
@@ -534,6 +555,10 @@ Makefile: ../src/K2Status.pro ../../../DevProj/QT/LocalQTS/mkspecs/linux-g++/qma
 ../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_waylandclient_private.pri:
 ../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_webchannel.pri:
 ../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_webchannel_private.pri:
+../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_webkit.pri:
+../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_webkit_private.pri:
+../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_webkitwidgets.pri:
+../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_webkitwidgets_private.pri:
 ../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_websockets.pri:
 ../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_websockets_private.pri:
 ../../../DevProj/QT/LocalQTS/mkspecs/modules/qt_lib_widgets.pri:
@@ -612,6 +637,7 @@ Makefile: ../src/K2Status.pro ../../../DevProj/QT/LocalQTS/mkspecs/linux-g++/qma
 ../../../DevProj/QT/LocalQTS/mkspecs/features/lex.prf:
 ../src/K2Status.pro:
 ../src/IconResources.qrc:
+/home/francisco/DevProj/QT/LocalQTS/lib/libQt5PrintSupport.prl:
 /home/francisco/DevProj/QT/LocalQTS/lib/libQt5Widgets.prl:
 /home/francisco/DevProj/QT/LocalQTS/lib/libQt5Gui.prl:
 /home/francisco/DevProj/QT/LocalQTS/lib/libQt5Core.prl:
@@ -650,9 +676,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../src/IconResources.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/config.h ../src/defineandconnect.h k2pktdef.h k2info.h ew_packet.h byteswap.h include/byteswap.h ../src/include/ew_packet.h ../src/include/k2info.h ../src/include/k2pktdef.h ../src/include/nkwhdrs.h ../src/k2status.h ../src/include/TableDef.h ../src/messagercv.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/main.cpp ../src/k2status.cpp ../src/config.cpp ../src/defineandconnect.cpp ../src/messagercv.cpp k2status_plugin_import.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/k2status.ui ../src/defineandconnect.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/config.h ../src/defineandconnect.h k2pktdef.h k2info.h ew_packet.h byteswap.h include/byteswap.h ../src/include/ew_packet.h ../src/include/k2info.h ../src/include/k2pktdef.h ../src/include/nkwhdrs.h ../src/k2status.h ../src/include/TableDef.h ../src/messagercv.h ../src/graphviewer.h ../src/qcustomplot.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/main.cpp ../src/k2status.cpp ../src/config.cpp ../src/defineandconnect.cpp ../src/messagercv.cpp ../src/graphviewer.cpp ../src/qcustomplot.cpp k2status_plugin_import.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/k2status.ui ../src/defineandconnect.ui ../src/graphviewer.ui $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -683,9 +709,9 @@ qrc_IconResources.cpp: ../src/IconResources.qrc \
 		../src/icons/Test.png
 	/home/francisco/DevProj/QT/LocalQTS/bin/rcc -name IconResources ../src/IconResources.qrc -o qrc_IconResources.cpp
 
-compiler_moc_header_make_all: moc_defineandconnect.cpp moc_k2status.cpp moc_messagercv.cpp
+compiler_moc_header_make_all: moc_defineandconnect.cpp moc_k2status.cpp moc_messagercv.cpp moc_graphviewer.cpp moc_qcustomplot.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_defineandconnect.cpp moc_k2status.cpp moc_messagercv.cpp
+	-$(DEL_FILE) moc_defineandconnect.cpp moc_k2status.cpp moc_messagercv.cpp moc_graphviewer.cpp moc_qcustomplot.cpp
 moc_defineandconnect.cpp: ../src/config.h \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/QApplication \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/qapplication.h \
@@ -798,7 +824,7 @@ moc_defineandconnect.cpp: ../src/config.h \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/QDialog \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdialog.h \
 		../src/defineandconnect.h
-	/home/francisco/DevProj/QT/LocalQTS/bin/moc $(DEFINES) -I/home/francisco/DevProj/QT/LocalQTS/mkspecs/linux-g++ -I/home/francisco/Programs/K2Status/src -I/home/francisco/DevProj/QT/LocalQTS/include -I/home/francisco/DevProj/QT/LocalQTS/include/QtWidgets -I/home/francisco/DevProj/QT/LocalQTS/include/QtGui -I/home/francisco/DevProj/QT/LocalQTS/include/QtNetwork -I/home/francisco/DevProj/QT/LocalQTS/include/QtCore -I. -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/defineandconnect.h -o moc_defineandconnect.cpp
+	/home/francisco/DevProj/QT/LocalQTS/bin/moc $(DEFINES) -I/home/francisco/DevProj/QT/LocalQTS/mkspecs/linux-g++ -I/home/francisco/Programs/K2Status/src -I/home/francisco/DevProj/QT/LocalQTS/include -I/home/francisco/DevProj/QT/LocalQTS/include/QtPrintSupport -I/home/francisco/DevProj/QT/LocalQTS/include/QtWidgets -I/home/francisco/DevProj/QT/LocalQTS/include/QtGui -I/home/francisco/DevProj/QT/LocalQTS/include/QtNetwork -I/home/francisco/DevProj/QT/LocalQTS/include/QtCore -I. -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/defineandconnect.h -o moc_defineandconnect.cpp
 
 moc_k2status.cpp: ../../../DevProj/QT/LocalQTS/include/QtWidgets/QMainWindow \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmainwindow.h \
@@ -905,6 +931,7 @@ moc_k2status.cpp: ../../../DevProj/QT/LocalQTS/include/QtWidgets/QMainWindow \
 		../../../DevProj/QT/LocalQTS/include/QtGui/qtouchdevice.h \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtabwidget.h \
 		../../../DevProj/QT/LocalQTS/include/QtGui/qicon.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QWidget \
 		../../../DevProj/QT/LocalQTS/include/QtNetwork/QUdpSocket \
 		../../../DevProj/QT/LocalQTS/include/QtNetwork/qudpsocket.h \
 		../../../DevProj/QT/LocalQTS/include/QtNetwork/qabstractsocket.h \
@@ -970,8 +997,10 @@ moc_k2status.cpp: ../../../DevProj/QT/LocalQTS/include/QtWidgets/QMainWindow \
 		../src/defineandconnect.h \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/QDialog \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdialog.h \
+		../src/graphviewer.h \
+		../src/k2status.h \
 		../src/k2status.h
-	/home/francisco/DevProj/QT/LocalQTS/bin/moc $(DEFINES) -I/home/francisco/DevProj/QT/LocalQTS/mkspecs/linux-g++ -I/home/francisco/Programs/K2Status/src -I/home/francisco/DevProj/QT/LocalQTS/include -I/home/francisco/DevProj/QT/LocalQTS/include/QtWidgets -I/home/francisco/DevProj/QT/LocalQTS/include/QtGui -I/home/francisco/DevProj/QT/LocalQTS/include/QtNetwork -I/home/francisco/DevProj/QT/LocalQTS/include/QtCore -I. -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/k2status.h -o moc_k2status.cpp
+	/home/francisco/DevProj/QT/LocalQTS/bin/moc $(DEFINES) -I/home/francisco/DevProj/QT/LocalQTS/mkspecs/linux-g++ -I/home/francisco/Programs/K2Status/src -I/home/francisco/DevProj/QT/LocalQTS/include -I/home/francisco/DevProj/QT/LocalQTS/include/QtPrintSupport -I/home/francisco/DevProj/QT/LocalQTS/include/QtWidgets -I/home/francisco/DevProj/QT/LocalQTS/include/QtGui -I/home/francisco/DevProj/QT/LocalQTS/include/QtNetwork -I/home/francisco/DevProj/QT/LocalQTS/include/QtCore -I. -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/k2status.h -o moc_k2status.cpp
 
 moc_messagercv.cpp: ../../../DevProj/QT/LocalQTS/include/QtCore/QObject \
 		../../../DevProj/QT/LocalQTS/include/QtCore/qobject.h \
@@ -1093,18 +1122,678 @@ moc_messagercv.cpp: ../../../DevProj/QT/LocalQTS/include/QtCore/QObject \
 		../../../DevProj/QT/LocalQTS/include/QtGui/qguiapplication.h \
 		../../../DevProj/QT/LocalQTS/include/QtGui/qinputmethod.h \
 		../src/messagercv.h
-	/home/francisco/DevProj/QT/LocalQTS/bin/moc $(DEFINES) -I/home/francisco/DevProj/QT/LocalQTS/mkspecs/linux-g++ -I/home/francisco/Programs/K2Status/src -I/home/francisco/DevProj/QT/LocalQTS/include -I/home/francisco/DevProj/QT/LocalQTS/include/QtWidgets -I/home/francisco/DevProj/QT/LocalQTS/include/QtGui -I/home/francisco/DevProj/QT/LocalQTS/include/QtNetwork -I/home/francisco/DevProj/QT/LocalQTS/include/QtCore -I. -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/messagercv.h -o moc_messagercv.cpp
+	/home/francisco/DevProj/QT/LocalQTS/bin/moc $(DEFINES) -I/home/francisco/DevProj/QT/LocalQTS/mkspecs/linux-g++ -I/home/francisco/Programs/K2Status/src -I/home/francisco/DevProj/QT/LocalQTS/include -I/home/francisco/DevProj/QT/LocalQTS/include/QtPrintSupport -I/home/francisco/DevProj/QT/LocalQTS/include/QtWidgets -I/home/francisco/DevProj/QT/LocalQTS/include/QtGui -I/home/francisco/DevProj/QT/LocalQTS/include/QtNetwork -I/home/francisco/DevProj/QT/LocalQTS/include/QtCore -I. -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/messagercv.h -o moc_messagercv.cpp
+
+moc_graphviewer.cpp: ../src/k2status.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QMainWindow \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmainwindow.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qwindowdefs.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qglobal.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qconfig.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfeatures.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsystemdetection.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qprocessordetection.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcompilerdetection.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtypeinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtypetraits.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsysinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlogging.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qflags.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbasicatomic.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_bootstrap.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qgenericatomic.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_msvc.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_armv7.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_armv6.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_armv5.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_ia64.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_mips.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_x86.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_cxx11.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_gcc.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_unix.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qglobalstatic.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmutex.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qnumeric.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qobjectdefs.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qnamespace.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qobjectdefs_impl.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qwindowdefs_win.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qobject.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstring.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qchar.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbytearray.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qrefcount.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qarraydata.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstringbuilder.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlist.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qalgorithms.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qiterator.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbytearraylist.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcoreevent.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qscopedpointer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmetatype.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qvarlengtharray.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcontainerfwd.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qisenum.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qobject_impl.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmargins.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpaintdevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qrect.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsize.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qpoint.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpalette.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qcolor.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qrgb.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstringlist.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qdatastream.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qiodevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qpair.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qregexp.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstringmatcher.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qbrush.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qvector.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qmatrix.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpolygon.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qregion.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qline.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtransform.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpainterpath.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qimage.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpixelformat.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpixmap.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsharedpointer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qshareddata.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qhash.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsharedpointer_impl.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qfont.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qfontmetrics.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qfontinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qsizepolicy.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qcursor.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qkeysequence.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qevent.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qvariant.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmap.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qdebug.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtextstream.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlocale.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qset.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcontiguouscache.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qurl.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qurlquery.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfile.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfiledevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qvector2d.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtouchdevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtabwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qicon.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QWidget \
+		../../../DevProj/QT/LocalQTS/include/QtNetwork/QUdpSocket \
+		../../../DevProj/QT/LocalQTS/include/QtNetwork/qudpsocket.h \
+		../../../DevProj/QT/LocalQTS/include/QtNetwork/qabstractsocket.h \
+		../../../DevProj/QT/LocalQTS/include/QtNetwork/qhostaddress.h \
+		../../../DevProj/QT/LocalQTS/include/QtNetwork/QTcpSocket \
+		../../../DevProj/QT/LocalQTS/include/QtNetwork/qtcpsocket.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QFile \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QTableView \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtableview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractitemview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractscrollarea.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qframe.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qabstractitemmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qitemselectionmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractitemdelegate.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstyleoption.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractspinbox.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qvalidator.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qregularexpression.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qslider.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractslider.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstyle.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtabbar.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qrubberband.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QStandardItemModel \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qstandarditemmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QList \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QThread \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qthread.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QTimer \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtimer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbasictimer.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QTextBrowser \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtextbrowser.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtextedit.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextdocument.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextoption.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextcursor.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextformat.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpen.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QtEndian \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qendian.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QDir \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qdir.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfileinfo.h \
+		../src/include/ew_packet.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QtGlobal \
+		../src/include/k2pktdef.h \
+		../src/include/nkwhdrs.h \
+		../src/include/k2info.h \
+		../src/include/TableDef.h \
+		../src/messagercv.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QObject \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QString \
+		../src/config.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QApplication \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qapplication.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcoreapplication.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qeventloop.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdesktopwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qguiapplication.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qinputmethod.h \
+		../src/defineandconnect.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QDialog \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdialog.h \
+		../src/graphviewer.h \
+		../src/graphviewer.h
+	/home/francisco/DevProj/QT/LocalQTS/bin/moc $(DEFINES) -I/home/francisco/DevProj/QT/LocalQTS/mkspecs/linux-g++ -I/home/francisco/Programs/K2Status/src -I/home/francisco/DevProj/QT/LocalQTS/include -I/home/francisco/DevProj/QT/LocalQTS/include/QtPrintSupport -I/home/francisco/DevProj/QT/LocalQTS/include/QtWidgets -I/home/francisco/DevProj/QT/LocalQTS/include/QtGui -I/home/francisco/DevProj/QT/LocalQTS/include/QtNetwork -I/home/francisco/DevProj/QT/LocalQTS/include/QtCore -I. -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/graphviewer.h -o moc_graphviewer.cpp
+
+moc_qcustomplot.cpp: ../../../DevProj/QT/LocalQTS/include/QtCore/QObject \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qobject.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qobjectdefs.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qnamespace.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qglobal.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qconfig.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfeatures.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsystemdetection.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qprocessordetection.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcompilerdetection.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtypeinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtypetraits.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsysinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlogging.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qflags.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbasicatomic.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_bootstrap.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qgenericatomic.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_msvc.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_armv7.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_armv6.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_armv5.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_ia64.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_mips.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_x86.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_cxx11.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_gcc.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_unix.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qglobalstatic.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmutex.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qnumeric.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qobjectdefs_impl.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstring.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qchar.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbytearray.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qrefcount.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qarraydata.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstringbuilder.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlist.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qalgorithms.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qiterator.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbytearraylist.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcoreevent.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qscopedpointer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmetatype.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qvarlengtharray.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcontainerfwd.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qisenum.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qobject_impl.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QPointer \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qpointer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsharedpointer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qshareddata.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qhash.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qpair.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsharedpointer_impl.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QWidget \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qwindowdefs.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qwindowdefs_win.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmargins.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpaintdevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qrect.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsize.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qpoint.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpalette.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qcolor.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qrgb.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstringlist.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qdatastream.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qiodevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qregexp.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstringmatcher.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qbrush.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qvector.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qmatrix.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpolygon.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qregion.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qline.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtransform.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpainterpath.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qimage.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpixelformat.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpixmap.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qfont.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qfontmetrics.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qfontinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qsizepolicy.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qcursor.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qkeysequence.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qevent.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qvariant.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmap.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qdebug.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtextstream.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlocale.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qset.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcontiguouscache.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qurl.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qurlquery.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfile.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfiledevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qvector2d.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtouchdevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QPainter \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpainter.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextoption.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpen.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QPaintEvent \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QMouseEvent \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QPixmap \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QVector \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QString \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QDateTime \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qdatetime.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QMultiMap \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QFlags \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QDebug \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QVector2D \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QStack \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstack.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QCache \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcache.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QMargins \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmath.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/QPrinter \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qprinter.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpagedpaintdevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpagelayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpagesize.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qtprintsupportglobal.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/QPrintEngine \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qprintengine.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QtNumeric \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/QtPrintSupport \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/QtPrintSupportDepends \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QtCore \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QtCoreDepends \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qabstractanimation.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qanimationgroup.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qparallelanimationgroup.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qpauseanimation.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qpropertyanimation.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qvariantanimation.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qeasingcurve.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsequentialanimationgroup.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtextcodec.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qendian.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlibraryinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbuffer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qdir.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfileinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qdiriterator.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfileselector.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QStringList \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfilesystemwatcher.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlockfile.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qloggingcategory.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qprocess.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qresource.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsavefile.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsettings.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstandardpaths.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstorageinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtemporarydir.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QScopedPointer \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtemporaryfile.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qabstractitemmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qabstractproxymodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qidentityproxymodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qitemselectionmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsortfilterproxymodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstringlistmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qjsonarray.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qjsonvalue.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qjsondocument.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qjsonobject.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qabstracteventdispatcher.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qeventloop.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qabstractnativeeventfilter.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbasictimer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcoreapplication.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmetaobject.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmimedata.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qobjectcleanuphandler.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsharedmemory.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsignalmapper.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsocketnotifier.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsystemsemaphore.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtimer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtranslator.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qwineventnotifier.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmimedatabase.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmimetype.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfactoryinterface.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlibrary.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qplugin.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qpluginloader.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/quuid.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qabstractstate.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qabstracttransition.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qeventtransition.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfinalstate.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qhistorystate.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsignaltransition.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstate.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstatemachine.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qexception.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfuture.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfutureinterface.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qrunnable.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qresultstore.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfuturesynchronizer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfuturewatcher.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qreadwritelock.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsemaphore.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qthread.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qthreadpool.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qthreadstorage.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qwaitcondition.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qarraydataops.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qarraydatapointer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbitarray.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbytearraymatcher.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcollator.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcommandlineoption.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcommandlineparser.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcryptographichash.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qelapsedtimer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlinkedlist.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmessageauthenticationcode.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qqueue.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qregularexpression.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qscopedvaluerollback.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtextboundaryfinder.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtimeline.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtimezone.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qxmlstream.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtcoreversion.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QtGui \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QtGuiDepends \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qaccessible.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qaccessiblebridge.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qaccessibleobject.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qaccessibleplugin.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qbitmap.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qicon.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qiconengine.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qiconengineplugin.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qimageiohandler.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qimagereader.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qimagewriter.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qmovie.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpicture.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpictureformatplugin.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpixmapcache.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qstandarditemmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qclipboard.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qdrag.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qgenericplugin.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qgenericpluginfactory.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qguiapplication.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qinputmethod.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qoffscreensurface.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qsurface.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qsurfaceformat.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglcontext.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QSurfaceFormat \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopengl.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qt_windows.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopengles2ext.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglext.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglversionfunctions.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglwindow.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QPaintDeviceWindow \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpaintdevicewindow.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QWindow \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qwindow.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QEvent \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QRect \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QPaintDevice \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QOpenGLContext \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QImage \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qrasterwindow.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qscreen.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QList \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QSize \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QSizeF \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QTransform \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qsessionmanager.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qstylehints.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qgenericmatrix.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qmatrix4x4.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qvector3d.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qvector4d.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qquaternion.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglbuffer.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopengldebug.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglframebufferobject.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglfunctions.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglpaintdevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglpixeltransferoptions.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QSharedDataPointer \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglshaderprogram.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopengltexture.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopengltimerquery.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglvertexarrayobject.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qbackingstore.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpaintengine.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpdfwriter.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qabstracttextdocumentlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextformat.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qglyphrun.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qrawfont.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qfontdatabase.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextcursor.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextdocument.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qstatictext.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qsyntaxhighlighter.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextobject.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextdocumentfragment.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextdocumentwriter.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextlist.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtexttable.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qdesktopservices.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qvalidator.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtguiversion.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QtWidgets \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QtWidgetsDepends \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/complexwidgets.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qaccessiblewidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractitemview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractscrollarea.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qframe.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractitemdelegate.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstyleoption.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractspinbox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qslider.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractslider.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstyle.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtabbar.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtabwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qrubberband.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/itemviews.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qheaderview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qaccessiblemenu.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qaccessiblewidgets.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QPair \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/rangecontrols.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/simplewidgets.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcolordialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qerrormessage.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qfiledialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qfilesystemmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qfontdialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qinputdialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlineedit.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmessagebox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qprogressdialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qwizard.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicseffect.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicsanchorlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicsitem.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicslayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicslayoutitem.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicsgridlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicsitemanimation.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicslinearlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicsproxywidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicswidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicsscene.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicssceneevent.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicstransform.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QVector3D \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QMatrix4x4 \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicsview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qscrollarea.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcolumnview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdatawidgetmapper.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdirmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qfileiconprovider.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qitemdelegate.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qitemeditorfactory.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlistview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlistwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstyleditemdelegate.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtableview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtablewidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtreeview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtreewidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtreewidgetitemiterator.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qaction.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qactiongroup.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qapplication.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdesktopwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qboxlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlayoutitem.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgridlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qformlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QLayout \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgesture.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgesturerecognizer.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qopenglwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qshortcut.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstackedlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtooltip.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qwhatsthis.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qwidgetaction.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qkeyeventtransition.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmouseeventtransition.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcommonstyle.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdrawutil.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qproxystyle.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QCommonStyle \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstylefactory.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstylepainter.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstyleplugin.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcolormap.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcompleter.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qscroller.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QPointF \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QScrollerProperties \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qscrollerproperties.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QMetaType \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QVariant \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qsystemtrayicon.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qundogroup.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qundostack.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qundoview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractbutton.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qbuttongroup.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcalendarwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcheckbox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcombobox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcommandlinkbutton.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qpushbutton.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdatetimeedit.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdial.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdialogbuttonbox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdockwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qfocusframe.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qfontcombobox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgroupbox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qkeysequenceedit.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlabel.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlcdnumber.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmainwindow.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmdiarea.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmdisubwindow.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmenu.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmenubar.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qplaintextedit.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtextedit.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qprogressbar.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qradiobutton.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qscrollbar.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qsizegrip.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qspinbox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qsplashscreen.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qsplitter.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstackedwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstatusbar.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtextbrowser.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtoolbar.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtoolbox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtoolbutton.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtwidgetsversion.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qabstractprintdialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qpagesetupdialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qprintdialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qprintpreviewdialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qprinterinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qprintpreviewwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qtprintsupportversion.h \
+		../src/qcustomplot.h
+	/home/francisco/DevProj/QT/LocalQTS/bin/moc $(DEFINES) -I/home/francisco/DevProj/QT/LocalQTS/mkspecs/linux-g++ -I/home/francisco/Programs/K2Status/src -I/home/francisco/DevProj/QT/LocalQTS/include -I/home/francisco/DevProj/QT/LocalQTS/include/QtPrintSupport -I/home/francisco/DevProj/QT/LocalQTS/include/QtWidgets -I/home/francisco/DevProj/QT/LocalQTS/include/QtGui -I/home/francisco/DevProj/QT/LocalQTS/include/QtNetwork -I/home/francisco/DevProj/QT/LocalQTS/include/QtCore -I. -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/qcustomplot.h -o moc_qcustomplot.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_k2status.h ui_defineandconnect.h
+compiler_uic_make_all: ui_k2status.h ui_defineandconnect.h ui_graphviewer.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_k2status.h ui_defineandconnect.h
+	-$(DEL_FILE) ui_k2status.h ui_defineandconnect.h ui_graphviewer.h
 ui_k2status.h: ../src/k2status.ui
 	/home/francisco/DevProj/QT/LocalQTS/bin/uic ../src/k2status.ui -o ui_k2status.h
 
 ui_defineandconnect.h: ../src/defineandconnect.ui
 	/home/francisco/DevProj/QT/LocalQTS/bin/uic ../src/defineandconnect.ui -o ui_defineandconnect.h
+
+ui_graphviewer.h: ../src/graphviewer.ui
+	/home/francisco/DevProj/QT/LocalQTS/bin/uic ../src/graphviewer.ui -o ui_graphviewer.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -1222,6 +1911,7 @@ main.o: ../src/main.cpp ../src/k2status.h \
 		../../../DevProj/QT/LocalQTS/include/QtGui/qtouchdevice.h \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtabwidget.h \
 		../../../DevProj/QT/LocalQTS/include/QtGui/qicon.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QWidget \
 		../../../DevProj/QT/LocalQTS/include/QtNetwork/QUdpSocket \
 		../../../DevProj/QT/LocalQTS/include/QtNetwork/qudpsocket.h \
 		../../../DevProj/QT/LocalQTS/include/QtNetwork/qabstractsocket.h \
@@ -1286,7 +1976,8 @@ main.o: ../src/main.cpp ../src/k2status.h \
 		../../../DevProj/QT/LocalQTS/include/QtGui/qinputmethod.h \
 		../src/defineandconnect.h \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/QDialog \
-		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdialog.h
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdialog.h \
+		../src/graphviewer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
 
 k2status.o: ../src/k2status.cpp ../src/k2status.h \
@@ -1395,6 +2086,7 @@ k2status.o: ../src/k2status.cpp ../src/k2status.h \
 		../../../DevProj/QT/LocalQTS/include/QtGui/qtouchdevice.h \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtabwidget.h \
 		../../../DevProj/QT/LocalQTS/include/QtGui/qicon.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QWidget \
 		../../../DevProj/QT/LocalQTS/include/QtNetwork/QUdpSocket \
 		../../../DevProj/QT/LocalQTS/include/QtNetwork/qudpsocket.h \
 		../../../DevProj/QT/LocalQTS/include/QtNetwork/qabstractsocket.h \
@@ -1460,6 +2152,7 @@ k2status.o: ../src/k2status.cpp ../src/k2status.h \
 		../src/defineandconnect.h \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/QDialog \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdialog.h \
+		../src/graphviewer.h \
 		ui_k2status.h \
 		../../../DevProj/QT/LocalQTS/include/QtCore/QVariant \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/QAction \
@@ -1487,8 +2180,7 @@ k2status.o: ../src/k2status.cpp ../src/k2status.h \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstatusbar.h \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/QToolBar \
 		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtoolbar.h \
-		../../../DevProj/QT/LocalQTS/include/QtWidgets/QVBoxLayout \
-		../../../DevProj/QT/LocalQTS/include/QtWidgets/QWidget
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QVBoxLayout
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o k2status.o ../src/k2status.cpp
 
 config.o: ../src/config.cpp ../src/config.h \
@@ -1886,6 +2578,676 @@ messagercv.o: ../src/messagercv.cpp ../src/messagercv.h \
 		../../../DevProj/QT/LocalQTS/include/QtGui/qinputmethod.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o messagercv.o ../src/messagercv.cpp
 
+graphviewer.o: ../src/graphviewer.cpp ../src/graphviewer.h \
+		../src/k2status.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QMainWindow \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmainwindow.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qwindowdefs.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qglobal.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qconfig.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfeatures.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsystemdetection.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qprocessordetection.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcompilerdetection.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtypeinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtypetraits.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsysinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlogging.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qflags.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbasicatomic.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_bootstrap.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qgenericatomic.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_msvc.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_armv7.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_armv6.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_armv5.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_ia64.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_mips.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_x86.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_cxx11.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_gcc.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_unix.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qglobalstatic.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmutex.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qnumeric.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qobjectdefs.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qnamespace.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qobjectdefs_impl.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qwindowdefs_win.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qobject.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstring.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qchar.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbytearray.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qrefcount.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qarraydata.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstringbuilder.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlist.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qalgorithms.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qiterator.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbytearraylist.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcoreevent.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qscopedpointer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmetatype.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qvarlengtharray.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcontainerfwd.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qisenum.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qobject_impl.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmargins.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpaintdevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qrect.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsize.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qpoint.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpalette.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qcolor.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qrgb.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstringlist.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qdatastream.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qiodevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qpair.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qregexp.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstringmatcher.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qbrush.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qvector.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qmatrix.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpolygon.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qregion.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qline.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtransform.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpainterpath.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qimage.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpixelformat.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpixmap.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsharedpointer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qshareddata.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qhash.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsharedpointer_impl.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qfont.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qfontmetrics.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qfontinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qsizepolicy.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qcursor.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qkeysequence.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qevent.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qvariant.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmap.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qdebug.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtextstream.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlocale.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qset.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcontiguouscache.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qurl.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qurlquery.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfile.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfiledevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qvector2d.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtouchdevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtabwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qicon.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QWidget \
+		../../../DevProj/QT/LocalQTS/include/QtNetwork/QUdpSocket \
+		../../../DevProj/QT/LocalQTS/include/QtNetwork/qudpsocket.h \
+		../../../DevProj/QT/LocalQTS/include/QtNetwork/qabstractsocket.h \
+		../../../DevProj/QT/LocalQTS/include/QtNetwork/qhostaddress.h \
+		../../../DevProj/QT/LocalQTS/include/QtNetwork/QTcpSocket \
+		../../../DevProj/QT/LocalQTS/include/QtNetwork/qtcpsocket.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QFile \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QTableView \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtableview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractitemview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractscrollarea.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qframe.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qabstractitemmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qitemselectionmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractitemdelegate.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstyleoption.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractspinbox.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qvalidator.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qregularexpression.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qslider.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractslider.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstyle.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtabbar.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qrubberband.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QStandardItemModel \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qstandarditemmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QList \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QThread \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qthread.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QTimer \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtimer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbasictimer.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QTextBrowser \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtextbrowser.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtextedit.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextdocument.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextoption.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextcursor.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextformat.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpen.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QtEndian \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qendian.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QDir \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qdir.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfileinfo.h \
+		../src/include/ew_packet.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QtGlobal \
+		../src/include/k2pktdef.h \
+		../src/include/nkwhdrs.h \
+		../src/include/k2info.h \
+		../src/include/TableDef.h \
+		../src/messagercv.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QObject \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QString \
+		../src/config.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QApplication \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qapplication.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcoreapplication.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qeventloop.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdesktopwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qguiapplication.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qinputmethod.h \
+		../src/defineandconnect.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QDialog \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdialog.h \
+		ui_graphviewer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QVariant \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QAction \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qaction.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qactiongroup.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QButtonGroup \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qbuttongroup.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QGridLayout \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgridlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlayoutitem.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qboxlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QHeaderView \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qheaderview.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o graphviewer.o ../src/graphviewer.cpp
+
+qcustomplot.o: ../src/qcustomplot.cpp ../src/qcustomplot.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QObject \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qobject.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qobjectdefs.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qnamespace.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qglobal.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qconfig.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfeatures.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsystemdetection.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qprocessordetection.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcompilerdetection.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtypeinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtypetraits.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsysinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlogging.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qflags.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbasicatomic.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_bootstrap.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qgenericatomic.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_msvc.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_armv7.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_armv6.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_armv5.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_ia64.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_mips.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_x86.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_cxx11.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_gcc.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qatomic_unix.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qglobalstatic.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmutex.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qnumeric.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qobjectdefs_impl.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstring.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qchar.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbytearray.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qrefcount.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qarraydata.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstringbuilder.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlist.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qalgorithms.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qiterator.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbytearraylist.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcoreevent.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qscopedpointer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmetatype.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qvarlengtharray.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcontainerfwd.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qisenum.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qobject_impl.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QPointer \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qpointer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsharedpointer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qshareddata.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qhash.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qpair.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsharedpointer_impl.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QWidget \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qwindowdefs.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qwindowdefs_win.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmargins.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpaintdevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qrect.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsize.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qpoint.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpalette.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qcolor.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qrgb.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstringlist.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qdatastream.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qiodevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qregexp.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstringmatcher.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qbrush.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qvector.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qmatrix.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpolygon.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qregion.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qline.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtransform.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpainterpath.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qimage.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpixelformat.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpixmap.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qfont.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qfontmetrics.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qfontinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qsizepolicy.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qcursor.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qkeysequence.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qevent.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qvariant.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmap.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qdebug.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtextstream.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlocale.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qset.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcontiguouscache.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qurl.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qurlquery.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfile.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfiledevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qvector2d.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtouchdevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QPainter \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpainter.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextoption.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpen.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QPaintEvent \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QMouseEvent \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QPixmap \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QVector \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QString \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QDateTime \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qdatetime.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QMultiMap \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QFlags \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QDebug \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QVector2D \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QStack \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstack.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QCache \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcache.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QMargins \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmath.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/QPrinter \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qprinter.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpagedpaintdevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpagelayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpagesize.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qtprintsupportglobal.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/QPrintEngine \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qprintengine.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QtNumeric \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/QtPrintSupport \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/QtPrintSupportDepends \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QtCore \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QtCoreDepends \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qabstractanimation.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qanimationgroup.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qparallelanimationgroup.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qpauseanimation.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qpropertyanimation.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qvariantanimation.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qeasingcurve.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsequentialanimationgroup.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtextcodec.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qendian.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlibraryinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbuffer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qdir.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfileinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qdiriterator.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfileselector.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QStringList \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfilesystemwatcher.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlockfile.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qloggingcategory.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qprocess.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qresource.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsavefile.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsettings.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstandardpaths.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstorageinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtemporarydir.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QScopedPointer \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtemporaryfile.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qabstractitemmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qabstractproxymodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qidentityproxymodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qitemselectionmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsortfilterproxymodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstringlistmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qjsonarray.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qjsonvalue.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qjsondocument.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qjsonobject.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qabstracteventdispatcher.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qeventloop.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qabstractnativeeventfilter.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbasictimer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcoreapplication.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmetaobject.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmimedata.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qobjectcleanuphandler.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsharedmemory.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsignalmapper.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsocketnotifier.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsystemsemaphore.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtimer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtranslator.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qwineventnotifier.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmimedatabase.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmimetype.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfactoryinterface.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlibrary.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qplugin.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qpluginloader.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/quuid.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qabstractstate.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qabstracttransition.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qeventtransition.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfinalstate.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qhistorystate.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsignaltransition.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstate.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qstatemachine.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qexception.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfuture.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfutureinterface.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qrunnable.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qresultstore.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfuturesynchronizer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qfuturewatcher.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qreadwritelock.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qsemaphore.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qthread.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qthreadpool.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qthreadstorage.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qwaitcondition.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qarraydataops.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qarraydatapointer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbitarray.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qbytearraymatcher.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcollator.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcommandlineoption.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcommandlineparser.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qcryptographichash.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qelapsedtimer.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qlinkedlist.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qmessageauthenticationcode.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qqueue.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qregularexpression.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qscopedvaluerollback.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtextboundaryfinder.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtimeline.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtimezone.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qxmlstream.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qtcoreversion.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QtGui \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QtGuiDepends \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qaccessible.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qaccessiblebridge.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qaccessibleobject.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qaccessibleplugin.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qbitmap.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qicon.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qiconengine.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qiconengineplugin.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qimageiohandler.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qimagereader.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qimagewriter.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qmovie.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpicture.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpictureformatplugin.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpixmapcache.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qstandarditemmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qclipboard.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qdrag.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qgenericplugin.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qgenericpluginfactory.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qguiapplication.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qinputmethod.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qoffscreensurface.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qsurface.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qsurfaceformat.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglcontext.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QSurfaceFormat \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopengl.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/qt_windows.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopengles2ext.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglext.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglversionfunctions.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglwindow.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QPaintDeviceWindow \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpaintdevicewindow.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QWindow \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qwindow.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QEvent \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QRect \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QPaintDevice \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QOpenGLContext \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QImage \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qrasterwindow.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qscreen.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QList \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QSize \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QSizeF \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QTransform \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qsessionmanager.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qstylehints.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qgenericmatrix.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qmatrix4x4.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qvector3d.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qvector4d.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qquaternion.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglbuffer.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopengldebug.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglframebufferobject.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglfunctions.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglpaintdevice.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglpixeltransferoptions.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QSharedDataPointer \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglshaderprogram.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopengltexture.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopengltimerquery.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qopenglvertexarrayobject.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qbackingstore.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpaintengine.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qpdfwriter.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qabstracttextdocumentlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextformat.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qglyphrun.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qrawfont.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qfontdatabase.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextcursor.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextdocument.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qstatictext.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qsyntaxhighlighter.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextobject.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextdocumentfragment.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextdocumentwriter.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtextlist.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtexttable.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qdesktopservices.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qvalidator.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/qtguiversion.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QtWidgets \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QtWidgetsDepends \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/complexwidgets.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qaccessiblewidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractitemview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractscrollarea.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qframe.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractitemdelegate.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstyleoption.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractspinbox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qslider.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractslider.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstyle.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtabbar.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtabwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qrubberband.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/itemviews.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qheaderview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qaccessiblemenu.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qaccessiblewidgets.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QPair \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/rangecontrols.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/simplewidgets.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcolordialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qerrormessage.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qfiledialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qfilesystemmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qfontdialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qinputdialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlineedit.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmessagebox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qprogressdialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qwizard.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicseffect.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicsanchorlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicsitem.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicslayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicslayoutitem.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicsgridlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicsitemanimation.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicslinearlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicsproxywidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicswidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicsscene.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicssceneevent.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicstransform.h \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QVector3D \
+		../../../DevProj/QT/LocalQTS/include/QtGui/QMatrix4x4 \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgraphicsview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qscrollarea.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcolumnview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdatawidgetmapper.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdirmodel.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qfileiconprovider.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qitemdelegate.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qitemeditorfactory.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlistview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlistwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstyleditemdelegate.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtableview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtablewidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtreeview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtreewidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtreewidgetitemiterator.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qaction.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qactiongroup.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qapplication.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdesktopwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qboxlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlayoutitem.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgridlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qformlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QLayout \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgesture.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgesturerecognizer.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qopenglwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qshortcut.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstackedlayout.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtooltip.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qwhatsthis.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qwidgetaction.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qkeyeventtransition.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmouseeventtransition.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcommonstyle.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdrawutil.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qproxystyle.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QCommonStyle \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstylefactory.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstylepainter.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstyleplugin.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcolormap.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcompleter.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qscroller.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QPointF \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/QScrollerProperties \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qscrollerproperties.h \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QMetaType \
+		../../../DevProj/QT/LocalQTS/include/QtCore/QVariant \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qsystemtrayicon.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qundogroup.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qundostack.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qundoview.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qabstractbutton.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qbuttongroup.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcalendarwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcheckbox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcombobox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qcommandlinkbutton.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qpushbutton.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdatetimeedit.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdial.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdialogbuttonbox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qdockwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qfocusframe.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qfontcombobox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qgroupbox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qkeysequenceedit.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlabel.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qlcdnumber.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmainwindow.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmdiarea.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmdisubwindow.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmenu.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qmenubar.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qplaintextedit.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtextedit.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qprogressbar.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qradiobutton.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qscrollbar.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qsizegrip.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qspinbox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qsplashscreen.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qsplitter.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstackedwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qstatusbar.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtextbrowser.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtoolbar.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtoolbox.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtoolbutton.h \
+		../../../DevProj/QT/LocalQTS/include/QtWidgets/qtwidgetsversion.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qabstractprintdialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qpagesetupdialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qprintdialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qprintpreviewdialog.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qprinterinfo.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qprintpreviewwidget.h \
+		../../../DevProj/QT/LocalQTS/include/QtPrintSupport/qtprintsupportversion.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qcustomplot.o ../src/qcustomplot.cpp
+
 k2status_plugin_import.o: k2status_plugin_import.cpp ../../../DevProj/QT/LocalQTS/include/QtCore/QtPlugin \
 		../../../DevProj/QT/LocalQTS/include/QtCore/qplugin.h \
 		../../../DevProj/QT/LocalQTS/include/QtCore/qobject.h \
@@ -1958,6 +3320,12 @@ moc_k2status.o: moc_k2status.cpp
 
 moc_messagercv.o: moc_messagercv.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_messagercv.o moc_messagercv.cpp
+
+moc_graphviewer.o: moc_graphviewer.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_graphviewer.o moc_graphviewer.cpp
+
+moc_qcustomplot.o: moc_qcustomplot.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_qcustomplot.o moc_qcustomplot.cpp
 
 ####### Install
 
