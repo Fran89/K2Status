@@ -43,6 +43,10 @@ void GraphViewer::on_do_graph_temp_clicked()
     ui->Graph->xAxis->rescale();
     ui->Graph->yAxis->rescale();
 
+    // Set Axis Lable
+    ui->Graph->xAxis->setLabel("Date (GMT)");
+    ui->Graph->yAxis->setLabel("Temperature (C)");
+
     //ui->Graph->graph()->addData(time, Archive.at(idx).Voltage);
 
     // configure bottom axis to show date and time instead of number:
@@ -68,6 +72,10 @@ void GraphViewer::on_do_graph_volt_clicked()
                                 Archive.at(idx).Voltage);
     ui->Graph->xAxis->rescale();
     ui->Graph->yAxis->rescale();
+
+    // Set Axis Lable
+    ui->Graph->xAxis->setLabel("Date (GMT)");
+    ui->Graph->yAxis->setLabel("Voltage (Volts)");
 
     // configure bottom axis to show date and time instead of number:
     ui->Graph->xAxis->setTickLabelType(QCPAxis::ltDateTime);
