@@ -20,7 +20,9 @@ public slots:
     void update_archive(QList<stninfo>);
 
 private slots:
-    void on_do_graph_clicked();
+    void on_do_graph_temp_clicked();
+
+    void on_do_graph_volt_clicked();
 
 private:
     QList<stninfo> Archive;

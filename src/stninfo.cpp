@@ -5,8 +5,8 @@ stninfo::stninfo()
 }
 
 void stninfo::addstninfo(qreal Temp, qreal Volt){
-    time_t now;
-    now = time(0);
+    time_t now = time(0);
+    double timed = now;
     if(Temperature.size() < 500){
         Temperature.prepend(Temp);
     }
@@ -22,11 +22,11 @@ void stninfo::addstninfo(qreal Temp, qreal Volt){
         Voltage.prepend(Volt);
     }
     if(Time.size() < 500){
-        Time.prepend(now);
+        Time.prepend(timed);
     }
     else{
         Time.removeLast();
-        Time.prepend(now);
+        Time.prepend(timed);
     }
 
 }
@@ -35,9 +35,13 @@ void stninfo::setup(QString Station){
     Stat = Station;
 }
 
+QString stninfo::getName(){
+    return Stat;
+}
+
 bool stninfo::operator ==(const stninfo &b){
-    if(this->Stat == b.Stat){
+    if(this->Stat == b.Stat)
         return true;
-    }
-    return false;
+    else
+        return false;
 }

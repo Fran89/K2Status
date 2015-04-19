@@ -139,13 +139,18 @@ void K2Status::has_read_data(){
 }
 
 void K2Status::on_actionDebug_Mode_triggered(){
-    stninfo temp;
+    stninfo temp, temp2;
+    QList<stninfo> tmpl;
     temp.setup("AG02");
     temp.addstninfo(30,12.5);
     temp.addstninfo(45,12.8);
     temp.addstninfo(40,13.6);
-    QList<stninfo> tmpl;
+    temp2.setup("AR02");
+    temp2.addstninfo(28,12.7);
+    temp2.addstninfo(32.4,12.9);
+    temp2.addstninfo(28.8,13.2);
     tmpl.append(temp);
+    tmpl.append(temp2);
     emit update_gview(tmpl);
 
     if (Debug == true){
