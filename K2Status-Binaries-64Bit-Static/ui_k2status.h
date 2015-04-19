@@ -35,6 +35,7 @@ public:
     QAction *actionAdd_Connection;
     QAction *actionQuit;
     QAction *actionDebug_Mode;
+    QAction *action_Graph;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
@@ -64,6 +65,8 @@ public:
         actionQuit->setObjectName(QStringLiteral("actionQuit"));
         actionDebug_Mode = new QAction(K2Status);
         actionDebug_Mode->setObjectName(QStringLiteral("actionDebug_Mode"));
+        action_Graph = new QAction(K2Status);
+        action_Graph->setObjectName(QStringLiteral("action_Graph"));
         centralWidget = new QWidget(K2Status);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayout = new QVBoxLayout(centralWidget);
@@ -143,6 +146,7 @@ public:
         menuBar->addAction(menuHelp->menuAction());
         menuConnection->addSeparator();
         menuConnection->addAction(actionAdd_Connection);
+        menuConnection->addAction(action_Graph);
         menuConnection->addSeparator();
         menuConnection->addAction(actionQuit);
         menuHelp->addAction(actionDebug_Mode);
@@ -158,6 +162,7 @@ public:
         actionAdd_Connection->setText(QApplication::translate("K2Status", "Add a Connection", 0));
         actionQuit->setText(QApplication::translate("K2Status", "Quit", 0));
         actionDebug_Mode->setText(QApplication::translate("K2Status", "Debug Mode", 0));
+        action_Graph->setText(QApplication::translate("K2Status", " Graph", 0));
         label_2->setText(QApplication::translate("K2Status", "Server IP: ", 0));
         ToIP_2->setText(QApplication::translate("K2Status", " UnSet", 0));
         label_3->setText(QApplication::translate("K2Status", "Server Port: ", 0));

@@ -771,6 +771,10 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
         else
             Table->item(index,Tvol)->setBackground(QBrush(Qt::green));
         out << batv << ",  C \n";
+
+        // Add to Archive
+        Archive[index].addstninfo(tempd,batv);
+        emit update_gview(Archive);
     }
     else {
         batv = batt_voltx10 / 10.0;
@@ -780,21 +784,20 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
         else
             Table->item(index,Tvol)->setBackground(QBrush(Qt::green));
         out << batv << ", NC \n";
-    }
 
-    // Add to Archive
-    if (batt_voltx10 < 0){
-        batt_voltx10 = -batt_voltx10;
-        batv = batt_voltx10 / 10.0;
+        // Add to Archive
         Archive[index].addstninfo(tempd,batv);
         emit update_gview(Archive);
     }
+
     log.close();
 }
 
 int K2Status::fetch_index(K2INFO_HEADER* Head){
     int index;
     index = StationL.indexOf(QString(Head->sta));
+
+    // This is a new station
     if (index == -1){
         QList<QStandardItem*> NewRow;
         StationL.append(QString(Head->sta));
@@ -845,6 +848,7 @@ int K2Status::fetch_index(K2INFO_HEADER* Head){
         return index;
     }
 
+    // This is an old station;
     // Set Time
     time_t Time;
     Time = (time_t)(Head->epoch_sent);

@@ -13,9 +13,13 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
+#include "qcustomplot.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -23,7 +27,11 @@ class Ui_GraphViewer
 {
 public:
     QGridLayout *gridLayout;
-    QWidget *Graph;
+    QCustomPlot *Graph;
+    QHBoxLayout *horizontalLayout;
+    QPushButton *do_graph;
+    QPushButton *Refresh;
+    QComboBox *Cbox;
 
     void setupUi(QWidget *GraphViewer)
     {
@@ -32,10 +40,35 @@ public:
         GraphViewer->resize(735, 496);
         gridLayout = new QGridLayout(GraphViewer);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        Graph = new QWidget(GraphViewer);
+        Graph = new QCustomPlot(GraphViewer);
         Graph->setObjectName(QStringLiteral("Graph"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(Graph->sizePolicy().hasHeightForWidth());
+        Graph->setSizePolicy(sizePolicy);
 
         gridLayout->addWidget(Graph, 0, 0, 1, 1);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        do_graph = new QPushButton(GraphViewer);
+        do_graph->setObjectName(QStringLiteral("do_graph"));
+
+        horizontalLayout->addWidget(do_graph);
+
+        Refresh = new QPushButton(GraphViewer);
+        Refresh->setObjectName(QStringLiteral("Refresh"));
+
+        horizontalLayout->addWidget(Refresh);
+
+        Cbox = new QComboBox(GraphViewer);
+        Cbox->setObjectName(QStringLiteral("Cbox"));
+
+        horizontalLayout->addWidget(Cbox);
+
+
+        gridLayout->addLayout(horizontalLayout, 1, 0, 1, 1);
 
 
         retranslateUi(GraphViewer);
@@ -46,6 +79,8 @@ public:
     void retranslateUi(QWidget *GraphViewer)
     {
         GraphViewer->setWindowTitle(QApplication::translate("GraphViewer", "Form", 0));
+        do_graph->setText(QApplication::translate("GraphViewer", "Graph", 0));
+        Refresh->setText(QApplication::translate("GraphViewer", "Refresh", 0));
     } // retranslateUi
 
 };
