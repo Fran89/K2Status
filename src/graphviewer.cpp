@@ -46,8 +46,7 @@ void GraphViewer::on_do_graph_temp_clicked()
 
     // configure bottom axis to show date and time instead of number:
     ui->Graph->xAxis->setTickLabelType(QCPAxis::ltDateTime);
-    ui->Graph->xAxis->setDateTimeFormat("mm:ss.z");
-    //ui->Graph->xAxis->setDateTimeFormat("d/MM/yyyy");
+    ui->Graph->xAxis->setDateTimeFormat("d/MM/yyyy");
 
 }
 
