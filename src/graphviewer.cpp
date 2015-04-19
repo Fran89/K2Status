@@ -6,6 +6,7 @@ GraphViewer::GraphViewer(QWidget *parent) :
     ui(new Ui::GraphViewer)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Graph Viewer");
 }
 
 GraphViewer::~GraphViewer()
