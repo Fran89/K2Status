@@ -12,6 +12,7 @@ public:
     QVector<qreal>  Voltage;
     QVector<qreal>  Temperature;
     void addstninfo(qreal Temp, qreal Volt);
+    void addstninfo(qreal time, qreal Temp, qreal Volt);
     void setup(QString Station);
     bool operator==(const stninfo&);
     QString getName();

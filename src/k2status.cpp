@@ -799,9 +799,9 @@ void K2Status::addK2HeaderS(int index, K2_HEADER*  info){
             Table->item(index,Tvol)->setBackground(QBrush(Qt::green));
         out << batv << ", NC \n";
 
-        // Add to Archive
-        Archive[index].addstninfo(tempd,batv);
-        emit update_gview(Archive);
+        // Add to Archive (no longer needed reads from file).
+        // Archive[index].addstninfo(tempd,batv);
+        // emit update_gview(Archive);
     }
 
     log.close();
