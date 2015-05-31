@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     messagercv.cpp \
     graphviewer.cpp \
     qcustomplot.cpp \
-    stninfo.cpp
+    stninfo.cpp \
+    aboutme.cpp
 
 HEADERS  += \
     config.h \
@@ -43,11 +44,13 @@ HEADERS  += \
     messagercv.h \
     graphviewer.h \
     qcustomplot.h \
-    stninfo.h
+    stninfo.h \
+    aboutme.h
 
 FORMS    += k2status.ui \
     defineandconnect.ui \
-    graphviewer.ui
+    graphviewer.ui \
+    aboutme.ui
 
 RESOURCES += \
     IconResources.qrc

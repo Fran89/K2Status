@@ -20,8 +20,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_K2Status_t {
-    QByteArrayData data[21];
-    char stringdata[287];
+    QByteArrayData data[22];
+    char stringdata[312];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -50,7 +50,8 @@ QT_MOC_LITERAL(16, 155, 33),
 QT_MOC_LITERAL(17, 189, 23),
 QT_MOC_LITERAL(18, 213, 29),
 QT_MOC_LITERAL(19, 243, 16),
-QT_MOC_LITERAL(20, 260, 25)
+QT_MOC_LITERAL(20, 260, 25),
+QT_MOC_LITERAL(21, 286, 24)
     },
     "K2Status\0update_gview\0\0QList<stninfo>\0"
     "start_listen\0QTcpSocket*\0Config*\0"
@@ -60,6 +61,7 @@ QT_MOC_LITERAL(20, 260, 25)
     "on_actionQuit_triggered\0"
     "on_actionDebug_Mode_triggered\0"
     "UpdateTimeColors\0on_action_Graph_triggered\0"
+    "on_actionAbout_triggered\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -69,7 +71,7 @@ static const uint qt_meta_data_K2Status[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
+      13,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -77,20 +79,21 @@ static const uint qt_meta_data_K2Status[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   74,    2, 0x06,
-       4,    3,   77,    2, 0x06,
+       1,    1,   79,    2, 0x06,
+       4,    3,   82,    2, 0x06,
 
  // slots: name, argc, parameters, tag, flags
-       7,    1,   84,    2, 0x0a,
-      10,    0,   87,    2, 0x0a,
-      11,    1,   88,    2, 0x0a,
-      13,    1,   91,    2, 0x0a,
-      15,    0,   94,    2, 0x0a,
-      16,    0,   95,    2, 0x08,
-      17,    0,   96,    2, 0x08,
-      18,    0,   97,    2, 0x08,
-      19,    0,   98,    2, 0x08,
-      20,    0,   99,    2, 0x08,
+       7,    1,   89,    2, 0x0a,
+      10,    0,   92,    2, 0x0a,
+      11,    1,   93,    2, 0x0a,
+      13,    1,   96,    2, 0x0a,
+      15,    0,   99,    2, 0x0a,
+      16,    0,  100,    2, 0x08,
+      17,    0,  101,    2, 0x08,
+      18,    0,  102,    2, 0x08,
+      19,    0,  103,    2, 0x08,
+      20,    0,  104,    2, 0x08,
+      21,    0,  105,    2, 0x08,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    2,
@@ -101,6 +104,7 @@ static const uint qt_meta_data_K2Status[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::QByteArray,   12,
     QMetaType::Void, QMetaType::QString,   14,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -128,6 +132,7 @@ void K2Status::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 9: _t->on_actionDebug_Mode_triggered(); break;
         case 10: _t->UpdateTimeColors(); break;
         case 11: _t->on_action_Graph_triggered(); break;
+        case 12: _t->on_actionAbout_triggered(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -184,13 +189,13 @@ int K2Status::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 12)
+        if (_id < 13)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 13;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 12)
+        if (_id < 13)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 13;
     }
     return _id;
 }

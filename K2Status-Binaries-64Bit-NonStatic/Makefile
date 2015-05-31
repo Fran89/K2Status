@@ -52,12 +52,14 @@ SOURCES       = ../src/main.cpp \
 		../src/messagercv.cpp \
 		../src/graphviewer.cpp \
 		../src/qcustomplot.cpp \
-		../src/stninfo.cpp qrc_IconResources.cpp \
+		../src/stninfo.cpp \
+		../src/aboutme.cpp qrc_IconResources.cpp \
 		moc_defineandconnect.cpp \
 		moc_k2status.cpp \
 		moc_messagercv.cpp \
 		moc_graphviewer.cpp \
-		moc_qcustomplot.cpp
+		moc_qcustomplot.cpp \
+		moc_aboutme.cpp
 OBJECTS       = main.o \
 		k2status.o \
 		config.o \
@@ -66,12 +68,14 @@ OBJECTS       = main.o \
 		graphviewer.o \
 		qcustomplot.o \
 		stninfo.o \
+		aboutme.o \
 		qrc_IconResources.o \
 		moc_defineandconnect.o \
 		moc_k2status.o \
 		moc_messagercv.o \
 		moc_graphviewer.o \
-		moc_qcustomplot.o
+		moc_qcustomplot.o \
+		moc_aboutme.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -182,7 +186,7 @@ first: all
 
 all: Makefile $(TARGET)
 
-$(TARGET): ui_k2status.h ui_defineandconnect.h ui_graphviewer.h $(OBJECTS)  
+$(TARGET): ui_k2status.h ui_defineandconnect.h ui_graphviewer.h ui_aboutme.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../src/K2Status.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -363,7 +367,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/K2Status1.0.0 || mkdir -p .tmp/K2Status1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/K2Status1.0.0/ && $(COPY_FILE) --parents ../src/IconResources.qrc .tmp/K2Status1.0.0/ && $(COPY_FILE) --parents ../src/config.h ../src/defineandconnect.h k2pktdef.h k2info.h ew_packet.h byteswap.h include/byteswap.h ../src/include/ew_packet.h ../src/include/k2info.h ../src/include/k2pktdef.h ../src/include/nkwhdrs.h ../src/k2status.h ../src/include/TableDef.h ../src/messagercv.h ../src/graphviewer.h ../src/qcustomplot.h ../src/stninfo.h .tmp/K2Status1.0.0/ && $(COPY_FILE) --parents ../src/main.cpp ../src/k2status.cpp ../src/config.cpp ../src/defineandconnect.cpp ../src/messagercv.cpp ../src/graphviewer.cpp ../src/qcustomplot.cpp ../src/stninfo.cpp .tmp/K2Status1.0.0/ && $(COPY_FILE) --parents ../src/k2status.ui ../src/defineandconnect.ui ../src/graphviewer.ui .tmp/K2Status1.0.0/ && (cd `dirname .tmp/K2Status1.0.0` && $(TAR) K2Status1.0.0.tar K2Status1.0.0 && $(COMPRESS) K2Status1.0.0.tar) && $(MOVE) `dirname .tmp/K2Status1.0.0`/K2Status1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/K2Status1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/K2Status1.0.0/ && $(COPY_FILE) --parents ../src/IconResources.qrc .tmp/K2Status1.0.0/ && $(COPY_FILE) --parents ../src/config.h ../src/defineandconnect.h k2pktdef.h k2info.h ew_packet.h byteswap.h include/byteswap.h ../src/include/ew_packet.h ../src/include/k2info.h ../src/include/k2pktdef.h ../src/include/nkwhdrs.h ../src/k2status.h ../src/include/TableDef.h ../src/messagercv.h ../src/graphviewer.h ../src/qcustomplot.h ../src/stninfo.h ../src/aboutme.h .tmp/K2Status1.0.0/ && $(COPY_FILE) --parents ../src/main.cpp ../src/k2status.cpp ../src/config.cpp ../src/defineandconnect.cpp ../src/messagercv.cpp ../src/graphviewer.cpp ../src/qcustomplot.cpp ../src/stninfo.cpp ../src/aboutme.cpp .tmp/K2Status1.0.0/ && $(COPY_FILE) --parents ../src/k2status.ui ../src/defineandconnect.ui ../src/graphviewer.ui ../src/aboutme.ui .tmp/K2Status1.0.0/ && (cd `dirname .tmp/K2Status1.0.0` && $(TAR) K2Status1.0.0.tar K2Status1.0.0 && $(COMPRESS) K2Status1.0.0.tar) && $(MOVE) `dirname .tmp/K2Status1.0.0`/K2Status1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/K2Status1.0.0
 
 
 clean:compiler_clean 
@@ -388,14 +392,14 @@ compiler_rcc_make_all: qrc_IconResources.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_IconResources.cpp
 qrc_IconResources.cpp: ../src/IconResources.qrc \
-		../src/icons/debug.png \
 		../src/icons/addcon.png \
+		../src/icons/debug.png \
 		../src/icons/Test.png
 	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name IconResources ../src/IconResources.qrc -o qrc_IconResources.cpp
 
-compiler_moc_header_make_all: moc_defineandconnect.cpp moc_k2status.cpp moc_messagercv.cpp moc_graphviewer.cpp moc_qcustomplot.cpp
+compiler_moc_header_make_all: moc_defineandconnect.cpp moc_k2status.cpp moc_messagercv.cpp moc_graphviewer.cpp moc_qcustomplot.cpp moc_aboutme.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_defineandconnect.cpp moc_k2status.cpp moc_messagercv.cpp moc_graphviewer.cpp moc_qcustomplot.cpp
+	-$(DEL_FILE) moc_defineandconnect.cpp moc_k2status.cpp moc_messagercv.cpp moc_graphviewer.cpp moc_qcustomplot.cpp moc_aboutme.cpp
 moc_defineandconnect.cpp: ../src/config.h \
 		/usr/include/qt5/QtWidgets/QApplication \
 		/usr/include/qt5/QtWidgets/qapplication.h \
@@ -696,6 +700,8 @@ moc_k2status.cpp: /usr/include/qt5/QtWidgets/QMainWindow \
 		/usr/include/qt5/QtWidgets/QDialog \
 		/usr/include/qt5/QtWidgets/qdialog.h \
 		../src/graphviewer.h \
+		/usr/include/qt5/QtGui/QStandardItem \
+		../src/aboutme.h \
 		../src/k2status.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/k2status.h -o moc_k2status.cpp
 
@@ -935,6 +941,11 @@ moc_graphviewer.cpp: /usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtCore/qfiledevice.h \
 		/usr/include/qt5/QtGui/qvector2d.h \
 		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/QtGui/QStandardItem \
+		/usr/include/qt5/QtGui/qstandarditemmodel.h \
+		/usr/include/qt5/QtCore/qabstractitemmodel.h \
+		/usr/include/qt5/QtGui/qicon.h \
+		/usr/include/qt5/QtGui/QStandardItemModel \
 		../src/stninfo.h \
 		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QVector \
@@ -1411,11 +1422,123 @@ moc_qcustomplot.cpp: /usr/include/qt5/QtCore/QObject \
 		../src/qcustomplot.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/qcustomplot.h -o moc_qcustomplot.cpp
 
+moc_aboutme.cpp: /usr/include/qt5/QtWidgets/QDialog \
+		/usr/include/qt5/QtWidgets/qdialog.h \
+		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtGui/qwindowdefs.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qmargins.h \
+		/usr/include/qt5/QtCore/qrect.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtGui/qpaintdevice.h \
+		/usr/include/qt5/QtGui/qpalette.h \
+		/usr/include/qt5/QtGui/qcolor.h \
+		/usr/include/qt5/QtGui/qrgb.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtGui/qbrush.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtGui/qmatrix.h \
+		/usr/include/qt5/QtGui/qpolygon.h \
+		/usr/include/qt5/QtGui/qregion.h \
+		/usr/include/qt5/QtCore/qline.h \
+		/usr/include/qt5/QtGui/qtransform.h \
+		/usr/include/qt5/QtGui/qpainterpath.h \
+		/usr/include/qt5/QtGui/qimage.h \
+		/usr/include/qt5/QtGui/qpixmap.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtGui/qfont.h \
+		/usr/include/qt5/QtGui/qfontmetrics.h \
+		/usr/include/qt5/QtGui/qfontinfo.h \
+		/usr/include/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		/usr/include/qt5/QtGui/qkeysequence.h \
+		/usr/include/qt5/QtGui/qevent.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/qt5/QtCore/qurl.h \
+		/usr/include/qt5/QtCore/qurlquery.h \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		/usr/include/qt5/QtGui/qvector2d.h \
+		/usr/include/qt5/QtGui/qtouchdevice.h \
+		../src/aboutme.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/aboutme.h -o moc_aboutme.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_k2status.h ui_defineandconnect.h ui_graphviewer.h
+compiler_uic_make_all: ui_k2status.h ui_defineandconnect.h ui_graphviewer.h ui_aboutme.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_k2status.h ui_defineandconnect.h ui_graphviewer.h
+	-$(DEL_FILE) ui_k2status.h ui_defineandconnect.h ui_graphviewer.h ui_aboutme.h
 ui_k2status.h: ../src/k2status.ui
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic ../src/k2status.ui -o ui_k2status.h
 
@@ -1893,6 +2016,9 @@ ui_graphviewer.h: ../src/graphviewer.ui \
 		/usr/include/qt5/QtPrintSupport/qtprintsupportversion.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic ../src/graphviewer.ui -o ui_graphviewer.h
 
+ui_aboutme.h: ../src/aboutme.ui
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic ../src/aboutme.ui -o ui_aboutme.h
+
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
 compiler_yacc_impl_make_all:
@@ -2083,7 +2209,9 @@ main.o: ../src/main.cpp ../src/k2status.h \
 		../src/defineandconnect.h \
 		/usr/include/qt5/QtWidgets/QDialog \
 		/usr/include/qt5/QtWidgets/qdialog.h \
-		../src/graphviewer.h
+		../src/graphviewer.h \
+		/usr/include/qt5/QtGui/QStandardItem \
+		../src/aboutme.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
 
 k2status.o: ../src/k2status.cpp ../src/k2status.h \
@@ -2267,6 +2395,8 @@ k2status.o: ../src/k2status.cpp ../src/k2status.h \
 		/usr/include/qt5/QtWidgets/QDialog \
 		/usr/include/qt5/QtWidgets/qdialog.h \
 		../src/graphviewer.h \
+		/usr/include/qt5/QtGui/QStandardItem \
+		../src/aboutme.h \
 		ui_k2status.h \
 		/usr/include/qt5/QtCore/QVariant \
 		/usr/include/qt5/QtWidgets/QAction \
@@ -2819,6 +2949,11 @@ graphviewer.o: ../src/graphviewer.cpp ../src/graphviewer.h \
 		/usr/include/qt5/QtCore/qfiledevice.h \
 		/usr/include/qt5/QtGui/qvector2d.h \
 		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/QtGui/QStandardItem \
+		/usr/include/qt5/QtGui/qstandarditemmodel.h \
+		/usr/include/qt5/QtCore/qabstractitemmodel.h \
+		/usr/include/qt5/QtGui/qicon.h \
+		/usr/include/qt5/QtGui/QStandardItemModel \
 		../src/stninfo.h \
 		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QVector \
@@ -2826,7 +2961,6 @@ graphviewer.o: ../src/graphviewer.cpp ../src/graphviewer.h \
 		/usr/include/qt5/QtCore/QVariant \
 		/usr/include/qt5/QtWidgets/QAction \
 		/usr/include/qt5/QtWidgets/qaction.h \
-		/usr/include/qt5/QtGui/qicon.h \
 		/usr/include/qt5/QtWidgets/qactiongroup.h \
 		/usr/include/qt5/QtWidgets/QApplication \
 		/usr/include/qt5/QtWidgets/qapplication.h \
@@ -2851,7 +2985,6 @@ graphviewer.o: ../src/graphviewer.cpp ../src/graphviewer.h \
 		/usr/include/qt5/QtWidgets/qtabwidget.h \
 		/usr/include/qt5/QtWidgets/qrubberband.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
-		/usr/include/qt5/QtCore/qabstractitemmodel.h \
 		/usr/include/qt5/QtWidgets/QGridLayout \
 		/usr/include/qt5/QtWidgets/qgridlayout.h \
 		/usr/include/qt5/QtWidgets/qlayout.h \
@@ -2863,6 +2996,8 @@ graphviewer.o: ../src/graphviewer.cpp ../src/graphviewer.h \
 		/usr/include/qt5/QtWidgets/qabstractitemview.h \
 		/usr/include/qt5/QtWidgets/qabstractscrollarea.h \
 		/usr/include/qt5/QtCore/qitemselectionmodel.h \
+		/usr/include/qt5/QtWidgets/QLabel \
+		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/QPushButton \
 		/usr/include/qt5/QtWidgets/qpushbutton.h \
 		/usr/include/qt5/QtWidgets/qabstractbutton.h \
@@ -3012,7 +3147,6 @@ graphviewer.o: ../src/graphviewer.cpp ../src/graphviewer.h \
 		/usr/include/qt5/QtGui/qpicture.h \
 		/usr/include/qt5/QtGui/qpictureformatplugin.h \
 		/usr/include/qt5/QtGui/qpixmapcache.h \
-		/usr/include/qt5/QtGui/qstandarditemmodel.h \
 		/usr/include/qt5/QtGui/qclipboard.h \
 		/usr/include/qt5/QtGui/qdrag.h \
 		/usr/include/qt5/QtGui/qgenericplugin.h \
@@ -3158,7 +3292,6 @@ graphviewer.o: ../src/graphviewer.cpp ../src/graphviewer.h \
 		/usr/include/qt5/QtWidgets/qfontcombobox.h \
 		/usr/include/qt5/QtWidgets/qgroupbox.h \
 		/usr/include/qt5/QtWidgets/qkeysequenceedit.h \
-		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qlcdnumber.h \
 		/usr/include/qt5/QtWidgets/qmainwindow.h \
 		/usr/include/qt5/QtWidgets/qmdiarea.h \
@@ -3714,6 +3847,119 @@ stninfo.o: ../src/stninfo.cpp ../src/stninfo.h \
 		/usr/include/qt5/QtCore/qpoint.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o stninfo.o ../src/stninfo.cpp
 
+aboutme.o: ../src/aboutme.cpp ../src/aboutme.h \
+		/usr/include/qt5/QtWidgets/QDialog \
+		/usr/include/qt5/QtWidgets/qdialog.h \
+		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtGui/qwindowdefs.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qmargins.h \
+		/usr/include/qt5/QtCore/qrect.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtGui/qpaintdevice.h \
+		/usr/include/qt5/QtGui/qpalette.h \
+		/usr/include/qt5/QtGui/qcolor.h \
+		/usr/include/qt5/QtGui/qrgb.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtGui/qbrush.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtGui/qmatrix.h \
+		/usr/include/qt5/QtGui/qpolygon.h \
+		/usr/include/qt5/QtGui/qregion.h \
+		/usr/include/qt5/QtCore/qline.h \
+		/usr/include/qt5/QtGui/qtransform.h \
+		/usr/include/qt5/QtGui/qpainterpath.h \
+		/usr/include/qt5/QtGui/qimage.h \
+		/usr/include/qt5/QtGui/qpixmap.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtGui/qfont.h \
+		/usr/include/qt5/QtGui/qfontmetrics.h \
+		/usr/include/qt5/QtGui/qfontinfo.h \
+		/usr/include/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		/usr/include/qt5/QtGui/qkeysequence.h \
+		/usr/include/qt5/QtGui/qevent.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/qt5/QtCore/qurl.h \
+		/usr/include/qt5/QtCore/qurlquery.h \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		/usr/include/qt5/QtGui/qvector2d.h \
+		/usr/include/qt5/QtGui/qtouchdevice.h \
+		ui_aboutme.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o aboutme.o ../src/aboutme.cpp
+
 qrc_IconResources.o: qrc_IconResources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_IconResources.o qrc_IconResources.cpp
 
@@ -3731,6 +3977,9 @@ moc_graphviewer.o: moc_graphviewer.cpp
 
 moc_qcustomplot.o: moc_qcustomplot.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_qcustomplot.o moc_qcustomplot.cpp
+
+moc_aboutme.o: moc_aboutme.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_aboutme.o moc_aboutme.cpp
 
 ####### Install
 

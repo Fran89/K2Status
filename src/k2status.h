@@ -28,6 +28,7 @@
 #include "config.h"
 #include "defineandconnect.h"
 #include "graphviewer.h"
+#include "aboutme.h"
 
 
 
@@ -49,6 +50,7 @@ private:
     DefineAndConnect   *mDefineAndConnect;
     Config             ConfTest;
     GraphViewer        GV;
+    AboutMe            Help;
 
     //K2 Info Packets
     K2infoPacket       *MyK2Info;
@@ -112,6 +114,8 @@ private slots:
     void UpdateTimeColors();
 
     void on_action_Graph_triggered();
+
+    void on_actionAbout_triggered();
 
 signals:
 

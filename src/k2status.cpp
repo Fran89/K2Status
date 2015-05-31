@@ -1022,3 +1022,9 @@ void K2Status::on_action_Graph_triggered()
 {
     GV.show();
 }
+
+void K2Status::on_actionAbout_triggered()
+{
+    Help.show();
+}
+

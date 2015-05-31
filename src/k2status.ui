@@ -110,6 +110,7 @@
      <string>Help</string>
     </property>
     <addaction name="actionDebug_Mode"/>
+    <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuConnection"/>
    <addaction name="menuHelp"/>
@@ -147,6 +148,11 @@
   <action name="action_Graph">
    <property name="text">
     <string> Graph</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
    </property>
   </action>
  </widget>
