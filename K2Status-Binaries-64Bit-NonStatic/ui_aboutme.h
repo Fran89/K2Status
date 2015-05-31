@@ -170,7 +170,7 @@ public:
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:25.6px; font-family:'Helvetica Neue,Helvetica,Segoe UI,Arial,freesans,sans-serif'; font-size:16px; color:#333333;\"><br /></p>\n"
 ""
                         "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", 0));
-        pushButton->setText(QApplication::translate("AboutMe", "I'm done here", 0));
+        pushButton->setText(QApplication::translate("AboutMe", "Ok, thanks!", 0));
     } // retranslateUi
 
 };
