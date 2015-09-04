@@ -119,22 +119,24 @@ void K2Status::on_actionQuit_triggered()
 
 void K2Status::has_read_data(){
     // To be executed if we have recieved a UDP Packet
+    while (udpSocket->hasPendingDatagrams()) {
+        // Declare EW Packet and some QByteArrays
+        PACKET packet;
+        QByteArray data;
+        data.resize(udpSocket->pendingDatagramSize());
 
-    // Declare EW Packet and some QByteArrays
-    PACKET packet;
-    QByteArray data;
-    data.resize(udpSocket->pendingDatagramSize());
-    // Get the Packet put the data in an Array
-    udpSocket->readDatagram(data.data(),data.size());
-    memcpy(&packet,data,data.size());
+        // Get the Packet put the data in an Array
+        udpSocket->readDatagram(data.data(),data.size());
+        memcpy(&packet,data,data.size());
 
-    parse_UDPpacket(packet,data);
+        parse_UDPpacket(packet,data);
 
-    // Output some Info to the Screen
-    if (Debug){
-        QString str=data.data();
-        ui->textBrowser->append(FileN);
-        ui->textBrowser->append(str);
+        // Output some Info to the Screen
+        if (Debug){
+            QString str=data.data();
+            ui->textBrowser->append(FileN);
+            ui->textBrowser->append(str);
+        }
     }
 }
 
