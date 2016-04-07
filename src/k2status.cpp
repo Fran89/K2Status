@@ -29,6 +29,8 @@ K2Status::K2Status(QWidget *parent) :
 
     ui->tableView->setModel(Table);
     ui->statusBar->showMessage("Welcome to K2Status");
+    ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
 
     MessThr = new QThread;
     TimeThr = new QThread;
