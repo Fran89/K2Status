@@ -1,4 +1,8 @@
-#K2Status
+#THIS SOFTWARE HAS BEEN SUPERSEDED BY K2Status-V2
+## https://github.com/Fran89/K2Status-V2 !It has been recoded to be more efficient!
+## This site stay as legacy but is no loger maintained.
+
+##K2Status
 
 A K2/ETNA Status Monitoring Program for Earthworm
 
